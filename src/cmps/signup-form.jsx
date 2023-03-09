@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const theme = createTheme(); 
 
-export function SignUpForm({setIsLogin}) {
+export function SignUpForm({setIsLoginForm}) {
 
     const [isValid, setIsValid] = useState('')
     const [refreshform] = useState(false)
@@ -137,7 +137,7 @@ async function handleSubmit(event) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2" onClick={()=>setIsLogin(prev=>!prev)}>
+                <Link href="#" variant="body2" onClick={()=>setIsLoginForm(prev=>!prev)}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

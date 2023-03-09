@@ -1,14 +1,21 @@
 .home-page{
-   
+
+    .app-header{
+        position: absolute;
+        
+    }
+
     .hero{
+        // position: absolute;
+        top: 0;
+        z-index: 1;
         background-image: url(../../img/hero1.jpg);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         width: 100vw;
         height: 100vh;
-        display: flex;
-      
+        display: flex; 
         justify-content: center;
 
         .hero-info{
@@ -38,7 +45,5 @@
             font-size: 2rem;
         }
      }
-
-
 
     }

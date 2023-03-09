@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppHeader } from "../cmps/app-header";
 import { LoginForm } from "../cmps/login-form";
 import { SignUpForm } from "../cmps/signup-form";
 import { login, signup } from "../store/actions/user.actions";
 
 export function LoginPage() {
 
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLoginForm, setIsLoginForm] = useState(true)
     const [isValid, setIsValid] = useState('')
     const navigate = useNavigate()
 
@@ -17,7 +18,7 @@ export function LoginPage() {
             console.log('not valid')
             return
         }
-        if (!isLogin) {
+        if (!isLoginForm) {
             try {
                 await signup(credentials)
                 // onCloseLoginModal()
@@ -48,8 +49,10 @@ export function LoginPage() {
         }
         return true
     }
-    return <section className="login-page">
-        <img src={require('../assets/img/logo2.png')} alt=""  className="login-icon"/>
-        {(isLogin) ? <LoginForm setIsLogin={setIsLogin}/> : <SignUpForm setIsLogin={setIsLogin}/>}
+    return <section className="login-signup-page">
+        <AppHeader/>   
+        <div className="log-cont">  
+        <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      
+        {(isLoginForm) ? <LoginForm setIsLoginForm={setIsLoginForm}/> : <SignUpForm setIsLoginForm={setIsLoginForm}/>}</div>
     </section>
 }

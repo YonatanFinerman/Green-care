@@ -1,14 +1,17 @@
 .app-header {
     // background-color: $clr1;
     background-color: none;
-    position: absolute;
-    top: 0;
+    
+    
+    // position: absolute;
+    // top: 0;
     width: 100vw;
     color: $clr2;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    z-index: 10;
 
     .active {
         color: complement($color: $clr1);

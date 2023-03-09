@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,7 +29,20 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export function LoginForm({setIsLogin}) {
+export function LoginForm({setIsLoginForm}) {
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#0EA47A',
+        dark:'white'
+      },
+      secondary: {
+        main: '#0EA47A'
+      }
+    }
+  })
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,15 +58,13 @@ export function LoginForm({setIsLogin}) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+        
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -96,7 +108,7 @@ export function LoginForm({setIsLogin}) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" onClick={()=>setIsLogin(prev=>!prev)}>
+                <Link href="#" variant="body2" onClick={()=>setIsLoginForm(prev=>!prev)}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
