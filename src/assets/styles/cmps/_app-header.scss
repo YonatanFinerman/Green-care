@@ -1,7 +1,8 @@
 .app-header {
     // background-color: $clr1;
     background-color: none;
-    position: fixed;
+    position: absolute;
+    top: 0;
     width: 100vw;
     color: $clr2;
     display: flex;

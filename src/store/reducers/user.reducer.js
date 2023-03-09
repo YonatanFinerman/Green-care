@@ -1,9 +1,10 @@
-import { userService } from '../services/user.service.js'
+import { userService } from '../../services/user.service.js'
 
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
 export const CHANGE_COUNT = 'CHANGE_COUNT'
 export const SET_USER = 'SET_USER'
+export const UPDATE_USER = 'UPDATE_USER'
 export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
@@ -13,12 +14,19 @@ const initialState = {
     count: 10,
     user: userService.getLoggedinUser(),
     users: [],
-    watchedUser : null
+    isLoginModalOpen: false,
+    watchedUser: null,
+    isSignUpModal: false,
+    isCheckoutModal: false,
+    isRefreshedLoginModal: true,
+
 }
 
 export function userReducer(state = initialState, action) {
     var newState = state
+    let users
     switch (action.type) {
+
         case INCREMENT:
             newState = { ...state, count: state.count + 1 }
             break
@@ -41,11 +49,17 @@ export function userReducer(state = initialState, action) {
             }
             break
         case SET_USERS:
+            console.log(action.users)
             newState = { ...state, users: action.users }
             break
         case SET_SCORE:
             newState = { ...state, user: { ...state.user, score: action.score } }
             break
+        case UPDATE_USER:
+
+            newState = { ...state, user: action.savedUser }
+            break
+
         default:
     }
     // For debug:
