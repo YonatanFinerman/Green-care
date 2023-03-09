@@ -21,7 +21,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Green care
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -39,6 +39,18 @@ export function SignUpForm({setIsLoginForm}) {
     // const isSignUpModal = useSelector(storeState => storeState.userModule.isSignUpModal)
   
     const navigate = useNavigate()
+
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#0EA47A',
+          dark:'white'
+        },
+        secondary: {
+          main: '#0EA47A'
+        }
+      }
+    })
 //   const handleSubmit = (event) => {
 //     event.preventDefault();
 //     const data = new FormData(event.currentTarget);
@@ -64,15 +76,13 @@ async function handleSubmit(event) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+        
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
