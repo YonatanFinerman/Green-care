@@ -6,24 +6,35 @@ import { Fade } from "react-reveal";
 export function Guide() {
 
     const [currStepIdx, setCurrStepIdx] = useState(0)
-    const steps = [0, 1, 2, 3, 4]
+   
+    const steps = [{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:1,txt:'yosi'},{imgNum:2,txt:'mark'},{imgNum:3,txt:'yoni'},{imgNum:4,txt:'moshe'}]
+
+    useEffect(() => {
+
+        console.log(currStepIdx)
+    }, [currStepIdx])
 
 
     return <section className="guide flex column align-center text-center" id="guide">
 
-        <div className="step-carousel flex" >
+        <div className="step-carousel flex " >
 
-            {steps.map((imgUrl,idx) => {
+            {steps.map((step, idx) => {
 
-                return <div  className='guide-step flex align-center justify-center'
-                    style={{ transform: `translateX(-${currStepIdx * 100}vw)`, backgroundImage: `url(${require(`../assets/img/step${idx}.jpg`)})` }} >
-                    <Fade bottom> <h2>hi djkASKADjaskDJASkjk</h2> </Fade>
+                return <div className='guide-step flex align-center justify-center'
+                    style={{ transform: `translateX(-${currStepIdx * 100}%)`, backgroundImage: `url(${require(`../assets/img/step${step.imgNum}.jpg`)})` }} >
+                    <Fade bottom> <h2>{step.txt}</h2> </Fade>
                 </div>
 
 
             })}
 
-            <button onClick={() => setCurrStepIdx(prev => prev + 1)} className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight/></button>
+            {(currStepIdx!==4) ? <button onClick={() => setCurrStepIdx(prev => prev + 1)} 
+            className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight /></button> : 
+            <div className='guide-btns-cont'>
+                <button className='register-btn'>Register</button>
+                <button className='start-helping-btn'>Start helping </button>
+                </div>}
         </div>
 
         {/* <h2>choose a place and start helping</h2>

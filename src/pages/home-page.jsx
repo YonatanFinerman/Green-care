@@ -44,7 +44,7 @@ export function HomePage() {
                         In this journey you can connect with friends meet new people all the while helping the world.
                     </p>
 
-                    <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>Start helping now</button></Link>
+                    <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>How it works?</button></Link>
                     {/* <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>Start helping now</button></Link> */}
 
                 </div>

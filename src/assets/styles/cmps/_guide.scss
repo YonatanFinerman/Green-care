@@ -1,21 +1,9 @@
 .guide {
-    // display: flex;
+   
     overflow: hidden;
     background-color: $bgclr2;
     position: relative;
-    width: 100vw;
-    // min-height: 100vh;
   
-
-    // img{
-    //     height: 100vh;
-    // }
-
-    // h3{
-    //     position: absolute;
-    //     z-index: 2;
-    //     font-size: 40px;
-    // }
 
     .guide-step{
         height: 100vh;
@@ -27,15 +15,40 @@
         }
     }
 
+    .guide-btns-cont,
+    .next-step-btn{
+        
+        right: 7vw;
+        position: absolute;
+        bottom: 50px;
+        font-size: 2rem;
+
+    }
+
     .next-step-btn{
        width: 75px;
-       height: 75px;
-        background-color: $clr1;
-        position: absolute;
+       height: 75px;   
         border-radius: 50%;
-        right: 7vw;
-        font-size: 2rem;
-        bottom: 50px;
+        background-color: $clr1;  
+    }
+
+    .start-helping-btn{
+        background-color: $clr1;
+
+    }
+    .register-btn{
+        background: none;
+    }
+
+    .guide-btns-cont{   
+        button{
+            border-radius: 2em;
+            padding: 10px 0;
+            width: 180px;
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+        
     }
 
 }
