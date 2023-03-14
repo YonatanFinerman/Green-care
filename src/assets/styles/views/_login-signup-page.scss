@@ -2,9 +2,7 @@
 
     @include for-mobile-layout {
         background-image: url(../../img/formbg.jpg);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
+        @include background-img ;
         height: 100vh;
         width: 100vw;
     }
@@ -14,11 +12,10 @@
     }
 
     .log-cont {
-        background-color: white;
+        background-color: $clr2;
         margin: auto;
         margin-top: 75px;
         padding: 10px;
-
 
         @include for-mobile-layout {
             width: 460px;

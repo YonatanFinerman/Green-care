@@ -44,7 +44,7 @@ export function SignUpForm({setIsLoginForm}) {
       palette: {
         primary: {
           main: '#0EA47A',
-          dark:'white'
+          
         },
         secondary: {
           main: '#0EA47A'

@@ -35,10 +35,10 @@ export function LoginForm({setIsLoginForm}) {
     palette: {
       primary: {
         main: '#0EA47A',
-        dark:'white'
+        // dark:'white'
       },
       secondary: {
-        main: '#0EA47A'
+        main: '#f15b85'
       }
     }
   })

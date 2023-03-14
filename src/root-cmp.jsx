@@ -9,6 +9,7 @@ import { UserDetails } from './pages/user-details'
 import { HomePage } from './pages/home-page'
 import { LoginPage } from './pages/login-page'
 
+
 export function RootCmp() {
 
     return (
@@ -19,6 +20,7 @@ export function RootCmp() {
                     {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
+                   
                 </Routes>
             </main>
             {/* <AppFooter /> */}

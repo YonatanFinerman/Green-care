@@ -11,7 +11,7 @@ export function AppHeader() {
         console.log('this is location',location.pathname)
     },[])
     return (
-        <header className="app-header">
+        <header className="app-header full">
             <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname==='/') ? '4' : '2'}.png`)}`} alt="" />
             <nav>
                 <NavLink to={'/help'}>help</NavLink>
