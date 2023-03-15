@@ -4,10 +4,9 @@
     background-color: $bgclr2;
     position: relative;
   
-
     .guide-step{
         height: 100vh;
-        width: 101vw;
+        min-width: 100vw;
         @include background-img;
 
         h2{

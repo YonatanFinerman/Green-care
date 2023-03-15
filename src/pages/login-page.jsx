@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/app-header";
 import { LoginForm } from "../cmps/login-form";
 import { SignUpForm } from "../cmps/signup-form";
 import { login, signup } from "../store/actions/user.actions";
+import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer'
 
 export function LoginPage() {
 
-    const [isLoginForm, setIsLoginForm] = useState(true)
+    // const [isLoginForm, setIsLoginForm] = useState(true)
+    const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const [isValid, setIsValid] = useState('')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     async function OnLoginSignUp(credentials) {
         const isValid = validate(credentials)
@@ -49,10 +52,15 @@ export function LoginPage() {
         }
         return true
     }
+
+    function toggleForm(){
+        dispatch({ type: TOGGLE_LOGIN_FORM })
+    }
+
     return <section className="login-signup-page">
         <AppHeader/>   
         <div className="log-cont">  
         <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      
-        {(isLoginForm) ? <LoginForm setIsLoginForm={setIsLoginForm}/> : <SignUpForm setIsLoginForm={setIsLoginForm}/>}</div>
+        {(isLoginForm) ? <LoginForm toggleForm={toggleForm}/> : <SignUpForm toggleForm={toggleForm}/>}</div>
     </section>
 }

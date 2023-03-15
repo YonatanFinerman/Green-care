@@ -9,12 +9,13 @@ export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const SET_SCORE = 'SET_SCORE'
+export const TOGGLE_LOGIN_FORM = 'TOGGLE_LOGIN_FORM'
 
 const initialState = {
     count: 10,
     user: userService.getLoggedinUser(),
     users: [],
-    isLoginModalOpen: false,
+    isLoginForm: true,
     watchedUser: null,
     isSignUpModal: false,
     isCheckoutModal: false,
@@ -27,6 +28,9 @@ export function userReducer(state = initialState, action) {
     let users
     switch (action.type) {
 
+        case TOGGLE_LOGIN_FORM:
+            newState = { ...state, isLoginForm: !state.isLoginForm }
+            break
         case INCREMENT:
             newState = { ...state, count: state.count + 1 }
             break

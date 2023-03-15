@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export function LoginForm({setIsLoginForm}) {
+export function LoginForm({toggleForm}) {
 
   const theme = createTheme({
     palette: {
@@ -108,7 +108,7 @@ export function LoginForm({setIsLoginForm}) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" onClick={()=>setIsLoginForm(prev=>!prev)}>
+                <Link href="#" variant="body2" onClick={()=>toggleForm()}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -1,39 +1,44 @@
 import { useEffect, useRef, useState } from 'react'
 import { HiArrowNarrowRight } from "react-icons/hi";
+import { useDispatch, useSelector } from 'react-redux';
 import { Fade } from "react-reveal";
-
+import { useNavigate } from 'react-router-dom';
+import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer'
 
 export function Guide() {
 
     const [currStepIdx, setCurrStepIdx] = useState(0)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
+    const steps = ['moti','yosi','moshe','mark','yoni']
+
    
-    const steps = [{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:0,txt:'moti'},{imgNum:1,txt:'yosi'},{imgNum:2,txt:'mark'},{imgNum:3,txt:'yoni'},{imgNum:4,txt:'moshe'}]
 
-    useEffect(() => {
-
-        console.log(currStepIdx)
-    }, [currStepIdx])
-
-
-    return <section className="guide flex column align-center text-center" id="guide">
+    return <section className="guide flex column  text-center" id="guide">
 
         <div className="step-carousel flex " >
 
             {steps.map((step, idx) => {
 
                 return <div className='guide-step flex align-center justify-center'
-                    style={{ transform: `translateX(-${currStepIdx * 100}%)`, backgroundImage: `url(${require(`../assets/img/step${step.imgNum}.jpg`)})` }} >
-                    <Fade bottom> <h2>{step.txt}</h2> </Fade>
+                    style={{ transform: `translateX(-${currStepIdx * 100}%)`, backgroundImage: `url(${require(`../assets/img/step${idx}.jpg`)})` }} >
+                    <Fade bottom> <h2>{step}</h2> </Fade>
                 </div>
 
 
             })}
 
-            {(currStepIdx!==4) ? <button onClick={() => setCurrStepIdx(prev => prev + 1)} 
-            className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight /></button> : 
-            <div className='guide-btns-cont'>
-                <button className='register-btn'>Register</button>
-                <button className='start-helping-btn'>Start helping </button>
+            {(currStepIdx !== 4) ? <button onClick={() => setCurrStepIdx(prev => prev + 1)}
+                className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight /></button> :
+                <div className='guide-btns-cont'>
+                    <button className='register-btn' onClick={() => {
+                        if (isLoginForm) {
+                            dispatch({ type: TOGGLE_LOGIN_FORM })
+                        }
+                        navigate('/login')
+                    }}>Register</button>
+                    <button className='start-helping-btn'>Start helping </button>
                 </div>}
         </div>
 

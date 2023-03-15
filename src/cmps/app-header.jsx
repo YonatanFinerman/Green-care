@@ -7,9 +7,7 @@ export function AppHeader() {
     const navigate = useNavigate()
     const location = useLocation()
 
-    useEffect(()=>{
-        console.log('this is location',location.pathname)
-    },[])
+
     return (
         <header className="app-header full">
             <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname==='/') ? '4' : '2'}.png`)}`} alt="" />
