@@ -11,9 +11,7 @@ export function Guide() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
-    const steps = ['moti','yosi','moshe','mark','yoni']
-
-   
+    const steps = ['moti', 'yosi', 'moshe', 'mark', 'yoni']
 
     return <section className="guide flex column  text-center" id="guide">
 
@@ -21,13 +19,17 @@ export function Guide() {
 
             {steps.map((step, idx) => {
 
-                return <div className='guide-step flex align-center justify-center'
+                return <div key={step + idx} className='guide-step flex align-center justify-center'
                     style={{ transform: `translateX(-${currStepIdx * 100}%)`, backgroundImage: `url(${require(`../assets/img/step${idx}.jpg`)})` }} >
                     <Fade bottom> <h2>{step}</h2> </Fade>
                 </div>
-
-
             })}
+
+            <div className='steps-pageing'>
+                {steps.map((step, idx) => {
+                    return <img key={idx + step} onClick={() => setCurrStepIdx(idx)} src={require(`../assets/img/step${idx}.jpg`)} alt="" />
+                })}
+            </div>
 
             {(currStepIdx !== 4) ? <button onClick={() => setCurrStepIdx(prev => prev + 1)}
                 className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight /></button> :

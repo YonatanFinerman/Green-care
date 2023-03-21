@@ -88,7 +88,7 @@ export async function logout() {
 }
 
 export async function signup(credentials) {
-    // console.log(credentials)
+    // console.log('from actions',credentials)
     try {
         const user = await userService.signup(credentials)
         store.dispatch({ type: SET_USER, user })

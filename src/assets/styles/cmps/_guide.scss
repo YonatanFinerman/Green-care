@@ -1,22 +1,22 @@
 .guide {
-   
+
     overflow: hidden;
     background-color: $bgclr2;
     position: relative;
-  
-    .guide-step{
+
+    .guide-step {
         height: 100vh;
         min-width: 100vw;
         @include background-img;
 
-        h2{
+        h2 {
             font-size: 3rem;
         }
     }
 
     .guide-btns-cont,
-    .next-step-btn{
-        
+    .next-step-btn {
+
         right: 7vw;
         position: absolute;
         bottom: 50px;
@@ -24,30 +24,55 @@
 
     }
 
-    .next-step-btn{
-       width: 75px;
-       height: 75px;   
+    .next-step-btn {
+        width: 75px;
+        height: 75px;
         border-radius: 50%;
-        background-color: $clr1;  
+        background-color: $clr1;
     }
 
-    .start-helping-btn{
+    .start-helping-btn {
         background-color: $clr1;
 
     }
-    .register-btn{
+
+    .register-btn {
         background: none;
     }
 
-    .guide-btns-cont{   
-        button{
+    .guide-btns-cont {
+        button {
             border-radius: 2em;
             padding: 10px 0;
             width: 180px;
             font-size: 1.5rem;
             margin-left: 0.5rem;
         }
-        
+
     }
 
+    .steps-pageing {
+        position: absolute;
+        display: flex;
+        gap: 0.5rem;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        img {
+            width: 50px;
+            height: 50px;
+            transition: 0.3s;
+            cursor: pointer;
+
+            @include for-midium-layout {
+                width: 100px;
+                height: 100px;
+            }
+
+            &:hover {
+                transform: translateY(-10px);
+            }
+        }
+    }
 }

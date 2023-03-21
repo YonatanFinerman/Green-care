@@ -23,9 +23,9 @@ export function LoginPage() {
         }
         if (!isLoginForm) {
             try {
+                console.log('valid')
                 await signup(credentials)
-                // onCloseLoginModal()
-                navigate('/')
+                // navigate('/')
             } catch (err) {
                 console.log('Error occurred during signup:', err)
             }
@@ -61,6 +61,6 @@ export function LoginPage() {
         <AppHeader/>   
         <div className="log-cont">  
         <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      
-        {(isLoginForm) ? <LoginForm toggleForm={toggleForm}/> : <SignUpForm toggleForm={toggleForm}/>}</div>
+        {(isLoginForm) ? <LoginForm toggleForm={toggleForm}/> : <SignUpForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/>}</div>
     </section>
 }

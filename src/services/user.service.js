@@ -3,6 +3,7 @@ import { httpService } from './http.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
+
 export const userService = {
     login,
     logout,
@@ -37,7 +38,7 @@ function remove(userId) {
     // return httpService.delete(`user/${userId}`)
 }
 
-async function update({_id, score}) {
+async function update({ _id, score }) {
     const user = await storageService.get('user', _id)
     user.score = score
     await storageService.put('user', user)
@@ -58,11 +59,14 @@ async function login(userCred) {
     }
 }
 async function signup(userCred) {
-    userCred.score = 10000
-    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    const user = await storageService.post('user', userCred)
-    // const user = await httpService.post('auth/signup', userCred)
-    // socketService.login(user._id)
+    const newUser = {
+        ...userCred, xp: 0, imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+        coins: 0, gatheringIds: [], isVerified: false
+    }
+    const user = await storageService.post('user', newUser)
+    console.log('newuser',user)
+    // // const user = await httpService.post('auth/signup', userCred)
+    // // socketService.login(user._id)
     return saveLocalUser(user)
 }
 async function logout() {
@@ -81,9 +85,9 @@ async function changeScore(by) {
 
 
 function saveLocalUser(user) {
-    user = {_id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score}
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-    return user
+    const {password, ...currUser} = user
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(currUser))
+    return currUser
 }
 
 function getLoggedinUser() {
@@ -96,6 +100,8 @@ function getLoggedinUser() {
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
 // })()
+
+
 
 
 

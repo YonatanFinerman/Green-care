@@ -29,47 +29,50 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme(); 
+const theme = createTheme();
 
-export function SignUpForm({toggleForm}) {
+export function SignUpForm({ toggleForm, OnLoginSignUp }) {
 
-    const [isValid, setIsValid] = useState('')
-    const [refreshform] = useState(false)
-    const dispatch = useDispatch()
-    // const isSignUpModal = useSelector(storeState => storeState.userModule.isSignUpModal)
-  
-    const navigate = useNavigate()
+  const [isValid, setIsValid] = useState('')
+  const [refreshform] = useState(false)
+  const dispatch = useDispatch()
+  // const isSignUpModal = useSelector(storeState => storeState.userModule.isSignUpModal)
 
-    const theme = createTheme({
-      palette: {
-        primary: {
-          main: '#0EA47A',
-          
-        },
-        secondary: {
-          main: '#0EA47A'
-        }
+  const navigate = useNavigate()
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#0EA47A',
+
+      },
+      secondary: {
+        main: '#0EA47A'
       }
-    })
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
+    }
+  })
+  //   const handleSubmit = (event) => {
+  //     event.preventDefault();
+  //     const data = new FormData(event.currentTarget);
+  //     console.log({
+  //       email: data.get('email'),
+  //       password: data.get('password'),
+  //     });
+  //   };
 
-async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const credentials = {
       password: data.get('password'),
-      fullname: data.get('fullname'),
+      fullname: data.get('firstName') + ' ' + data.get('lastName'),
       email: data.get('email')
     }
+
     
-}
+    OnLoginSignUp(credentials)
+
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" className='login-form'>
@@ -82,7 +85,7 @@ async function handleSubmit(event) {
             alignItems: 'center',
           }}
         >
-        
+
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -147,7 +150,7 @@ async function handleSubmit(event) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2" onClick={()=>toggleForm()}>
+                <Link href="#" variant="body2" onClick={() => toggleForm()}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
