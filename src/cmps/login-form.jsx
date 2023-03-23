@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export function LoginForm({toggleForm}) {
+export function LoginForm({ toggleForm, OnLoginSignUp }) {
 
   const theme = createTheme({
     palette: {
@@ -46,10 +46,13 @@ export function LoginForm({toggleForm}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const credentials = {
       password: data.get('password'),
-    });
+      email: data.get('email')
+    }
+    
+    OnLoginSignUp(credentials)
+
   };
 
   return (
@@ -64,7 +67,7 @@ export function LoginForm({toggleForm}) {
             alignItems: 'center',
           }}
         >
-        
+
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -98,6 +101,7 @@ export function LoginForm({toggleForm}) {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              
             >
               Sign In
             </Button>
@@ -108,7 +112,7 @@ export function LoginForm({toggleForm}) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" onClick={()=>toggleForm()}>
+                <Link href="#" variant="body2" onClick={() => toggleForm()}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

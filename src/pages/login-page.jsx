@@ -17,6 +17,7 @@ export function LoginPage() {
 
     async function OnLoginSignUp(credentials) {
         const isValid = validate(credentials)
+        
         if (!isValid) {
             console.log('not valid')
             return
@@ -61,6 +62,6 @@ export function LoginPage() {
         <AppHeader/>   
         <div className="log-cont">  
         <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      
-        {(isLoginForm) ? <LoginForm toggleForm={toggleForm}/> : <SignUpForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/>}</div>
+        {(isLoginForm) ? <LoginForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/> : <SignUpForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/>}</div>
     </section>
 }
