@@ -13,7 +13,7 @@ export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
         <ul >
             <li><a href="#">My contribution</a></li>
             <li><a href="#">Join a gathering</a></li>
-            <li><a href="#">Host a gathering</a></li>
+            <li><Link to='/location' >Host a gathering</Link></li>
             <li><a href="#">Inform a location</a></li>
             <li><a href="#">Prizes store</a></li>
             <li><Link to='/' >About us</Link></li>

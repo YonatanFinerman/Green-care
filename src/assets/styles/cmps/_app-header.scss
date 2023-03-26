@@ -2,7 +2,15 @@
     background-color: $clr1;
     width: 100vw;
     color: $clr2;
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 24px 0.75rem 9px;
+
+    @include for-narrow-layout {
+        padding: 0.75rem 40px 0.75rem 25px;     
+    }
+    
+    @include for-wide-layout {
+        padding: 0.75rem 80px  0.75rem 65px;   
+    }
     
    .login-link{
     color: $clr2;

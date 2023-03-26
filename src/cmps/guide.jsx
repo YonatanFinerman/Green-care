@@ -27,7 +27,7 @@ export function Guide() {
 
             <div className='steps-pageing'>
                 {steps.map((step, idx) => {
-                    return <img key={idx + step} onClick={() => setCurrStepIdx(idx)} src={require(`../assets/img/step${idx}.jpg`)} alt="" />
+                    return <img key={idx + step} className={(idx === currStepIdx) ? 'active' : ''} onClick={() => setCurrStepIdx(idx)} src={require(`../assets/img/step${idx}.jpg`)} alt="" />
                 })}
             </div>
 

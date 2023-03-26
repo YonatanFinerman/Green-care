@@ -1,0 +1,19 @@
+.location-page{
+    h2{
+        text-align: center;
+        padding: 3rem 0;
+        font-weight: 300;
+    }
+
+    .location-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        column-gap: 24px;
+        row-gap: 36px;
+        margin-top: 35px;
+    
+        @include for-ultrawide-layout {
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+}

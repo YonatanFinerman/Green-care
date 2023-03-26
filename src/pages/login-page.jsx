@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/app-header";
@@ -58,7 +58,7 @@ export function LoginPage() {
         dispatch({ type: TOGGLE_LOGIN_FORM })
     }
 
-    return <section className="login-signup-page">
+    return <section className="login-signup-page ">
         <AppHeader/>   
         <div className="log-cont">  
         <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      

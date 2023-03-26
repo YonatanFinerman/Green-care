@@ -14,7 +14,7 @@ export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.user)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const dispatch = useDispatch()
-
+    
     return (
         <header className="app-header full flex align-center space-between">
             <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" />
