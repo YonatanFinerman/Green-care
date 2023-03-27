@@ -17,14 +17,14 @@ window.cs = gatheringService
 
 _createGatherings()
 
-async function query(filterBy = { txt: '', price: 0 }) {
-    var gatherings = await storageService.query(STORAGE_KEY)
-    if (filterBy.txt) {
-        const regex = new RegExp(filterBy.txt, 'i')
-        gatherings = gatherings.filter(gathering => regex.test(gathering.vendor) || regex.test(gathering.description))
+async function query(isGathering, filterBy = { txt: '', price: 0 }) {
+    let gatherings = await storageService.query(STORAGE_KEY)
+
+    if (isGathering) {
+        gatherings = gatherings.filter(gathering => gathering.usersIds.length > 0)
     }
-    if (filterBy.price) {
-        gatherings = gatherings.filter(gathering => gathering.price <= filterBy.price)
+    else {
+        gatherings = gatherings.filter(gathering => !gathering.usersIds.length)
     }
     return gatherings
 }
@@ -80,21 +80,26 @@ function _createGathering() {
 
 
     const gathering = {
-        imgsBefore: [],
-        // imgsAfter: [],
-        // usersIds: [],
+        _id:utilService.makeId(),
+        imgsBefore:   [
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRJ1gKHqnJhT-P5cW-qxf4iuFnLtqGXkYuTQ&usqp=CAU',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrUqRjoMYVdrK8VPLEPH7ej7DY1F2JX9ADTg&usqp=CAU',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYHUd__O9u1Bn7WhTkDD7yzzGRdarcG-APXA&usqp=CAU'
+        ],
+        imgsAfter: [],
+        usersIds: [],
         info: utilService.makeLorem(10),
         location: randomLocs[utilService.getRandomIntInclusive(0, 3)],
         time: new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000),
         status: '',
     }
     if (isGathering) {
-        gathering.imgsBefore =
-            [
-                'https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2F736x%2F7d%2Fd9%2F99%2F7dd999f44d34632661ad0c62333d0d63.jpg&tbnid=S4FLoc8oKFjmUM&vet=12ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMygHegUIARDDAQ..i&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Ffunny--435652963964263580%2F&docid=vZO5WlKVMcdmmM&w=720&h=725&q=meme%20faces&ved=2ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMygHegUIARDDAQ',
-                'https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2F736x%2Fec%2Ff9%2Fb9%2Fecf9b9cb9188e63b2c6dea145ea24e77.jpg&tbnid=Gx2grihEcQTj8M&vet=12ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMygPegUIARDUAQ..i&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F759771399645443654%2F&docid=tSksKOnNKepYJM&w=570&h=570&q=meme%20faces&ved=2ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMygPegUIARDUAQ',
-                'https://www.google.com/imgres?imgurl=http%3A%2F%2Fimages7.memedroid.com%2Fimages%2FUPLOADED743%2F60416b642824c.jpeg&tbnid=7uOGXQeNjK_inM&vet=12ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMyghegUIARCEAg..i&imgrefurl=https%3A%2F%2Fwww.memedroid.com%2Fmemes%2Fdetail%2F3264197%2Fface-reveal&docid=sfjdSm6P9sD1_M&w=400&h=400&q=meme%20faces&ved=2ahUKEwiZkNOqrfn9AhVemycCHdG0Aw0QMyghegUIARCEAg'
-            ]
+        // gathering.imgsBefore =
+        //     [
+        //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRJ1gKHqnJhT-P5cW-qxf4iuFnLtqGXkYuTQ&usqp=CAU',
+        //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrUqRjoMYVdrK8VPLEPH7ej7DY1F2JX9ADTg&usqp=CAU',
+        //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYHUd__O9u1Bn7WhTkDD7yzzGRdarcG-APXA&usqp=CAU'
+        //     ]
 
         gathering.usersIds = ['HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp']
     }
@@ -106,10 +111,11 @@ function _createGatherings() {
     let gatherings = utilService.loadFromStorage(STORAGE_KEY)
     if (!gatherings || !gatherings.length) {
         gatherings = []
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 50; i++) {
             gatherings.push(_createGathering())
         }
 
+        utilService.saveToStorage(STORAGE_KEY, gatherings)
     }
     return gatherings
 }

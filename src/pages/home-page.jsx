@@ -6,7 +6,7 @@ import { CHANGE_COUNT } from '../store/reducers/user.reducer'
 import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
 import { Guide } from '../cmps/guide'
-
+  
 
 export function HomePage() {
     const dispatch = useDispatch()

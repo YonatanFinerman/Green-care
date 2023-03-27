@@ -1,0 +1,15 @@
+.location-preview{
+
+    .prev-carousel{
+        display: flex;
+        overflow: hidden;
+        
+
+        .stay-preview-img {
+            min-width: 100%;
+            aspect-ratio: 1/0.95;
+            border-radius: 10px;
+            transition: 0.3s ease-in;
+        }
+    }
+}

@@ -1,5 +1,4 @@
 .guide {
-
     overflow: hidden;
     background-color: $bgclr2;
     position: relative;
@@ -7,6 +6,7 @@
     .guide-step {
         height: 100vh;
         min-width: 100vw;
+        transition: 1.5s;
         @include background-img;
 
         h2 {
@@ -14,26 +14,48 @@
         }
     }
 
-    .guide-btns-cont,
-    .next-step-btn {
-
-        right: 7vw;
+    .guide-btns-cont {
         position: absolute;
-        bottom: 50px;
+        bottom: 80px;
         font-size: 2rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
+        @include for-medium-layout {
+            bottom: 120px;
+        }
+
+        @include for-wide-layout {
+            bottom: 75px;
+            right: 7vw;
+            flex-direction: row;
+            transform: translate(+50%, +50%);
+        }
     }
 
     .next-step-btn {
-        width: 75px;
-        height: 75px;
+        position: absolute;
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         background-color: $clr1;
+        bottom: 50px;
+        left: 50%;
+        transform: translate(-50%, -140%);
+
+        @include for-medium-layout {
+            width: 75px;
+            height: 75px;
+            transform: translate(+400%, +0%);
+        }
     }
 
     .start-helping-btn {
         background-color: $clr1;
-
     }
 
     .register-btn {
@@ -48,30 +70,38 @@
             font-size: 1.5rem;
             margin-left: 0.5rem;
         }
-
     }
 
     .steps-pageing {
         position: absolute;
         display: flex;
         gap: 0.5rem;
-        bottom: 0;
         left: 50%;
         transform: translate(-50%, -50%);
+        bottom: 30px;
+
+        @include for-mobile-layout {
+            bottom: 0px;
+        }
 
         .active {
-            box-shadow: 1px 1px 5px 5px rgba(6,153,109,0.75);
-            -webkit-box-shadow: 1px 1px 5px 5px rgba(6,153,109,0.75);
-            -moz-box-shadow: 1px 1px 5px 5px rgba(6,153,109,0.75);
+            box-shadow: 1px 1px 5px 5px rgba(6, 153, 109, 0.75);
+            -webkit-box-shadow: 1px 1px 5px 5px rgba(6, 153, 109, 0.75);
+            -moz-box-shadow: 1px 1px 5px 5px rgba(6, 153, 109, 0.75);
         }
 
         img {
             width: 50px;
             height: 50px;
-            transition: 0.3s;
             cursor: pointer;
+            transition: 0.3s;
 
-            @include for-midium-layout {
+            @include for-mobile-layout {
+                width: 75px;
+                height: 75px;
+            }
+
+            @include for-medium-layout {
                 width: 100px;
                 height: 100px;
             }
