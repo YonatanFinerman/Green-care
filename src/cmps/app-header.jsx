@@ -6,6 +6,8 @@ import { BsPerson } from "react-icons/bs";
 import { HiMenu } from "react-icons/hi";
 import { SideBar } from './side-bar';
 import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer';
+import { GoSearch } from "react-icons/go"
+import { TOGGLE_FILTER_MODAL } from '../store/reducers/gathering.reducer';
 
 export function AppHeader() {
     const navigate = useNavigate()
@@ -13,23 +15,34 @@ export function AppHeader() {
     const [isSideBarOpen, toggleIsSideBarOpen] = useState(false)
     const user = useSelector(storeState => storeState.userModule.user)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
+    const isFilterModal = useSelector(storeState => storeState.gatheringModule.isFilterModal)
     const dispatch = useDispatch()
-    
+
     return (
         <header className="app-header full flex align-center space-between">
             <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" />
             <nav>
-                {(user) ? <img  src={user.imgUrl} alt="" /> : <Link className='login-link' to={'/login'} onClick={()=>{
-                     if (!isLoginForm) {
+                {(user) ? <img src={user.imgUrl} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {
+                    if (!isLoginForm) {
                         dispatch({ type: TOGGLE_LOGIN_FORM })
                     }
                 }}><BsPerson /></Link>}
+                {(location.pathname === '/location') && <GoSearch style={{ fontSize: '24px', marginTop: '6px' }} onClick={() => {
+                    dispatch({ type: TOGGLE_FILTER_MODAL })
+                }} />}
                 <div onClick={() => toggleIsSideBarOpen(prev => !prev)}><HiMenu /></div>
             </nav>
-            <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen}/>
-            
+            <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen} />
 
-            {(isSideBarOpen) && <div className='shadow' onClick={() => toggleIsSideBarOpen(prev => !prev)}></div>}
+
+            {(isSideBarOpen || isFilterModal) && <div className='shadow' onClick={() => {
+                if (isSideBarOpen) {
+                    toggleIsSideBarOpen(prev => !prev)
+                }
+                else{
+                    dispatch({ type: TOGGLE_FILTER_MODAL })
+                }
+            }}></div>}
 
         </header>
     )

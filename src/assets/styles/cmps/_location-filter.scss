@@ -1,0 +1,19 @@
+.location-filter{
+    background-color: white;
+    width: 500px;
+    height: 500px;
+    z-index: 5;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -350%);
+    transition: 0.3s ease-in;
+
+    &.open{
+        transform: translate(-50%, -50%);
+    }
+
+    &.closed{
+        
+    }
+}

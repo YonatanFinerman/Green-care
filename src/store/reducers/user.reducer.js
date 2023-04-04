@@ -9,6 +9,7 @@ export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const SET_SCORE = 'SET_SCORE'
+export const SET_USER_LOC = 'SET_USER_LOC'
 export const TOGGLE_LOGIN_FORM = 'TOGGLE_LOGIN_FORM'
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     isSignUpModal: false,
     isCheckoutModal: false,
     isRefreshedLoginModal: true,
+    userLoc: null,
 
 }
 
@@ -55,6 +57,9 @@ export function userReducer(state = initialState, action) {
         case SET_USERS:
             console.log(action.users)
             newState = { ...state, users: action.users }
+            break
+        case SET_USER_LOC:
+            newState = { ...state, userLoc: action.userLoc }
             break
         case SET_SCORE:
             newState = { ...state, user: { ...state.user, score: action.score } }

@@ -6,7 +6,7 @@ import { CHANGE_COUNT } from '../store/reducers/user.reducer'
 import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
 import { Guide } from '../cmps/guide'
-  
+import { gatheringService } from "../services/gathering.service"
 
 export function HomePage() {
     const dispatch = useDispatch()
@@ -17,6 +17,9 @@ export function HomePage() {
         console.log('Changing count by:', diff);
         dispatch({ type: CHANGE_COUNT, diff })
     }
+
+    // gatheringService.getLocationName({ lat: 32.794044, lng: 34.989571 })
+   
 
     return (
         <section className='home-page '>

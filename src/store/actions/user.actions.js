@@ -3,7 +3,7 @@ import { store } from '../store';
 
 import { showErrorMsg } from '../../services/event-bus.service';
 import { LOADING_DONE, LOADING_START } from "../system.reducer";
-import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER,  UPDATE_USER } from "../reducers/user.reducer";
+import { REMOVE_USER, SET_USER, SET_USERS, SET_USER_LOC, SET_WATCHED_USER, UPDATE_USER } from "../reducers/user.reducer";
 
 export function getActionUpdateUser(user) {
 
@@ -25,16 +25,14 @@ export async function loadUsers() {
     }
 }
 
-// export async function loadUser(userId) {
-//     try {
-//         const user = await userService.getById(userId)
-//         console.log(user)
-//         store.dispatch({ type: SET_WATCHED_USER, user })
-//     } catch (err) {
-//         showErrorMsg('Cannot load user')
-//         console.log('Cannot load user', err)
-//     }
-// }
+export function setUserLoc() {
+    userService.getUserPos()
+        .then(loc => {
+            const userLoc = { lat: loc.coords.latitude, lng: loc.coords.longitude }
+            store.dispatch({ type: SET_USER_LOC, userLoc })
+
+        })
+}
 
 export async function removeUser(userId) {
     try {
@@ -65,7 +63,7 @@ export async function updateUser(user) {
 //////////////////////////////////////////// BACK
 
 export async function login(credentials) {
-   
+
     try {
         // console.log(credentials, 'user action')
         const user = await userService.login(credentials)

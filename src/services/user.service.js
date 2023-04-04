@@ -14,7 +14,8 @@ export const userService = {
     getById,
     remove,
     update,
-    changeScore
+    changeScore,
+    getUserPos
 }
 
 window.userService = userService
@@ -26,6 +27,13 @@ function getUsers() {
 }
 
 
+async function getUserPos() {
+
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+
+}
 
 async function getById(userId) {
     const user = await storageService.get('user', userId)
