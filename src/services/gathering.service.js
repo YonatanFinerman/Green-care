@@ -14,7 +14,8 @@ export const gatheringService = {
     getEmptyGathering,
     addGatheringMsg,
     getLocationName,
-    getDistanceFromUser
+    getDistanceFromUser,
+    getEmptyFilter
 }
 window.cs = gatheringService
 
@@ -161,6 +162,9 @@ function _createGatherings() {
     return gatherings
 }
 
+function getEmptyFilter(){
+    return {maxDistance:100,participants:5,locName:''}
+}
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))

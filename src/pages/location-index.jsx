@@ -21,7 +21,7 @@ export function LocationIndex() {
 
     return <section className="location-page main-layout">
         <AppHeader />
-        <h2 >Pick a location and host a gathering </h2>
+        <h2><span>Pick a location and host</span><span>a gathering</span></h2>
         
         <LocationFilter />
         <LocationList gatherings={gatherings} userLoc={userLoc} />

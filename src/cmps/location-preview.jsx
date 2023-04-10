@@ -11,11 +11,11 @@ export function LocationPreview({ gathering, userLoc }) {
 
 
     return <article className="location-preview"
-    // onClick={() => { navigate(`/location/${gathering._id}`) }}
+    onClick={() => { navigate(`/location/${gathering._id}`) }}
     >
 
         <div className="prev-carousel" onMouseEnter={() => setCurrImgUrlIdx(prev => prev + 1)} onMouseLeave={() => setCurrImgUrlIdx(prev => prev - 1)}>
-
+    
             {gathering.imgsBefore.map(imgUrl => {
                 return <img key={imgUrl} className="stay-preview-img" src={imgUrl} alt="" style={{ transform: `translateX(-${currImgUrlIdx * 100}%)` }} />
             })}

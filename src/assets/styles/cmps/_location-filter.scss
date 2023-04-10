@@ -1,19 +1,200 @@
-.location-filter{
-    background-color: white;
-    width: 500px;
-    height: 500px;
+.location-filter {
+    background-color: $clr2;
+    width: 500px; 
     z-index: 5;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -350%);
     transition: 0.3s ease-in;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    
 
-    &.open{
+
+    @include for-mobile-layout {
+        width: 460px;
+        height: 600px;
+        border-radius: 8px;
+    }
+
+   
+
+    &.open {
         transform: translate(-50%, -50%);
     }
 
-    &.closed{
+    .close-modal-btn {     
+        padding: 5px 0;
+        border-bottom: 1px solid $clr8;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+
+        svg{
+            position: absolute;
+            left: 16px;
+        }
         
+        
+        
+    }
+
+    .search-loc-input{
+        width: 100%;
+        border: 2px solid $clr1;
+        height: 40px;
+        text-align: center;
+        transition: 0.3s;
+        font-size: rem(18px);
+       
+
+        &:focus{
+            background-color: $clr1;
+            outline-color: $clr1;
+            color: $clr2;
+        }
+    }
+
+    h3{
+     margin: 40px 0;   
+     text-align: center;
+    }
+    .range {
+        height: 80px;
+        margin:0 auto;
+        width: 80%;
+
+        background-color: $clr2;
+        border-radius: 10px;
+        padding: 0 65px 0 45px;
+
+        .sliderValue {
+            position: relative;
+            width: 100%;
+
+
+            span {
+                position: absolute;
+
+                height: 45px;
+                width: 45px;
+                display: flex;
+                justify-content: center;
+
+                color: $clr2;
+                font-weight: 500;
+                top: -40px;
+                transform: translateX(-50%);
+                line-height: 55px;
+                z-index: 2;
+
+
+
+                &::after {
+
+                    position: absolute;
+                    content: "";
+                    height: 45px;
+                    width: 45px;
+                    background: $clr1;
+                    transform: translateX(-50%) rotate(45deg);
+                    border: 3px solid $clr2;
+                    left: 50%;
+                    z-index: -1;
+                    border-top-left-radius: 50%;
+                    border-top-right-radius: 50%;
+                    border-bottom-left-radius: 50%;
+                }
+            }
+        }
+
+        .field {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            input {
+                -webkit-appearance: none;
+                height: 3px;
+                width: 100%;
+                background: #000;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+
+                &::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    height: 20px;
+                    width: 20px;
+                    background: $clr1;
+                    border-radius: 50%;
+                    border: 1px solid $clr1;
+                    cursor: pointer;
+                }
+
+            }
+
+            .value {
+                position: absolute;
+                font-size: 18px;
+                font-weight: 600;
+                color: $clr1;
+
+
+                &.left {
+                    left: -22px;
+                }
+
+                &.right {
+                    right: -43px;
+                }
+            }
+        }
+    }
+
+    .participants-amount{
+        gap: 16px;
+        border-radius: 2rem;
+        border:1px solid $clr8;
+        
+        
+        button{
+            background-color: none;
+            
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        p{
+            font-size: rem(20px);
+        }
+    }
+
+    .action-btns-cont{
+      
+        position: absolute;
+        right: 16px;
+        bottom: 25px;
+    
+        button{
+            width: 70px;
+            border-radius: 2rem;
+            font-size: rem(20px);
+            width: 90px;
+            height: 40px;
+        }
+
+        .clear-btn{
+           background: none;
+           color: #000;
+        }
     }
 }

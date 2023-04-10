@@ -9,6 +9,7 @@ import { UserDetails } from './pages/user-details'
 import { HomePage } from './pages/home-page'
 import { LoginPage } from './pages/login-page'
 import { LocationIndex } from './pages/location-index'
+import { LocationDetails } from './cmps/location-details'
 
 
 export function RootCmp() {
@@ -22,7 +23,8 @@ export function RootCmp() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/location" element={<LocationIndex />} />
-                   
+                    <Route path="/location/:locationId" element={<LocationDetails />} />
+
                 </Routes>
             </main>
             {/* <AppFooter /> */}

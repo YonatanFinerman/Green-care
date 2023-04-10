@@ -1,0 +1,23 @@
+.location-details {
+
+    
+    .gatheringImgs {
+        height: 600px;
+        display: grid;   
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 50%;
+
+        .img1 {
+            grid-row: 1 / -1;
+            height: 900px;
+            // grid-row: 2;
+        }
+       
+    }
+
+    .location-info{
+        // flex-grow: 50%;
+        width: 50%;
+    }
+}
