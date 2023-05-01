@@ -24,7 +24,7 @@ export function LocationPreview({ gathering, userLoc }) {
         <div className="preview-info">
             <div className="flex space-between">
                 <p>{gathering.locName}</p>
-                <p className="prev-capacity flex"> {gathering.usersIds.length + ' / ' + gathering.capacity} <span><BsFillPersonFill /></span></p>
+                <p className="prev-capacity flex"> {gathering.users.length + ' / ' + gathering.capacity} <span><BsFillPersonFill /></span></p>
 
             </div>
 

@@ -41,7 +41,7 @@ function getLocationName(pos) {
 
 function getDistanceFromUser(userLoc, gatheringLoc) {
 
-
+    
     const R = 6371; // Radius of the earth in km
     const dLat = deg2rad(gatheringLoc.lat - userLoc.lat);
 
@@ -65,10 +65,10 @@ async function query(isGathering, filterBy = { txt: '', price: 0 }) {
     let gatherings = await storageService.query(STORAGE_KEY)
 
     if (isGathering) {
-        gatherings = gatherings.filter(gathering => gathering.usersIds.length > 0)
+        gatherings = gatherings.filter(gathering => gathering.users.length > 0)
     }
     else {
-        gatherings = gatherings.filter(gathering => !gathering.usersIds.length)
+        gatherings = gatherings.filter(gathering => !gathering.users.length)
     }
     return gatherings
 }
@@ -131,8 +131,8 @@ function _createGathering() {
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYHUd__O9u1Bn7WhTkDD7yzzGRdarcG-APXA&usqp=CAU'
         ],
         imgsAfter: [],
-        usersIds: [],
-        info: utilService.makeLorem(10),
+        users: [],
+        info: utilService.makeLorem(utilService.getRandomIntInclusive(5,30)),
         loc: randomLocs[utilService.getRandomIntInclusive(0, 2)],
         time: new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000),
         status: '',
@@ -143,7 +143,11 @@ function _createGathering() {
     // getLocationName(gathering.location).then(loc => gathering.locName = loc.data.results[1].formatted_address)
     //  getLocationName(gathering.location)
     if (isGathering) {
-        gathering.usersIds = ['HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp', 'HQ6wp']
+        gathering.users = [{fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'}
+    ,{fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
+    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
+    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
+    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},]
     }
     console.log(gathering)
     return gathering

@@ -1,23 +1,131 @@
 .location-details {
 
-    
-    .gatheringImgs {
-        height: 600px;
-        display: grid;   
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        width: 50%;
-
-        .img1 {
-            grid-row: 1 / -1;
-            height: 900px;
-            // grid-row: 2;
-        }
-       
+    .location {
+        margin-top: 100px;
+        gap: 30px;
     }
 
-    .location-info{
-        // flex-grow: 50%;
+    .gatheringCarousel {
         width: 50%;
+        gap: 8px;
+        align-items: flex-end;
+
+        .gatheringImgs {
+            max-height: 750px;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            flex-basis: 80%;
+
+            img {
+                height: 750px;
+                transition: 0.3s;
+                @include background-img;
+                 
+            }
+        }
+
+        .carousel-paging {
+
+            justify-content: flex-end;
+            gap: 4px;
+
+            img {
+                width: 120px;
+                height: 100px;
+
+            }
+        }
+    }
+
+    .location-info {
+        width: 50%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .create-gathering {
+            gap: 1rem;
+            width: 350px;
+            margin: 50px auto 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: $shadow1;
+
+            h3{
+                padding-bottom: 1rem;
+                width: 100%;
+                border-bottom: 1px solid lightgray;
+            }
+
+            .ant-picker{
+                background-color: $clr1;
+                width: 290px;
+                
+              input{
+                color: $clr2;
+                font-size: 1.5rem;
+                text-align: center;
+              }
+            }
+            .create-btn{
+                padding: 1rem 2.5rem;
+                border-radius: 8px;
+                font-size: 1.5rem;
+            }
+            .time-picker{
+                font-size:1.25rem;
+                button{
+                    border-radius: 8px;
+                    font-size:1.25rem;
+                  
+                }
+            }
+        }
+    }  
+}
+
+th,td{
+  font-size: 18px;
+ }
+
+ .ant-picker-cell-selected{
+    
+    .ant-picker-cell-inner{
+        background-color: $clr1 !important;
+      }
+ }
+
+ .ant-picker-cell-today{
+
+    .ant-picker-cell-inner::before{
+        border-color: $clr1 !important;
+      }
+ }
+
+ .ant-picker-cell-inner{
+    margin: 8px;
+ }
+
+.ant-picker-footer{
+    a{
+        color: $clr1 !important;
     }
 }
+
+.ant-picker-header{
+    background-color: $clr1;
+    
+    button{
+        color: $clr2 !important;
+    }
+}
+
+
+
+
+ 
+ 
+
+

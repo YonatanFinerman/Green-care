@@ -68,7 +68,7 @@ async function login(userCred) {
 }
 async function signup(userCred) {
     const newUser = {
-        ...userCred, xp: 0, imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+        ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
         coins: 0, gatheringIds: [], isVerified: false
     }
     const user = await storageService.post('user', newUser)

@@ -22,7 +22,7 @@ export function AppHeader() {
         <header className="app-header full flex align-center space-between">
             <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" />
             <nav>
-                {(user) ? <img src={user.imgUrl} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {
+                {(user) ? <img src={user.profileImg} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {
                     if (!isLoginForm) {
                         dispatch({ type: TOGGLE_LOGIN_FORM })
                     }
