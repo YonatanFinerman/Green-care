@@ -2,7 +2,7 @@ import { gatheringService } from '../../services/gathering.service.js';
 import { userService } from '../../services/user.service.js';
 import { store } from '../store.js';
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import {  SET_GATHERINGS } from '../reducers/gathering.reducer.js'
+import { SET_GATHERINGS, UPDATE_GATHERING } from '../reducers/gathering.reducer.js'
 // import { SET_SCORE } from "./user.reducer.js";
 
 // Action Creators:
@@ -18,12 +18,12 @@ import {  SET_GATHERINGS } from '../reducers/gathering.reducer.js'
 //         gathering
 //     }
 // }
-// export function getActionUpdateGathering(gathering) {
-//     return {
-//         type: UPDATE_GATHERING,
-//         gathering
-//     }
-// }
+export function getActionUpdateGathering(gathering) {
+    return {
+        type: UPDATE_GATHERING,
+        gathering
+    }
+}
 
 export async function loadGatherings(isGathering) {
     try {
@@ -39,6 +39,28 @@ export async function loadGatherings(isGathering) {
         throw err
     }
 
+}
+
+export async function updateGathering(gathering) {
+    try {
+        const savedGathering = await gatheringService.save(gathering)
+        store.dispatch(getActionUpdateGathering(savedGathering))
+        return savedGathering
+    }
+    catch (err) {
+        console.log('Cannot save gathering', err)
+        throw err
+    }
+    // return gatheringService.save(gathering)
+    //     .then(savedGathering => {
+    //         console.log('Updated Gathering:', savedGathering)
+    //         store.dispatch(getActionUpdateGathering(savedGathering))
+    //         return savedGathering
+    //     })
+    //     .catch(err => {
+    //         console.log('Cannot save gathering', err)
+    //         throw err
+    //     })
 }
 
 // export async function removeGathering(gatheringId) {
@@ -63,18 +85,7 @@ export async function loadGatherings(isGathering) {
 //     }
 // }
 
-// export function updateGathering(gathering) {
-//     return gatheringService.save(gathering)
-//         .then(savedGathering => {
-//             console.log('Updated Gathering:', savedGathering)
-//             store.dispatch(getActionUpdateGathering(savedGathering))
-//             return savedGathering
-//         })
-//         .catch(err => {
-//             console.log('Cannot save gathering', err)
-//             throw err
-//         })
-// }
+
 
 // export function addToGatheringt(gathering) {
 //     store.dispatch({
@@ -103,7 +114,7 @@ export async function loadGatherings(isGathering) {
 // }
 
 
-// // Demo for Optimistic Mutation 
+// // Demo for Optimistic Mutation
 // // (IOW - Assuming the server call will work, so updating the UI first)
 // export function onRemoveGatheringOptimistic(gatheringId) {
 //     store.dispatch({

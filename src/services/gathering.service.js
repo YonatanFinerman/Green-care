@@ -22,7 +22,6 @@ window.cs = gatheringService
 _createGatherings()
 
 function getLocationName(pos) {
-    console.log(pos)
 
     // const API_KEY = 'AIzaSyDaRU8dfDmfYH7VAnKLLM7Y2SXli9AH33Q'
     const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
@@ -33,7 +32,7 @@ function getLocationName(pos) {
     let urlName = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc`
     // console.log('name of location is', posNamePrm)
     const locName = axios.get(urlName).then(res => res.data.plus_code)
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', locName)
+
     var posNamePrm = axios.get(urlName)
     return posNamePrm
 
@@ -126,15 +125,15 @@ function _createGathering() {
     const gathering = {
         _id: utilService.makeId(),
         imgsBefore: [
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRJ1gKHqnJhT-P5cW-qxf4iuFnLtqGXkYuTQ&usqp=CAU',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrUqRjoMYVdrK8VPLEPH7ej7DY1F2JX9ADTg&usqp=CAU',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYHUd__O9u1Bn7WhTkDD7yzzGRdarcG-APXA&usqp=CAU'
+            'https://i0.wp.com/wallpaperaccess.com/full/393735.jpg',
+            'https://m.media-amazon.com/images/I/81VBi2RDh6L._SL500_.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKa_rfXhm0SzPCi8oeofTBZudR6XMViSsK6Q&usqp=CAU'
         ],
         imgsAfter: [],
         users: [],
-        info: utilService.makeLorem(utilService.getRandomIntInclusive(5,30)),
+        info: utilService.makeLorem(utilService.getRandomIntInclusive(30,60)),
         loc: randomLocs[utilService.getRandomIntInclusive(0, 2)],
-        time: new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000),
+        time:'',
         status: '',
         locName: utilService.makeLorem(2),
         capacity: 8,
@@ -143,13 +142,14 @@ function _createGathering() {
     // getLocationName(gathering.location).then(loc => gathering.locName = loc.data.results[1].formatted_address)
     //  getLocationName(gathering.location)
     if (isGathering) {
-        gathering.users = [{fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'}
-    ,{fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
-    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
-    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},
-    {fullName:'moti pipi',profileImg:'https://www.google.com/url?sa=i&url=https%3A%2F%2Frussianconductors.wordpress.com%2F2015%2F04%2F28%2Fmark-gorenstein%2F&psig=AOvVaw0SOKyITRAl39mCy1EBH8Hz&ust=1681470231762000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi28_fapv4CFQAAAAAdAAAAABAE'},]
+        gathering.users = [{fullName:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg'}
+    ,{fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
+    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
+    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
+    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},]
+    gathering.time= new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000)
     }
-    console.log(gathering)
+    
     return gathering
 }
 

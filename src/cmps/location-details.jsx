@@ -1,35 +1,117 @@
 import { useEffect } from "react";
 import { AppHeader } from "./app-header";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { gatheringService } from "../services/gathering.service";
 import { DatePickerCmp } from "./date-picker";
 import { GoogleMap } from "./map";
 import { BsFillPersonFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserLoc } from "../store/actions/user.actions";
-import { RiArrowUpSFill,RiArrowDownSFill } from "react-icons/ri";
+import { RiArrowUpSFill, RiArrowDownSFill } from "react-icons/ri";
+import { TbBrandCoinbase } from "react-icons/tb";
+import { TOGGLE_GATHERING_MODAL } from "../store/reducers/gathering.reducer";
+import { CreateGatheringModal } from "./create-gathering-modal";
+import { updateGathering } from "../store/actions/gathering.actions";
 
 export function LocationDetails() {
 
-    const { locationId } = useParams()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const userLoc = useSelector(storeState => storeState.userModule.userLoc)
+    const user = useSelector(storeState => storeState.userModule.user)
+    const [newgatheringTime, setNewGatheringTime] = useState({ date: null, time: { hour: 12, min: 0 } })
     const [currGathering, setCurrgathering] = useState(null)
     const [currImgUrlIdx, setCurrImgUrlIdx] = useState(0)
-    const userLoc = useSelector(storeState => storeState.userModule.userLoc)
+    const [userRole, setUserRole] = useState(null)
+    const [isSelectedDateErr, setIsSelectedDateErr] = useState(false)
+    const { locationId } = useParams()
+
 
     useEffect(() => {
-        console.log(locationId)
         loadGathering(locationId)
         setUserLoc()
+
     }, [])
 
     async function loadGathering(locationId) {
         try {
             const gathering = await gatheringService.getById(locationId)
+            if (gathering.time) {
+                setNewGatheringTime({ date: gathering.time, time: { hour: new Date(gathering.time).getHours(), min: new Date(gathering.time).getMinutes() } })
+                checkUserRole(gathering)
+            }
             setCurrgathering(gathering)
         }
+
         catch (err) {
             console.log("unable to load gathering")
+        }
+    }
+
+    function checkUserRole(gathering) {
+        const userIdx = gathering.users.findIndex(participent => participent._id === user._id)
+        console.log('useridx', userIdx)
+        if (userIdx === 0) {
+            setUserRole('host')
+        }
+        else if (userIdx > 0) {
+            setUserRole('participent')
+        }
+    }
+
+    function handleTimeInput(type, changeBy) {
+        if (type === 'hour') {
+            if (changeBy > 0 && newgatheringTime.time.hour === 23) {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, hour: 0 } }))
+            }
+            else if (changeBy < 0 && newgatheringTime.time.hour === 0) {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, hour: 23 } }))
+            }
+            else {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, hour: prev.time.hour + changeBy } }))
+            }
+        }
+        else {
+            if (changeBy > 0 && newgatheringTime.time.min === 55) {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, min: 0 } }))
+            }
+            else if (changeBy < 0 && newgatheringTime.time.min === 0) {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, min: 55 } }))
+            }
+            else {
+                setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, min: prev.time.min + changeBy } }))
+            }
+        }
+    }
+
+    function onCreateJoinGathering() {
+        const newGathering = { ...currGathering }
+
+        if (!currGathering.users.length) {
+            const min = 1000 * 60
+            const hour = min * 60
+            newGathering.time = newgatheringTime.date + (newgatheringTime.time.hour * hour) + (newgatheringTime.time.min * min)
+        }
+
+        newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg,_id:user._id })
+        console.log('new', newGathering)
+        updateGathering(newGathering)
+        dispatch({ type: TOGGLE_GATHERING_MODAL })
+        setCurrgathering(newGathering)
+        checkUserRole(newGathering)
+    }
+
+    function onOpenGatheringModal() {
+        if (!user) {
+            navigate('/login')
+        }
+        else if (newgatheringTime.date || currGathering.users.length) {
+
+            dispatch({ type: TOGGLE_GATHERING_MODAL })
+        }
+        else {
+            setIsSelectedDateErr(true)
         }
     }
 
@@ -55,41 +137,56 @@ export function LocationDetails() {
                     <div className="location-info">
                         <h2>{currGathering.locName}</h2>
                         <p>{currGathering.info}</p>
-                        <p className="prev-capacity flex"> {currGathering.users.length + ' / ' + currGathering.capacity} <span><BsFillPersonFill /></span></p>
-                        <p>{gatheringService.getDistanceFromUser(userLoc, currGathering.loc) + 'km away'}</p>
+
+
+                        <div className="gathering-stats">
+                            {(currGathering.users.length > 0 && userRole!=='host') && <div className="gathering-host flex align-center justify-center">
+                                <p>Gathering host: {currGathering.users[0].fullname}</p>
+                                <img src={currGathering.users[0].profileImg} />
+                            </div>}
+                            {(userRole === 'host') && <h4 className="host-msg">You are this gathering's host!</h4>}
+                            <p className="prev-capacity flex justify-center"> <span>{currGathering.users.length + ' / ' + currGathering.capacity} <span><BsFillPersonFill /></span></span></p>
+                            <p>{gatheringService.getDistanceFromUser(userLoc, currGathering.loc) + 'km away'}</p>
+                            {(userRole === 'participent') && <h4>You joined this gathering!</h4>}
+                        </div>
+
+
 
                         {(!currGathering.users.length) && <div className="create-gathering flex column align-center">
                             <h3>Become a host</h3>
-                            <DatePickerCmp />
+                            <DatePickerCmp setNewGatheringTime={setNewGatheringTime} newgatheringTime={newgatheringTime} />
+                            {(isSelectedDateErr) && <p className="select-date-error">Please select date!</p>}
                             <p>Select Time</p>
-                            
+
                             <div className="time-picker flex">
-
-
                                 <div className="flex column align-center">
-                                    <button><RiArrowUpSFill /></button>
-                                    <p>22</p>
-                                    <button><RiArrowDownSFill /></button>
+                                    <button onClick={() => { handleTimeInput('hour', 1) }} ><RiArrowUpSFill /></button>
+                                    <p>{`${(newgatheringTime.time.hour < 10) ? 0 : ''}`}{newgatheringTime.time.hour}</p>
+                                    <button onClick={() => { handleTimeInput('hour', -1) }}><RiArrowDownSFill /></button>
 
                                 </div>
                                 <p className="flex align-center"><span>:</span></p>
                                 <div className="flex column align-center">
-                                    <button><RiArrowUpSFill /></button>
-                                    <p>22</p>
-                                    <button><RiArrowDownSFill /></button>
+                                    <button onClick={() => { handleTimeInput('min', 5) }}><RiArrowUpSFill /></button>
+                                    <p>{`${(newgatheringTime.time.min < 10) ? 0 : ''}`}{newgatheringTime.time.min}</p>
+                                    <button onClick={() => { handleTimeInput('min', -5) }}><RiArrowDownSFill /></button>
 
                                 </div>
                             </div>
-
-                            <button className="create-btn">Create gathering</button>
-
+                            <button className="create-btn" onClick={onOpenGatheringModal}>Create gathering</button>
+                            <small>Host now and earn 2 care points</small>
+                        </div>}
+                        {(currGathering.users.length > 0 && !userRole) && <div className="join-gathering ">
+                            <button onClick={onOpenGatheringModal}>Join gathering</button>
+                            <p>Join now and earn 1 care point</p>
                         </div>}
 
                     </div>
                 </div>
             </div>
 
-            <GoogleMap />
+            <GoogleMap loc={currGathering.loc} />
+            <CreateGatheringModal onCreateJoinGathering={onCreateJoinGathering} gathering={currGathering} newgatheringTime={newgatheringTime} />
 
         </section>
     }

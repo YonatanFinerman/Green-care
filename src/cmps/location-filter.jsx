@@ -15,14 +15,11 @@ export function LocationFilter() {
 
         let { value, name: field, type, checked } = target
         value = (type === 'number' || type === 'range') ? +value : value
-        console.log('this is val', value)
         if (type === 'checkbox') {
             value = checked
         }
         setFilterBy((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
-
-    console.log(filterBy.maxDistance, 'filter!!!')
 
     return <section className={`location-filter ${(isFilterModal) ? 'open' : 'closed'} `}>
 

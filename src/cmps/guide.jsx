@@ -11,7 +11,7 @@ export function Guide() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
-    const steps = ['moti', 'yosi', 'moshe', 'mark', 'yoni']
+    const steps = ['Create or join gatherings', 'Meet new people', 'Earn prizes', 'And make the world better', ' So start caring now!']
 
     return <section className="guide flex column  text-center" id="guide">
 

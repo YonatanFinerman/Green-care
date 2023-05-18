@@ -14,7 +14,6 @@ export function HomePage() {
     const navigate = useNavigate()
 
     function changeCount(diff) {
-        console.log('Changing count by:', diff);
         dispatch({ type: CHANGE_COUNT, diff })
     }
 

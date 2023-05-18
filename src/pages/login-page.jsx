@@ -26,6 +26,7 @@ export function LoginPage() {
             try {
                 console.log('valid')
                 await signup(credentials)
+                navigate(-1)
                 // navigate('/')
             } catch (err) {
                 console.log('Error occurred during signup:', err)
@@ -36,7 +37,7 @@ export function LoginPage() {
         try {
             await login(credentials)
             //   onCloseLoginModal()
-              navigate('/')
+              navigate(-1)
         } catch (err) {
             console.log('Error occurred during login:', err)
         }

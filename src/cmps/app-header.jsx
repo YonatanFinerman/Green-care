@@ -7,7 +7,7 @@ import { HiMenu } from "react-icons/hi";
 import { SideBar } from './side-bar';
 import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer';
 import { GoSearch } from "react-icons/go"
-import { TOGGLE_FILTER_MODAL } from '../store/reducers/gathering.reducer';
+import { TOGGLE_FILTER_MODAL, TOGGLE_GATHERING_MODAL } from '../store/reducers/gathering.reducer';
 
 export function AppHeader() {
     const navigate = useNavigate()
@@ -16,6 +16,7 @@ export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.user)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const isFilterModal = useSelector(storeState => storeState.gatheringModule.isFilterModal)
+    const isGatheringModal = useSelector(storeState => storeState.gatheringModule.isGatheringModal)
     const dispatch = useDispatch()
 
     return (
@@ -27,7 +28,7 @@ export function AppHeader() {
                         dispatch({ type: TOGGLE_LOGIN_FORM })
                     }
                 }}><BsPerson /></Link>}
-                {(location.pathname === '/location') && <GoSearch style={{ fontSize: '24px', marginTop: '6px' }} onClick={() => {
+                {(location.pathname === '/location' || location.pathname === '/gathering') && <GoSearch style={{ fontSize: '24px', marginTop: '6px' }} onClick={() => {
                     dispatch({ type: TOGGLE_FILTER_MODAL })
                 }} />}
                 <div onClick={() => toggleIsSideBarOpen(prev => !prev)}><HiMenu /></div>
@@ -35,9 +36,12 @@ export function AppHeader() {
             <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen} />
 
 
-            {(isSideBarOpen || isFilterModal) && <div className='shadow' onClick={() => {
+            {(isSideBarOpen || isFilterModal || isGatheringModal) && <div className='shadow' onClick={() => {
                 if (isSideBarOpen) {
                     toggleIsSideBarOpen(prev => !prev)
+                }
+                else if(isGatheringModal){
+                    dispatch({ type: TOGGLE_GATHERING_MODAL })
                 }
                 else{
                     dispatch({ type: TOGGLE_FILTER_MODAL })

@@ -23,6 +23,7 @@ export function RootCmp() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/location" element={<LocationIndex />} />
+                    <Route path="/gathering" element={<LocationIndex />} />
                     <Route path="/location/:locationId" element={<LocationDetails />} />
 
                 </Routes>

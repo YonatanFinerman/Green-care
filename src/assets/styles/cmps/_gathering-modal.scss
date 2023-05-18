@@ -1,0 +1,25 @@
+.gathering-modal{
+    @include modal;
+    
+    span{
+        position: relative;
+        padding: 0 1rem;
+        svg{
+            position: absolute;
+            bottom: 7.5px;
+            left: 0;
+        }
+    }
+
+    img{
+        width: 320px;
+        display: block;
+        margin: auto;
+    }
+
+    button{
+        padding: 1rem;
+        font-size: 1.4rem;
+        border-radius: 0.5rem;
+    }
+}

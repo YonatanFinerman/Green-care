@@ -1,51 +1,6 @@
 .location-filter {
-    background-color: $clr2;
-    width: 500px; 
-    z-index: 5;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -350%);
-    transition: 0.3s ease-in;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    height: 100%;
-    box-shadow: $shadow1;
+    @include modal;
     
-
-
-    @include for-mobile-layout {
-        width: 460px;
-        height: 600px;
-        border-radius: 8px;
-    }
-
-   
-
-    &.open {
-        transform: translate(-50%, -50%);
-    }
-
-    .close-modal-btn {     
-        padding: 5px 0;
-        border-bottom: 1px solid $clr8;
-        display: flex;
-        justify-content: center;
-        position: relative;
-        align-items: center;
-
-        svg{
-            position: absolute;
-            left: 16px;
-        }
-        
-        
-        
-    }
-
     .search-loc-input{
         width: 100%;
         border: 2px solid $clr1;
@@ -54,7 +9,6 @@
         transition: 0.3s;
         font-size: rem(18px);
        
-
         &:focus{
             background-color: $clr1;
             outline-color: $clr1;

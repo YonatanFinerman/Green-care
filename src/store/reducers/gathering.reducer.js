@@ -7,6 +7,8 @@ export const CLEAR_GATHERINGT = 'CLEAR_GATHERINGT'
 export const UNDO_REMOVE_GATHERING = 'UNDO_REMOVE_GATHERING'
 export const REMOVE_FROM_GATHERINGT = 'REMOVE_FROM_GATHERINGT'
 export const TOGGLE_FILTER_MODAL = 'TOGGLE_FILTER_MODAL'
+export const TOGGLE_GATHERING_MODAL = 'TOGGLE_GATHERING_MODAL'
+export const TOGGLE_IS_GATHERING = 'TOGGLE_IS_GATHERING'
 
 const initialState = {
     gatherings: [],
@@ -14,6 +16,7 @@ const initialState = {
     lastRemovedGathering: null,
     isGathering: false,
     isFilterModal:false,
+    isGatheringModal:false,
 }
 
 export function gatheringReducer(state = initialState, action) {
@@ -34,6 +37,12 @@ export function gatheringReducer(state = initialState, action) {
             break
         case TOGGLE_FILTER_MODAL:
             newState = { ...state, isFilterModal: !state.isFilterModal }
+            break
+        case TOGGLE_GATHERING_MODAL:
+            newState = { ...state, isGatheringModal: !state.isGatheringModal }
+            break
+        case TOGGLE_IS_GATHERING:
+            newState = { ...state, isGathering: action.isGathering }
             break
         case UPDATE_GATHERING:
             gatherings = state.gatherings.map(gathering => (gathering._id === action.gathering._id) ? action.gathering : gathering)
