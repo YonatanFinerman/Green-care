@@ -1,174 +1,229 @@
 .location-details {
 
     .location {
-        margin-top: 100px;
+        margin-top: 75px;
         gap: 30px;
+        flex-direction: column;
+
+        @include for-midium-layout {
+            flex-direction: row;
+        }
     }
 
     .gatheringCarousel {
-        width: 50%;
+        width: 100%;
         gap: 8px;
-        align-items: flex-end;
+        flex-direction: column;
+        align-items: center;
+
+        @include for-midium-layout {
+            width: 50%;
+        }
+        
+        @include for-normal-layout {
+            flex-direction: row;
+            align-items: flex-end;
+        }
 
         .gatheringImgs {
-            max-height: 750px;
+            max-height: 350px;
             overflow: hidden;
             display: grid;
             grid-template-rows: 1fr 1fr 1fr;
             flex-basis: 80%;
 
+            @include for-midium-layout {
+                max-height: 850px;
+            }
+
             img {
-                height: 750px;
+                max-height: 100%;
+                height: 350px;
                 transition: 0.3s;
                 @include background-img;
-                 
+
+                @include for-midium-layout {
+                    height: 850px;
+                }
             }
         }
 
-        .carousel-paging {
-
-            justify-content: flex-end;
+        .carousel-paging {        
             gap: 4px;
 
-            img {
-                width: 120px;
-                height: 100px;
+            @include for-normal-layout {
+                flex-direction: column;
+                justify-content: flex-end;
+            }
 
+            img {
+                width: 100px;
+                height: 80px;
+
+                @include for-normal-layout {
+                    width: 120px;
+                    height: 100px;
+                }
             }
         }
     }
 
     .location-info {
-        width: 50%;
-        text-align: center;
+        width: 100%;    
+        margin: 0 auto; 
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
+        font-size: 1rem;
+        text-align: center;
 
-        h4{
-            margin: 0.5rem 0;
-        }
-        svg {
-            margin-top: 6px;
+        @include for-mobile-layout {
+            width: 80%;   
         }
 
-        .gathering-host{
+        @include for-midium-layout {
+            width: 50%;     
+        }
+
+        @include for-wide-layout {
+            gap: 40px;
+            font-size: 1.2rem;
+        }
+
+        h2{
+            position: absolute;
+            white-space: nowrap;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            @include for-midium-layout {
+                position: static;
+                transform: translateX(0%);
+            }
+        }
+
+        .gathering-host {
             gap: 0.5rem;
-            margin-top: 1rem;
-            img{
+            margin: 2rem;
+
+            img {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
             }
-                
+        }
+
+        .join-gathering {
+            button {
+                padding: 1rem 4rem;
+                border-radius: 2rem;
+                font-size: 1.4rem;
+            }
+
+            p {
+                font-size: 0.75rem;
+            }
+        }
+
+        .gathering-stats {
+            box-shadow: $shadow1;
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            
+            p {
+                font-size: 1.25rem;
+                padding: 2rem 0;
+                position: relative;
+                text-align: left;
+
+                svg {
+                    position: absolute;
+                    top: 2rem;
+                    right: -25px;
+                }
+            }
+        }
+
+        h4 {
+            margin: 0.5rem 0;
+        }
+
+        svg {
+            margin-top: 6px;
         }
 
         .create-gathering {
             gap: 1rem;
-            width: 350px;
+            width: 100%;
             margin: 0 auto;
             padding: 1rem;
             border-radius: 0.5rem;
             box-shadow: $shadow1;
             position: relative;
 
-            h3{
+            @include for-mobile-layout {
+                width: 350px; 
+            }
+
+            h3 {
                 padding-bottom: 1rem;
                 width: 100%;
                 border-bottom: 1px solid lightgray;
             }
-            .select-date-error{
+
+            .select-date-error {
                 color: rgb(238, 66, 66);
                 position: absolute;
                 top: 115px;
-                font-size: 0.75rem;          
+                font-size: 0.75rem;
             }
 
-            .ant-picker{
+            .ant-picker {
                 background-color: $clr1;
                 width: 290px;
-                
-              input{
-                color: $clr2;
-                font-size: 1.5rem;
-                text-align: center;
-              }
-            }
-            .create-btn{
-                padding: 1rem 2.5rem;
-                border-radius: 8px;
-                font-size: 1.5rem;
-            }
-            .time-picker{
-                font-size:1.25rem;
-                button{
-                    border-radius: 8px;
-                    font-size:1.25rem;
-                  
+
+                input {
+                    color: $clr2;
+                    font-size: 1.5rem;
+                    text-align: center;
                 }
             }
 
-        }
-        .join-gathering{
-            button{
-                padding: 1rem 6rem;
-                border-radius: 2rem;
-                font-size: 1.4rem;
-                
+            .create-btn {
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                font-size: 1rem;
+
+                @include for-normal-layout {
+                    padding: 1rem 2.5rem;
+                    font-size: 1.5rem;
+                }
             }
-            p{
-                font-size: 0.75rem;
+
+            .time-picker {
+                font-size: 1.25rem;
+
+                button {
+                    border-radius: 8px;
+                    font-size: 1.25rem;
+
+                }
             }
         }
-    }  
-    .google-map{
-        width: 60%;
+    }
+
+    .google-map {
+        width: 100%;
         aspect-ratio: 16 / 9;
-        margin:2.5rem auto ;
+        margin: 2.5rem auto;
         font-size: 100px;
+
+        @include for-midium-layout {
+            width: 60%;
+        }   
     }
 }
-
-th,td{
-  font-size: 18px;
- }
-
- .ant-picker-cell-selected{
-    
-    .ant-picker-cell-inner{
-        background-color: $clr1 !important;
-      }
- }
-
- .ant-picker-cell-today{
-
-    .ant-picker-cell-inner::before{
-        border-color: $clr1 !important;
-      }
- }
-
- .ant-picker-cell-inner{
-    margin: 8px;
- }
-
-.ant-picker-footer{
-    a{
-        color: $clr1 !important;
-    }
-}
-
-.ant-picker-header{
-    background-color: $clr1;
-    
-    button{
-        color: $clr2 !important;
-    }
-}
-
-
-
-
- 
- 
-
-

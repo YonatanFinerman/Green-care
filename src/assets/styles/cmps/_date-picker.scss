@@ -1,0 +1,47 @@
+.ant-picker {
+    background-color: $clr1;
+    width: 290px;
+
+    input {
+        color: $clr2;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+}
+
+th,
+td {
+    font-size: 18px;
+}
+
+.ant-picker-cell-selected {
+
+    .ant-picker-cell-inner {
+        background-color: $clr1 !important;
+    }
+}
+
+.ant-picker-cell-today {
+
+    .ant-picker-cell-inner::before {
+        border-color: $clr1 !important;
+    }
+}
+
+.ant-picker-cell-inner {
+    margin: 8px;
+}
+
+.ant-picker-footer {
+    a {
+        color: $clr1 !important;
+    }
+}
+
+.ant-picker-header {
+    background-color: $clr1;
+
+    button {
+        color: $clr2 !important;
+    }
+}

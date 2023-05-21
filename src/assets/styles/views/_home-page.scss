@@ -59,7 +59,7 @@
                 height: 70px;
             }
 
-            @include for-medium-layout {
+            @include for-midium-layout {
                 font-size: 2rem;
                 width: 400px;
                 height: 80px;
@@ -77,7 +77,7 @@
                 font-size: 3rem;
             }
 
-            @include for-medium-layout {
+            @include for-midium-layout {
                 font-size: 4rem;
 
             }

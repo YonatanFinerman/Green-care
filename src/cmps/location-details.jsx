@@ -5,11 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { gatheringService } from "../services/gathering.service";
 import { DatePickerCmp } from "./date-picker";
 import { GoogleMap } from "./map";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsCalendarDate, BsCalendarDateFill, BsFillPersonFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLoc } from "../store/actions/user.actions";
-import { RiArrowUpSFill, RiArrowDownSFill } from "react-icons/ri";
+import { RiArrowUpSFill, RiArrowDownSFill, RiPinDistanceFill } from "react-icons/ri";
 import { TbBrandCoinbase } from "react-icons/tb";
+import { FaCheck, FaClock } from "react-icons/fa";
 import { TOGGLE_GATHERING_MODAL } from "../store/reducers/gathering.reducer";
 import { CreateGatheringModal } from "./create-gathering-modal";
 import { updateGathering } from "../store/actions/gathering.actions";
@@ -85,6 +86,23 @@ export function LocationDetails() {
         }
     }
 
+    function getTimeRemaining(gatheringTime) {
+        const oneDay = 24 * 60 * 60 * 1000
+        const now = new Date()
+        const futureDate = new Date(gatheringTime)
+        futureDate.setHours(0, 0, 0, 0)
+
+        const diffDays = Math.round((futureDate - now) / oneDay)
+
+        if (diffDays === 0) {
+            return "today"
+        } else if (diffDays === 1) {
+            return "tomorrow"
+        } else {
+            return `in ${diffDays} days`
+        }
+    }
+
     function onCreateJoinGathering() {
         const newGathering = { ...currGathering }
 
@@ -94,7 +112,7 @@ export function LocationDetails() {
             newGathering.time = newgatheringTime.date + (newgatheringTime.time.hour * hour) + (newgatheringTime.time.min * min)
         }
 
-        newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg,_id:user._id })
+        newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg, _id: user._id })
         console.log('new', newGathering)
         updateGathering(newGathering)
         dispatch({ type: TOGGLE_GATHERING_MODAL })
@@ -127,7 +145,7 @@ export function LocationDetails() {
                                 return <img src={currImg} style={{ transform: `translateY(-${currImgUrlIdx * 100}%)` }} key={currImg} className={`img${idx + 1}`} />
                             })}
                         </div>
-                        <div className="carousel-paging flex column">
+                        <div className="carousel-paging flex">
                             {currGathering.imgsBefore.map((currImg, idx) => {
                                 return <img src={currImg} key={currImg + 1} onClick={() => setCurrImgUrlIdx(idx)} />
                             })}
@@ -140,16 +158,28 @@ export function LocationDetails() {
 
 
                         <div className="gathering-stats">
-                            {(currGathering.users.length > 0 && userRole!=='host') && <div className="gathering-host flex align-center justify-center">
+                            {(currGathering.users.length > 0 && userRole !== 'host') && <div className="gathering-host flex align-center justify-center">
                                 <p>Gathering host: {currGathering.users[0].fullname}</p>
                                 <img src={currGathering.users[0].profileImg} />
                             </div>}
-                            {(userRole === 'host') && <h4 className="host-msg">You are this gathering's host!</h4>}
-                            <p className="prev-capacity flex justify-center"> <span>{currGathering.users.length + ' / ' + currGathering.capacity} <span><BsFillPersonFill /></span></span></p>
-                            <p>{gatheringService.getDistanceFromUser(userLoc, currGathering.loc) + 'km away'}</p>
-                            {(userRole === 'participent') && <h4>You joined this gathering!</h4>}
+
+                            {(userRole === 'host') && <h4 className="host-msg">You are this gathering's host!  <FaCheck /></h4>}
+
+                            <div className="info-list">
+
+                                <div className="flex justify-center"><p> {currGathering.users.length + ' / ' + currGathering.capacity} <BsFillPersonFill /></p></div>
+                                <div className="flex justify-center"><p>{gatheringService.getDistanceFromUser(userLoc, currGathering.loc) + 'km'}<RiPinDistanceFill /></p></div>
+                                {(currGathering.time) && <div className="flex justify-center"><p>{new Date(newgatheringTime.date).toLocaleDateString()}<BsCalendarDateFill /></p></div>}
+                                {(currGathering.time) && <div className="flex justify-center"><p>{`  ${(newgatheringTime.time.hour < 10) ? '0' : ''}${newgatheringTime.time.hour} : ${(newgatheringTime.time.min < 10) ? '0' : ''}${newgatheringTime.time.min}`}<FaClock /></p></div>}
+
+                            </div>
                         </div>
 
+                        <div className="text-center">
+
+                        {(currGathering.time) &&<p>This gathering is {getTimeRemaining(currGathering.time)}</p>}
+                        {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
+                        </div>
 
 
                         {(!currGathering.users.length) && <div className="create-gathering flex column align-center">
@@ -186,7 +216,7 @@ export function LocationDetails() {
             </div>
 
             <GoogleMap loc={currGathering.loc} />
-            <CreateGatheringModal onCreateJoinGathering={onCreateJoinGathering} gathering={currGathering} newgatheringTime={newgatheringTime} />
+            <CreateGatheringModal userRole={userRole} onCreateJoinGathering={onCreateJoinGathering} gathering={currGathering} newgatheringTime={newgatheringTime} />
 
         </section>
     }

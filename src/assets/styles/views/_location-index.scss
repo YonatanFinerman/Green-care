@@ -22,7 +22,7 @@
         row-gap: 36px;
         margin-top: 35px;
 
-        @include for-medium-layout {
+        @include for-midium-layout {
             grid-template-columns: repeat(3, 1fr);
         }
 

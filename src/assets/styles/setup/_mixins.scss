@@ -19,14 +19,14 @@
     }
 }
 
-@mixin for-medium-layout {
-    @media (min-width: calc($medium-breakpoint )) {
+@mixin for-midium-layout {
+    @media (min-width: calc($midium-breakpoint )) {
         @content;
     }
 }
 
 @mixin for-header-brakepoint {
-    @media (max-width: calc($medium-breakpoint)) {
+    @media (max-width: calc($midium-breakpoint)) {
         @content;
     }
 }
@@ -59,7 +59,7 @@
     background-color: $clr2;
     width: 500px;
     z-index: 5;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -350%);

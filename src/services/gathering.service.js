@@ -142,7 +142,7 @@ function _createGathering() {
     // getLocationName(gathering.location).then(loc => gathering.locName = loc.data.results[1].formatted_address)
     //  getLocationName(gathering.location)
     if (isGathering) {
-        gathering.users = [{fullName:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg'}
+        gathering.users = [{fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg'}
     ,{fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
     {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
     {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},

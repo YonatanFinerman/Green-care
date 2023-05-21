@@ -24,7 +24,7 @@
         align-items: center;
         flex-direction: column;
 
-        @include for-medium-layout {
+        @include for-midium-layout {
             bottom: 120px;
         }
 
@@ -47,7 +47,7 @@
         left: 50%;
         transform: translate(-50%, -140%);
 
-        @include for-medium-layout {
+        @include for-midium-layout {
             width: 75px;
             height: 75px;
             transform: translate(+400%, +0%);
@@ -101,7 +101,7 @@
                 height: 75px;
             }
 
-            @include for-medium-layout {
+            @include for-midium-layout {
                 width: 100px;
                 height: 100px;
             }
