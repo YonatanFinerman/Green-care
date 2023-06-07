@@ -27,28 +27,31 @@ export function LocationDetails() {
     const [userRole, setUserRole] = useState(null)
     const [isSelectedDateErr, setIsSelectedDateErr] = useState(false)
     const { locationId } = useParams()
-
+    
 
     useEffect(() => {
         loadGathering(locationId)
-        setUserLoc()
-
     }, [])
 
     async function loadGathering(locationId) {
         try {
-            const gathering = await gatheringService.getById(locationId)
+            const gathering = await gatheringService.getById(locationId)      
+            console.log(gathering,'omg')
             if (gathering.time) {
                 setNewGatheringTime({ date: gathering.time, time: { hour: new Date(gathering.time).getHours(), min: new Date(gathering.time).getMinutes() } })
-                checkUserRole(gathering)
+                if(user){
+                    checkUserRole(gathering)
+                }
             }
             setCurrgathering(gathering)
+            return gathering
         }
-
         catch (err) {
-            console.log("unable to load gathering")
+            console.log("unable to load gathering",err)
+            return err
         }
     }
+      
 
     function checkUserRole(gathering) {
         const userIdx = gathering.users.findIndex(participent => participent._id === user._id)
@@ -156,7 +159,6 @@ export function LocationDetails() {
                         <h2>{currGathering.locName}</h2>
                         <p>{currGathering.info}</p>
 
-
                         <div className="gathering-stats">
                             {(currGathering.users.length > 0 && userRole !== 'host') && <div className="gathering-host flex align-center justify-center">
                                 <p>Gathering host: {currGathering.users[0].fullname}</p>
@@ -180,7 +182,6 @@ export function LocationDetails() {
                         {(currGathering.time) &&<p>This gathering is {getTimeRemaining(currGathering.time)}</p>}
                         {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
                         </div>
-
 
                         {(!currGathering.users.length) && <div className="create-gathering flex column align-center">
                             <h3>Become a host</h3>

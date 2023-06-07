@@ -1,6 +1,6 @@
 import { DatePicker } from "antd"
 import moment from "moment";
-export function DatePickerCmp({setNewGatheringTime,newgatheringTime}) {
+export function DatePickerCmp({ setNewGatheringTime=null, newgatheringTime=null, setFilterBy=null, filterBy=null }) {
 
     const dateFormat = "DD/MM/YYYY";
     // const startDate = (searchDetails.checkIn && searchDetails.checkIn !== 'flexible') ? (dayjs(searchDetails.checkIn)) : dayjs("02-01-2023")
@@ -8,19 +8,19 @@ export function DatePickerCmp({setNewGatheringTime,newgatheringTime}) {
 
     return <div className="date-picker"><DatePicker popupClassName='details-date-picker'
         format={dateFormat}
-        disabledDate={(date)=>{
-            if(date.$d.getTime() < Date.now()){
+        disabledDate={(date) => {
+            if (date.$d.getTime() < Date.now()) {
                 return true
             }
-            else{
+            else {
                 return false
-            }      
+            }
         }}
         // defaultValue={[startDate, endDate]}
         // defaultValue={moment(newgatheringTime)}
         onChange={(val) => {
-            console.log(val,'value')
-            if(val){
+            console.log(val, 'value')
+            if (val) {
                 // const value1 = moment(val).format('DD/MM/YYYY')
                 // const time1 = val.$d
                 // const date = new Date(time1)
@@ -30,10 +30,21 @@ export function DatePickerCmp({setNewGatheringTime,newgatheringTime}) {
                 const date = val.$d
                 date.setHours(0, 0, 0, 0)
                 // console.log(date.getTime(),'val')
-                setNewGatheringTime({...newgatheringTime,date:date.getTime()})
+                if (filterBy) {
+                    setFilterBy({ ...filterBy, date: date.getTime() })
+                }
+                else {
+                    setNewGatheringTime({ ...newgatheringTime, date: date.getTime() })
+                }
             }
-            else{
-                setNewGatheringTime({...newgatheringTime,date:val})
+            else {
+                if (filterBy) {
+                    setFilterBy({ ...filterBy, date: val })
+                }
+                else {
+
+                    setNewGatheringTime({ ...newgatheringTime, date: val })
+                }
             }
 
             //    const dateStart = date.getTime()

@@ -1,6 +1,13 @@
 .location-filter {
     @include modal;
     
+    @include for-mobile-layout {
+        width: 500px;
+        height: 740px;
+        border-radius: 8px;
+    }
+
+
     .search-loc-input{
         width: 100%;
         border: 2px solid $clr1;
@@ -17,9 +24,14 @@
     }
 
     h3{
-     margin: 40px 0;   
+     margin: 2rem 0;   
      text-align: center;
+
+     @include for-mobile-layout {
+        margin: 40px 0;   
     }
+    }
+
     .range {
         height: 80px;
         margin:0 auto;
@@ -115,23 +127,7 @@
         }
     }
 
-    .participants-amount{
-        gap: 16px;
-        border-radius: 2rem;
-        border:1px solid $clr8;
-        
-        
-        button{
-            background-color: none;
-            
-            border-radius: 50%;
-            padding: 15px;
-        }
-
-        p{
-            font-size: rem(20px);
-        }
-    }
+    
 
     .action-btns-cont{
       
@@ -150,6 +146,18 @@
         .clear-btn{
            background: none;
            color: #000;
+        }
+    }
+
+    .ant-picker {
+        background-color: $clr1;
+        width: 100%;
+        
+        input {
+            color: $clr2;
+            font-size: 1.5rem;
+            text-align: center;
+            
         }
     }
 }

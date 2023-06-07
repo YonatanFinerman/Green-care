@@ -1,0 +1,118 @@
+.add-location-form {
+    margin: 80px auto;
+    width: 100%;
+    gap: 30px;
+
+    .location-imgs {
+
+        width: 50%;
+        gap: 0.5rem;
+
+        .location-imgs-paging {
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 4px;
+
+        }
+
+        .curr-img {
+            height: 850px;
+            background: $clr9;
+            width: 80%;
+
+            @include background-img;
+        }
+
+        .empty-img {
+            background-color: $clr9;
+            
+            width: 100px;
+            height: 80px;
+
+
+            @include for-normal-layout {
+                width: 120px;
+                height: 100px;
+            }
+
+
+            img {
+                width: 100px;
+                height: 80px;
+
+                @include for-normal-layout {
+                    width: 120px;
+                    height: 100px;
+                }
+            }
+        }
+
+    }
+
+    .location-info-inputs {
+        width: 50%;
+        gap: 60px;
+
+        .location-name-input-container{
+            position: relative;
+        }
+        .possible-locs-list{
+          position: absolute;
+          width: 100%;
+          list-style-type: none;
+          padding: 0 ;
+          margin: 0;
+          border: 2px solid black;
+        }
+        .possible-loc-prev{
+            background-color: $clr2;    
+            width: 100%;
+            padding: 1rem;
+            border-bottom: 1px solid black;         
+        }
+
+        .location-name-input {
+            padding: 0 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+
+            border: none;
+            border-bottom: 2px solid black;
+            position: absolute;
+            white-space: nowrap;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: Cereal;
+
+            @include for-midium-layout {
+                position: static;
+                transform: translateX(0%);
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .location-info-input {
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 1rem;
+            height: 350px;
+            
+        }
+
+        .participants-amount {
+            width: 280px;
+        }
+
+        .inform-btn{
+            padding: 1rem 4rem;
+            border-radius: 2rem;
+            font-size: 1.4rem;
+           
+        }
+    }
+
+}

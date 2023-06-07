@@ -1,14 +1,15 @@
-import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { gatheringService } from "../services/gathering.service"
 import { IoClose } from "react-icons/io5"
 import { TOGGLE_FILTER_MODAL } from "../store/reducers/gathering.reducer"
 import { HiMinus, HiPlus } from "react-icons/hi"
+import { DatePickerCmp } from "./date-picker"
+import { AmoutInput } from "./participants-amount-input"
 
-export function LocationFilter() {
+export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
 
     const isFilterModal = useSelector(storeState => storeState.gatheringModule.isFilterModal)
-    const [filterBy, setFilterBy] = useState(gatheringService.getEmptyFilter())
+    const isGathering = useSelector(storeState => storeState.gatheringModule.isGathering)
+
     const dispatch = useDispatch()
 
     function handleChange({ target }) {
@@ -21,10 +22,10 @@ export function LocationFilter() {
         setFilterBy((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
-    return <section className={`location-filter ${(isFilterModal) ? 'open' : 'closed'} `}>
+    return <section className={`location-filter ${(isFilterModal) ? 'open' : 'closed'} `} style={{ gap: `${(isGathering) ? '20px' : '40px'}` }}>
 
         <p className="close-modal-btn"><IoClose onClick={() => dispatch({ type: TOGGLE_FILTER_MODAL })} /><span>Filter locations</span> </p>
-        <input className="search-loc-input" type="text" placeholder="Search location..." />
+        <input className="search-loc-input" name="locName" type="text" onChange={handleChange} placeholder="Search location..." />
 
         <h3>Max distance</h3>
         <div className="range">
@@ -37,8 +38,12 @@ export function LocationFilter() {
                 <div className="value right">200</div>
             </div>
 
-            <h3>Participants</h3>
-            <div className="participants-amount flex space-between align-center">
+            {(isGathering) && <h3>Date</h3>}
+            {(isGathering) && <DatePickerCmp setFilterBy={setFilterBy} filterBy={filterBy} />}
+
+            <h3>Max participants</h3>
+            <AmoutInput capacity={filterBy.capacity} setCapacity={setFilterBy}/>
+            {/* <div className="participants-amount flex space-between align-center">
                 <button className="flex justify-center"
                     disabled={(filterBy.participants === 1)}
                     style={{ backgroundColor: `${(filterBy.participants === 1) ? 'lightGrey' : '#0EA47A'}` }}
@@ -52,12 +57,11 @@ export function LocationFilter() {
                     onClick={() => setFilterBy(prevFilter => {
                         return { ...prevFilter, participants: prevFilter.participants + 1 }
                     })}><HiPlus /></button>
-            </div>
-
+            </div> */}
 
             <div className="action-btns-cont">
                 <button className="clear-btn">Clear</button>
-                <button className="search-btn">Search</button>
+                <button className="filter-btn" onClick={onFilterLocation}>Filter</button>
             </div>
         </div>
     </section>

@@ -5,7 +5,8 @@ export const utilService = {
     debounce,
     randomPastTime,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    asyncDebounce
 }
 
 function makeId(length = 6) {
@@ -45,13 +46,30 @@ function randomPastTime() {
     return Date.now() - pastTime
 }
 
-function debounce(func, timeout = 300){
+function debounce(func, timeout = 300) {
     let timer
     return (...args) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => { func.apply(this, args) }, timeout)
+        clearTimeout(timer)
+        timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
 }
+
+function asyncDebounce(func, timeout = 300) {
+    let timer
+    return (...args) => {
+      return new Promise((resolve, reject) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          try {
+            const result = func.apply(this, args)
+            resolve(result)
+          } catch (error) {
+            reject(error)
+          }
+        }, timeout)
+      })
+    }
+  }
 
 function saveToStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value))

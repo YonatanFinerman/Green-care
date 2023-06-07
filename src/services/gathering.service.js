@@ -11,15 +11,61 @@ export const gatheringService = {
     getById,
     save,
     remove,
-    getEmptyGathering,
+    getEmptyLocation,
     addGatheringMsg,
     getLocationName,
     getDistanceFromUser,
-    getEmptyFilter
+    getEmptyFilter,
+    getLocationByName,
+   
 }
 window.cs = gatheringService
 
 _createGatherings()
+
+async function query(filterBy, userLoc = null) {
+
+    let gatherings = await storageService.query(STORAGE_KEY)
+
+
+    if (filterBy.isGathering) {
+        gatherings = gatherings.filter(gathering => gathering.users.length > 0)
+
+    }
+    else {
+        gatherings = gatherings.filter(gathering => !gathering.users.length)
+
+    }
+
+    if (filterBy.date) {
+        gatherings = gatherings.filter(gathering => {
+            let date = new Date(gathering.time)
+            date.setHours(0, 0, 0, 0)
+            if (date.getTime() === filterBy.date) {
+                return gathering
+            }
+        })
+    }
+
+    if (filterBy.capacity) {
+        gatherings = gatherings.filter(gathering => gathering.capacity <= filterBy.capacity)
+
+    }
+    if (isNaN(filterBy.maxDistance) && userLoc) {
+        gatherings = gatherings.filter(gathering => {
+            return getDistanceFromUser(userLoc, gathering.loc) <= filterBy.maxDistance
+        })
+
+    }
+    if (filterBy.locName) {
+        const regex = new RegExp(filterBy.locName, 'i')
+        gatherings = gatherings.filter(gathering => regex.test(gathering.locName))
+    }
+
+
+    return gatherings
+}
+
 
 function getLocationName(pos) {
 
@@ -38,9 +84,24 @@ function getLocationName(pos) {
 
 }
 
+
+
+async function getLocationByName(locName) {
+    
+    const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
+    let urlName = `https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=${API_KEY}`
+    try{
+        const loc = await axios.get(urlName).then(res => res.data.results)     
+        return loc
+    }
+    catch(err){
+        console.log(err,'No such place')
+        throw err
+    }
+}
+
 function getDistanceFromUser(userLoc, gatheringLoc) {
 
-    
     const R = 6371; // Radius of the earth in km
     const dLat = deg2rad(gatheringLoc.lat - userLoc.lat);
 
@@ -60,19 +121,8 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180);
 }
 
-async function query(isGathering, filterBy = { txt: '', price: 0 }) {
-    let gatherings = await storageService.query(STORAGE_KEY)
 
-    if (isGathering) {
-        gatherings = gatherings.filter(gathering => gathering.users.length > 0)
-    }
-    else {
-        gatherings = gatherings.filter(gathering => !gathering.users.length)
-    }
-    return gatherings
-}
-
-function getById(gatheringId) {
+async function getById(gatheringId) {
     return storageService.get(STORAGE_KEY, gatheringId)
 }
 
@@ -109,11 +159,23 @@ async function addGatheringMsg(gatheringId, txt) {
     return msg
 }
 
-function getEmptyGathering() {
+function getEmptyLocation() {
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
-        price: utilService.getRandomIntInclusive(1000, 9000),
+        _id: utilService.makeId(),
+        imgsBefore: [],
+        imgsAfter: [],
+        users: [],
+        info: '',
+        loc: null,
+        time: '',
+        status: '',
+        locName: '',
+        capacity: 8,
     }
+}
+
+function getEmptyFilter() {
+    return { maxDistance: '100', capacity: 8, locName: '', isGathering: false, date: 0 }
 }
 
 function _createGathering() {
@@ -131,9 +193,9 @@ function _createGathering() {
         ],
         imgsAfter: [],
         users: [],
-        info: utilService.makeLorem(utilService.getRandomIntInclusive(30,60)),
+        info: utilService.makeLorem(utilService.getRandomIntInclusive(30, 60)),
         loc: randomLocs[utilService.getRandomIntInclusive(0, 2)],
-        time:'',
+        time: '',
         status: '',
         locName: utilService.makeLorem(2),
         capacity: 8,
@@ -142,14 +204,14 @@ function _createGathering() {
     // getLocationName(gathering.location).then(loc => gathering.locName = loc.data.results[1].formatted_address)
     //  getLocationName(gathering.location)
     if (isGathering) {
-        gathering.users = [{fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg'}
-    ,{fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
-    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
-    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},
-    {fullname:'moti pipi',profileImg:'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg',_id:utilService.makeId()},]
-    gathering.time= new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000)
+        gathering.users = [{ fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() }
+            , { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },]
+        gathering.time = new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000)
     }
-    
+
     return gathering
 }
 
@@ -166,9 +228,7 @@ function _createGatherings() {
     return gatherings
 }
 
-function getEmptyFilter(){
-    return {maxDistance:100,participants:5,locName:''}
-}
+
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))

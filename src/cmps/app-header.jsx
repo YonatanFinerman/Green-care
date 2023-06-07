@@ -17,6 +17,7 @@ export function AppHeader() {
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const isFilterModal = useSelector(storeState => storeState.gatheringModule.isFilterModal)
     const isGatheringModal = useSelector(storeState => storeState.gatheringModule.isGatheringModal)
+    const isUserLocModal = useSelector(storeState => storeState.userModule.isUserLocModal)
     const dispatch = useDispatch()
 
     return (
@@ -36,14 +37,17 @@ export function AppHeader() {
             <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen} />
 
 
-            {(isSideBarOpen || isFilterModal || isGatheringModal) && <div className='shadow' onClick={() => {
+            {(isSideBarOpen || isFilterModal || isGatheringModal || isUserLocModal) && <div className='shadow' onClick={() => {
                 if (isSideBarOpen) {
                     toggleIsSideBarOpen(prev => !prev)
                 }
-                else if(isGatheringModal){
+                else if (isGatheringModal) {
                     dispatch({ type: TOGGLE_GATHERING_MODAL })
                 }
-                else{
+                else if (isUserLocModal) {
+                    return
+                }
+                else {
                     dispatch({ type: TOGGLE_FILTER_MODAL })
                 }
             }}></div>}

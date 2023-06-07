@@ -1,24 +1,30 @@
 button {
-    border:0;
+    border: 0;
     background-color: $clr1;
-    color:whitesmoke;
+    color: whitesmoke;
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: darken($color: $clr1, $amount: 5);
+    }
 }
 
-form > * {
+form>* {
     display: block;
     width: 200px;
     margin: 10px 0px;
 }
 
 .btn-link {
-    border:0;
+    border: 0;
     background-color: transparent;
     text-decoration: underline;
     transition: .5s;
 }
+
 .btn-link:hover {
     background-color: $clr1;
     transform: scale(1.1);

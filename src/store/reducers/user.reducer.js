@@ -11,6 +11,7 @@ export const SET_USERS = 'SET_USERS'
 export const SET_SCORE = 'SET_SCORE'
 export const SET_USER_LOC = 'SET_USER_LOC'
 export const TOGGLE_LOGIN_FORM = 'TOGGLE_LOGIN_FORM'
+export const TOGGLE_USERLOC_MODAL = 'TOGGLE_USERLOC_MODAL'
 
 const initialState = {
     count: 10,
@@ -22,6 +23,7 @@ const initialState = {
     isCheckoutModal: false,
     isRefreshedLoginModal: true,
     userLoc: null,
+    isUserLocModal:false,
 
 }
 
@@ -32,6 +34,9 @@ export function userReducer(state = initialState, action) {
 
         case TOGGLE_LOGIN_FORM:
             newState = { ...state, isLoginForm: !state.isLoginForm }
+            break
+        case TOGGLE_USERLOC_MODAL:
+            newState = { ...state, isUserLocModal: !state.isUserLocModal }
             break
         case INCREMENT:
             newState = { ...state, count: state.count + 1 }

@@ -1,0 +1,16 @@
+.participants-amount{
+    gap: 16px;
+    border-radius: 2rem;
+    border:1px solid $clr8;
+    
+    button{
+        background-color: none;
+        
+        border-radius: 50%;
+        padding: 15px;
+    }
+
+    p{
+        font-size: rem(20px);
+    }
+}

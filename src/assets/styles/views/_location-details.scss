@@ -216,14 +216,4 @@
         }
     }
 
-    .google-map {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        margin: 2.5rem auto;
-        font-size: 100px;
-
-        @include for-midium-layout {
-            width: 60%;
-        }   
-    }
 }

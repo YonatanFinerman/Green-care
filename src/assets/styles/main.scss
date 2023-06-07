@@ -21,6 +21,7 @@
 @import "views/login-signup-page";
 @import "views/location-index";
 @import "views/location-details";
+@import "views/add-location";
 
 // Components
 @import "cmps/app-header";
@@ -34,6 +35,9 @@
 @import "cmps/location-filter";
 @import "cmps/gathering-modal";
 @import "cmps/date-picker";
+@import "cmps/partic-amount-input";
+@import "cmps/google-map";
+@import "cmps/no-loc-modal";
 
 
 

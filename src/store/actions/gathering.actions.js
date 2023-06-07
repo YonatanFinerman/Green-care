@@ -25,10 +25,9 @@ export function getActionUpdateGathering(gathering) {
     }
 }
 
-export async function loadGatherings(isGathering) {
+export async function loadGatherings(filterBy, userLoc = null) {
     try {
-        const gatherings = await gatheringService.query(isGathering)
-        console.log('Gatherings from DB:', gatherings)
+        const gatherings = await gatheringService.query(filterBy,userLoc)
         store.dispatch({
             type: SET_GATHERINGS,
             gatherings

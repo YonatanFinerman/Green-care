@@ -3,7 +3,7 @@ import { store } from '../store';
 
 import { showErrorMsg } from '../../services/event-bus.service';
 import { LOADING_DONE, LOADING_START } from "../system.reducer";
-import { REMOVE_USER, SET_USER, SET_USERS, SET_USER_LOC, SET_WATCHED_USER, UPDATE_USER } from "../reducers/user.reducer";
+import { REMOVE_USER, SET_USER, SET_USERS, SET_USER_LOC, SET_WATCHED_USER, TOGGLE_USERLOC_MODAL, UPDATE_USER } from "../reducers/user.reducer";
 
 export function getActionUpdateUser(user) {
 
@@ -30,6 +30,11 @@ export function setUserLoc() {
         .then(loc => {
             const userLoc = { lat: loc.coords.latitude, lng: loc.coords.longitude }
             store.dispatch({ type: SET_USER_LOC, userLoc })
+
+        })
+        .catch(err => {
+            console.log(err, 'no user loc')
+            store.dispatch({ type: TOGGLE_USERLOC_MODAL })
 
         })
 }
