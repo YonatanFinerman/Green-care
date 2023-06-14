@@ -5,20 +5,20 @@ const AnyReactComponent = () => <div style={{fontSize:"30px"}}> <img style={{wid
 
 export function GoogleMap({loc}) {
 
-    const [coordinates, setCoordinates] = useState(loc)
+
     const zoom = 15
 
     return (
-        <div className="google-map" style={{fontSize:'100px'}}>
+        <div className="google-map" style={{fontSize:'100px'}}  id='map'>
             <GoogleMapReact
                 
                 bootstrapURLKeys={{ key: "AIzaSyAEbO1NdPSMoIY-mfHBTOj4vB0R37KKUvQ" }}
-                defaultCenter={coordinates}
-                center={coordinates}
+                defaultCenter={loc}
+                center={loc}
                 defaultZoom={zoom}
             >
                 <AnyReactComponent
-                    {...coordinates}
+                    {...loc}
                     
                 />
             </GoogleMapReact>

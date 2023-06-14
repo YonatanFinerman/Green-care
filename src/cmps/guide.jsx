@@ -13,14 +13,15 @@ export function Guide() {
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const steps = ['Create or join gatherings', 'Meet new people', 'Earn prizes', 'And make the world better', ' So start caring now!']
 
-    return <section className="guide flex column  text-center" id="guide">
+    return <section className="guide flex column  text-center"  id="guide">
 
         <div className="step-carousel flex " >
 
             {steps.map((step, idx) => {
 
-                return <div key={step + idx} className='guide-step flex align-center justify-center'
+                return <div   key={step + idx} className='guide-step flex align-center justify-center'
                     style={{ transform: `translateX(-${currStepIdx * 100}%)`, backgroundImage: `url(${require(`../assets/img/step${idx}.jpg`)})` }} >
+                        {/* <h2>{step}</h2> */}
                     <Fade bottom> <h2>{step}</h2> </Fade>
                 </div>
             })}

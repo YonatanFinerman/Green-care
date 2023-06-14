@@ -14,12 +14,14 @@ import { AddLocationPage } from './pages/add-location'
 import { setUserLoc } from './store/actions/user.actions'
 import { useSelector } from 'react-redux'
 import { NoUserLocModal } from './cmps/no-userloc-modal'
-
+import { gatheringService } from './services/gathering.service'
+import { LoadingCircle } from './cmps/loading-circle'
 
 export function RootCmp() {
 
     const userLoc = useSelector(storeState => storeState.userModule.userLoc)
-   
+    const isLoading = useSelector(storeState => storeState.systemModule.isLoading)
+
 
     useEffect(() => {
         setUserLoc()
@@ -28,7 +30,7 @@ export function RootCmp() {
     return (
         <div>
 
-            <main>
+            {(userLoc) && <main>
                 <Routes>
                     {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
                     <Route path="/" element={<HomePage />} />
@@ -39,8 +41,10 @@ export function RootCmp() {
                     <Route path="/location/:locationId" element={<LocationDetails />} />
 
                 </Routes>
-            </main>
-                {<NoUserLocModal />}
+            </main>}
+            {<NoUserLocModal />}
+            {(isLoading) && <LoadingCircle />}
+
             {/* <AppFooter /> */}
         </div>
     )

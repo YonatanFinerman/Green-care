@@ -67,8 +67,8 @@ async function query(filterBy, userLoc = null) {
 }
 
 
-function getLocationName(pos) {
-
+async function getLocationName(pos) {
+    console.log('locname from args',pos)
     // const API_KEY = 'AIzaSyDaRU8dfDmfYH7VAnKLLM7Y2SXli9AH33Q'
     const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
 
@@ -77,21 +77,20 @@ function getLocationName(pos) {
     // name by laglng
     let urlName = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc`
     // console.log('name of location is', posNamePrm)
-    const locName = axios.get(urlName).then(res => res.data.plus_code)
-
-    var posNamePrm = axios.get(urlName)
-    return posNamePrm
-
+    const locName = await axios.get(urlName).then(res => res.data.results[0].formatted_address)
+    console.log('this is location',locName) 
+    return locName
 }
 
 
 
 async function getLocationByName(locName) {
-    
+ 
     const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
     let urlName = `https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=${API_KEY}`
     try{
-        const loc = await axios.get(urlName).then(res => res.data.results)     
+        const loc = await axios.get(urlName).then(res => res.data.results)    
+      
         return loc
     }
     catch(err){
@@ -132,12 +131,14 @@ async function remove(gatheringId) {
 }
 
 async function save(gathering) {
+  
     var savedGathering
     if (gathering._id) {
         savedGathering = await storageService.put(STORAGE_KEY, gathering)
     } else {
         // Later, owner is set by the backend
-        gathering.owner = userService.getLoggedinUser()
+        
+        // gathering.owner = userService.getLoggedinUser()
         savedGathering = await storageService.post(STORAGE_KEY, gathering)
     }
     return savedGathering
@@ -161,7 +162,7 @@ async function addGatheringMsg(gatheringId, txt) {
 
 function getEmptyLocation() {
     return {
-        _id: utilService.makeId(),
+        _id: '',
         imgsBefore: [],
         imgsAfter: [],
         users: [],

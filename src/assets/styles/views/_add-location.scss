@@ -3,10 +3,13 @@
     width: 100%;
     gap: 30px;
 
-    .location-imgs {
 
+
+    .location-imgs {
         width: 50%;
         gap: 0.5rem;
+
+
 
         .location-imgs-paging {
             flex-direction: column;
@@ -30,13 +33,14 @@
             height: 80px;
 
 
+
             @include for-normal-layout {
                 width: 120px;
                 height: 100px;
             }
 
-
-            img {
+            .selected-img{
+                position: relative;
                 width: 100px;
                 height: 80px;
 
@@ -44,9 +48,22 @@
                     width: 120px;
                     height: 100px;
                 }
+            }   
+
+            img{
+                width: 100%;
+                height: 100%;
+            }
+
+            button{               
+                position: absolute;
+                font-size: 1.75rem;
+                color: $clr2;
+                padding: 0;
+                margin: 0;
+                right: 0;
             }
         }
-
     }
 
     .location-info-inputs {
@@ -61,14 +78,23 @@
           width: 100%;
           list-style-type: none;
           padding: 0 ;
-          margin: 0;
-          border: 2px solid black;
+          margin:0.5rem 0;
+          border-radius: 0.5rem;
+          border: 2px solid $clr9;
+          z-index: 10;
+         top: 35px;
         }
         .possible-loc-prev{
             background-color: $clr2;    
             width: 100%;
             padding: 1rem;
-            border-bottom: 1px solid black;         
+            border-bottom: 1px solid $clr9;      
+            cursor: pointer;   
+            font-weight: bold;
+
+            &:hover{
+                background-color: $clr9;
+            }
         }
 
         .location-name-input {
@@ -93,6 +119,9 @@
             &:focus {
                 outline: none;
             }
+            &.error{
+                border-bottom:2px solid $clr10;
+            }
         }
 
         .location-info-input {
@@ -114,5 +143,19 @@
            
         }
     }
+    .error{
+        border: 3px solid $clr10;
 
+        &:focus{
+            outline: 3px solid $clr10;
+            border: none;
+        }
+    }
+   .error-msg{
+         color: $clr10;   
+        display: block;
+        position: absolute;    
+        left: 50%;
+        transform: translatex(-50%);
+    }
 }

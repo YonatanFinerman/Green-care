@@ -29,3 +29,15 @@ form>* {
     background-color: $clr1;
     transform: scale(1.1);
 }
+
+.btn-clean{
+    background: none;
+    color: black;
+    padding: none;
+    border: none;
+
+    &:hover{
+        background: none;
+    }
+
+}

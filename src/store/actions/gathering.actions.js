@@ -2,7 +2,7 @@ import { gatheringService } from '../../services/gathering.service.js';
 import { userService } from '../../services/user.service.js';
 import { store } from '../store.js';
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-import { SET_GATHERINGS, UPDATE_GATHERING } from '../reducers/gathering.reducer.js'
+import { ADD_GATHERING, SET_GATHERINGS, UPDATE_GATHERING } from '../reducers/gathering.reducer.js'
 // import { SET_SCORE } from "./user.reducer.js";
 
 // Action Creators:
@@ -12,16 +12,30 @@ import { SET_GATHERINGS, UPDATE_GATHERING } from '../reducers/gathering.reducer.
 //         gatheringId
 //     }
 // }
-// export function getActionAddGathering(gathering) {
-//     return {
-//         type: ADD_GATHERING,
-//         gathering
-//     }
-// }
+
+export function getActionAddGathering(gathering) {
+    return {
+        type: ADD_GATHERING,
+        gathering
+    }
+}
+
 export function getActionUpdateGathering(gathering) {
     return {
         type: UPDATE_GATHERING,
         gathering
+    }
+}
+
+export async function addGathering(gathering) {
+    try {
+        const savedGathering = await gatheringService.save(gathering)
+        console.log('Added Gathering', savedGathering)
+        store.dispatch(getActionAddGathering(savedGathering))
+        return savedGathering
+    } catch (err) {
+        console.log('Cannot add gathering', err)
+        throw err
     }
 }
 
@@ -72,17 +86,7 @@ export async function updateGathering(gathering) {
 //     }
 // }
 
-// export async function addGathering(gathering) {
-//     try {
-//         const savedGathering = await gatheringService.save(gathering)
-//         console.log('Added Gathering', savedGathering)
-//         store.dispatch(getActionAddGathering(savedGathering))
-//         return savedGathering
-//     } catch (err) {
-//         console.log('Cannot add gathering', err)
-//         throw err
-//     }
-// }
+
 
 
 
