@@ -11,7 +11,7 @@ export function AmoutInput({ capacity, setCapacity }) {
             onClick={() => setCapacity(prev => {
                 return { ...prev, capacity: prev.capacity - 1 }
             })}><HiMinus /></button>
-        <p>{capacity}</p>
+        <p>{(capacity) ? capacity : 8}</p>
         <button className="flex justify-center"
             type="button"
             disabled={(capacity === 12)}

@@ -3,6 +3,9 @@
     width: 100vw;
     color: $clr2;
     padding: 0.75rem 24px 0.75rem 9px;
+    position: fixed;
+    z-index: 5;
+    top: 0;
 
     @include for-narrow-layout {
         padding: 0.75rem 40px 0.75rem 25px;     

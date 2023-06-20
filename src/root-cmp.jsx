@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { NoUserLocModal } from './cmps/no-userloc-modal'
 import { gatheringService } from './services/gathering.service'
 import { LoadingCircle } from './cmps/loading-circle'
+import { PrizeIndex } from './pages/prize-index'
 
 export function RootCmp() {
 
@@ -36,6 +37,7 @@ export function RootCmp() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/location" element={<LocationIndex />} />
+                    <Route path="/prize" element={<PrizeIndex />} />
                     <Route path="/gathering" element={<LocationIndex />} />
                     <Route path="/inform" element={<AddLocationPage />} />
                     <Route path="/location/:locationId" element={<LocationDetails />} />

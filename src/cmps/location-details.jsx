@@ -14,6 +14,7 @@ import { FaCheck, FaClock } from "react-icons/fa";
 import { TOGGLE_GATHERING_MODAL } from "../store/reducers/gathering.reducer";
 import { CreateGatheringModal } from "./create-gathering-modal";
 import { updateGathering } from "../store/actions/gathering.actions";
+import { utilService } from "../services/util.service";
 
 export function LocationDetails() {
 
@@ -86,23 +87,6 @@ export function LocationDetails() {
             else {
                 setNewGatheringTime(prev => ({ ...prev, time: { ...prev.time, min: prev.time.min + changeBy } }))
             }
-        }
-    }
-
-    function getTimeRemaining(gatheringTime) {
-        const oneDay = 24 * 60 * 60 * 1000
-        const now = new Date()
-        const futureDate = new Date(gatheringTime)
-        futureDate.setHours(0, 0, 0, 0)
-
-        const diffDays = Math.round((futureDate - now) / oneDay)
-
-        if (diffDays === 0) {
-            return "today"
-        } else if (diffDays === 1) {
-            return "tomorrow"
-        } else {
-            return `in ${diffDays} days`
         }
     }
 
@@ -179,7 +163,7 @@ export function LocationDetails() {
 
                         <div className="text-center">
 
-                        {(currGathering.time) &&<p>This gathering is {getTimeRemaining(currGathering.time)}</p>}
+                        {(currGathering.time) &&<p>This gathering is {utilService.getTimeRemaining(currGathering.time)}</p>}
                         {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
                         </div>
 

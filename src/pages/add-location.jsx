@@ -5,21 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/app-header";
 import { AmoutInput } from "../cmps/participants-amount-input";
 import { GoogleMap } from "../cmps/map";
+import { Link } from 'react-scroll'
 
 import { gatheringService } from "../services/gathering.service";
 import { uploadImgs } from "../services/cloudinary-service.js"
 import { utilService } from "../services/util.service";
 import { addGathering } from "../store/actions/gathering.actions";
 
-import { Link } from 'react-scroll'
-import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai"
-import { LoadingCircle } from "../cmps/loading-circle";
 import { LOADING_DONE, LOADING_START } from "../store/system.reducer";
+import { ImgsInput } from "../cmps/add-imgs-input";
 
 export function AddLocationPage() {
 
     const [location, setLocation] = useState(gatheringService.getEmptyLocation())
-    const [currImgIdx, setCurrImgIdx] = useState(0)
     const [possibleLocs, setPossibleLocs] = useState([])
     const [ispossibleLocs, setIsPossibleLocs] = useState(false)
     const [formErrs, setFormsErrs] = useState({})
@@ -29,38 +27,11 @@ export function AddLocationPage() {
     const dispatch = useDispatch()
 
     const debGetLocByName = useRef(utilService.asyncDebounce(gatheringService.getLocationByName, 500)).current
-    const imgInput0 = useRef(null)
-    const imgInput1 = useRef(null)
-    const imgInput2 = useRef(null)
 
     useEffect(() => {
         gatheringService.getLocationName(userLoc)
             .then(res => setLocation({ ...location, locName: res }))
     }, [])
-
-    function handleDivClick(idx) {
-        const imgInput = getImgInputRef(idx)
-        imgInput.current.click()
-    }
-
-    function handleFileChange(ev, idx) {
-
-        const selectedFile = ev.target.files[0]
-
-        if (selectedFile && selectedFile.type.includes('image')) {
-
-            const reader = new FileReader()
-            reader.onload = function (ev) {
-                const url = ev.target.result
-                const updatedLocation = { ...location }
-                updatedLocation.imgsBefore[idx] = url
-                setLocation(updatedLocation)
-                setCurrImgIdx(idx)
-            }
-            reader.readAsDataURL(selectedFile)
-        }
-        return
-    }
 
     async function handleChange({ target }) {
         let { value, name: field, type, checked } = target
@@ -81,42 +52,27 @@ export function AddLocationPage() {
             }
         }
     }
-    function getImgInputRef(idx) {
-        if (idx === 0) {
-            return imgInput0
-        }
-        else if (idx === 1) {
-            return imgInput1
-        }
-        else {
-            return imgInput2
-        }
-    }
-
 
     function onInformLocation() {
-    
-
         const newLoc = { ...location }
         const isValid = validateForm()
-        console.log(isValid)
+
         if (!isValid) return
-            dispatch({type:LOADING_START})
+        dispatch({ type: LOADING_START })
+
         if (!newLoc.loc) newLoc.loc = userLoc
         uploadImgs(newLoc.imgsBefore)
             .then(res => {
-                console.log(res)
                 newLoc.imgsBefore = res
                 addGathering(newLoc).then(res => {
-                    dispatch({type:LOADING_DONE})
+                    dispatch({ type: LOADING_DONE })
                     navigate(`/location/${res._id}`)
                 })
             })
     }
 
     function validateForm() {
-    let newErrs = {}
-        console.log(location)
+        let newErrs = {}
 
         if (!location.imgsBefore[0] || !location.imgsBefore[1] || !location.imgsBefore[2]) newErrs.imgErr = true
 
@@ -125,7 +81,7 @@ export function AddLocationPage() {
         if (!location.info || location.info.length < 100) newErrs.infoErr = true
 
         if (Object.keys(newErrs).length) {
-            setFormsErrs(newErrs)          
+            setFormsErrs(newErrs)
             return false
         }
         else return true
@@ -138,33 +94,9 @@ export function AddLocationPage() {
     }}>
         <AppHeader />
         <form className="add-location-form flex">
-            <div className="location-imgs flex">
-                {(location.imgsBefore.length > 0) ? <img className="curr-img" src={location.imgsBefore[currImgIdx]} />
-                    : <div className="curr-img flex justify-center align-center">no selected img</div>}
 
-                <div className="location-imgs-paging flex">
-                    {Array.from({ length: 3 }, (_, idx) => (
-                        <div className={`${(formErrs.imgErr && !location.imgsBefore[idx]) ? 'error' : ''} empty-img flex justify-center align-center`} key={'empty-img' + idx} onClick={() => handleDivClick(idx)}>
-                            <input
-                                type="file"
-                                ref={getImgInputRef(idx)}
-                                style={{ display: 'none' }}
+            <ImgsInput location={location} setLocation={setLocation} formErrs={formErrs} />
 
-                                onChange={(event) => handleFileChange(event, idx)}
-                            />
-                            {(location.imgsBefore[idx]) ? <div className="selected-img" onClick={(ev) => {
-                                ev.stopPropagation()
-                                setCurrImgIdx(idx)
-                            }}><img src={location.imgsBefore[idx]} />
-                                <button type="button" onClick={(ev) => {
-                                    ev.stopPropagation()
-                                    handleDivClick(idx)
-                                }} className={"btn-clean"} ><AiOutlineClose /></button >
-                            </div> : <p ><AiOutlinePlus /></p>}
-                        </div>))}
-                </div>
-
-            </div>
             <div className="location-info-inputs flex column align-center ">
                 <div className="location-name-input-container">
 
@@ -205,7 +137,7 @@ export function AddLocationPage() {
                         placeholder="Tell us about this location *"
                         style={{ resize: 'none' }}
                         value={location.info}
-                        maxLength={500}>
+                        maxLength={300}>
                     </textarea>
                     {(formErrs.infoErr) && <small className="error-msg text-center">Please tell us more*</small>}
                 </div>
@@ -214,13 +146,13 @@ export function AddLocationPage() {
                 <AmoutInput capacity={location.capacity} setCapacity={setLocation} />
                 <div className="flex column" style={{ gap: '0.5rem' }}>
                     <button type="button" onClick={onInformLocation} className="inform-btn">Inform location</button>
-                    <small>Inform a contaminated location to earn 1 care point</small>
+                    <small className="text-center">Inform location and earn 1 care point</small>
                 </div>
             </div>
         </form>
         <h3 className="text-center">{(location.loc) ? location.locName : 'Your location'}</h3>
         {(userLoc) && <GoogleMap loc={(location.loc) ? location.loc : userLoc} />}
-       
+
     </section>
 }
 

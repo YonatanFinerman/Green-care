@@ -24,9 +24,8 @@ window.cs = gatheringService
 _createGatherings()
 
 async function query(filterBy, userLoc = null) {
-
+    console.log(filterBy,'filterby')
     let gatherings = await storageService.query(STORAGE_KEY)
-
 
     if (filterBy.isGathering) {
         gatherings = gatherings.filter(gathering => gathering.users.length > 0)
@@ -101,25 +100,20 @@ async function getLocationByName(locName) {
 
 function getDistanceFromUser(userLoc, gatheringLoc) {
 
-    const R = 6371; // Radius of the earth in km
-    const dLat = deg2rad(gatheringLoc.lat - userLoc.lat);
+    const R = 6371
+    const dLat = utilService.deg2rad(gatheringLoc.lat - userLoc.lat)
 
-    const dLng = deg2rad(gatheringLoc.lng - userLoc.lng);
+    const dLng = utilService.deg2rad(gatheringLoc.lng - userLoc.lng)
     const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(userLoc.lat)) *
-        Math.cos(deg2rad(gatheringLoc.lat)) *
+        Math.cos(utilService.deg2rad(userLoc.lat)) *
+        Math.cos(utilService.deg2rad(gatheringLoc.lat)) *
         Math.sin(dLng / 2) *
-        Math.sin(dLng / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c; // Distance in km
-    return distance.toFixed(1);
+        Math.sin(dLng / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    const distance = R * c 
+    return distance.toFixed(1)
 }
-
-function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-}
-
 
 async function getById(gatheringId) {
     return storageService.get(STORAGE_KEY, gatheringId)
@@ -176,7 +170,7 @@ function getEmptyLocation() {
 }
 
 function getEmptyFilter() {
-    return { maxDistance: '100', capacity: 8, locName: '', isGathering: false, date: 0 }
+    return { maxDistance: '100', capacity: 12, locName: '', isGathering: false, date: 0 }
 }
 
 function _createGathering() {

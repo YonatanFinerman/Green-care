@@ -1,40 +1,64 @@
 .add-location-form {
-    margin: 80px auto;
+    margin: 150px auto;
     width: 100%;
     gap: 30px;
+    flex-direction: column;
 
-
+    @include for-midium-layout {
+        flex-direction: row;
+    }
 
     .location-imgs {
-        width: 50%;
+        width: 100%;
         gap: 0.5rem;
+        flex-direction: column;
+        margin: 0 auto;
 
+        @include for-narrow-layout {
+            width: 80%;
+        }
 
+        @include for-midium-layout {
+            width: 50%;
+        }
+
+        @include for-normal-layout {
+            flex-direction: row;
+            align-items: flex-end;
+        }
 
         .location-imgs-paging {
-            flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
             gap: 4px;
+
+            @include for-normal-layout {
+                flex-direction: column;
+                justify-content: flex-end;
+            }
 
         }
 
         .curr-img {
-            height: 850px;
+            height: 350px;
             background: $clr9;
-            width: 80%;
-
+            width: 100%;
             @include background-img;
+
+            @include for-midium-layout {
+                height: 850px;
+            }
+            
+            @include for-normal-layout {
+                width: 80%;
+            }
         }
 
         .empty-img {
-            background-color: $clr9;
-            
-            width: 100px;
+            background-color: $clr9;          
+            width: 32.5%;
             height: 80px;
 
-
-
-            @include for-normal-layout {
+            @include for-mobile-layout {
                 width: 120px;
                 height: 100px;
             }
@@ -67,12 +91,33 @@
     }
 
     .location-info-inputs {
-        width: 50%;
+        width: 100%;
         gap: 60px;
+        margin: 0 auto;
+
+        @include for-mobile-layout {
+            width: 80%;
+        }
+
+        @include for-midium-layout {
+            width: 50%;
+        }
 
         .location-name-input-container{
-            position: relative;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            z-index:2;
+            
+            @include for-midium-layout {
+                position: static;
+                transform: translateX(0%);
+                width: 400px;
+            }
         }
+
         .possible-locs-list{
           position: absolute;
           width: 100%;
@@ -81,9 +126,12 @@
           margin:0.5rem 0;
           border-radius: 0.5rem;
           border: 2px solid $clr9;
-          z-index: 10;
-         top: 35px;
+         
+          @include for-midium-layout {
+             top: 35px; 
         }
+        }
+
         .possible-loc-prev{
             background-color: $clr2;    
             width: 100%;
@@ -99,21 +147,15 @@
 
         .location-name-input {
             padding: 0 1rem;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: bold;
-
             border: none;
             border-bottom: 2px solid black;
-            position: absolute;
-            white-space: nowrap;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
             font-family: Cereal;
+            width: 100%;
 
             @include for-midium-layout {
-                position: static;
-                transform: translateX(0%);
+               font-size: 1.8rem;
             }
 
             &:focus {

@@ -5,25 +5,29 @@ import { TOGGLE_LOGIN_FORM } from "../store/reducers/user.reducer";
 import { TOGGLE_IS_GATHERING } from "../store/reducers/gathering.reducer";
 export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
 
-    
+
     const user = useSelector(storeState => storeState.userModule.user)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     return <aside className={`side-bar ${(isSideBarOpen) ? 'open' : 'closed'} flex column`}>
-        <ul onClick={()=>toggleIsSideBarOpen(prev => !prev)}>
-            <li><a href="#">My contribution</a></li>
-            <li onClick={()=>{
-                dispatch({ type: TOGGLE_IS_GATHERING, isGathering:true })
-                navigate('/gathering')
+        <ul onClick={() => toggleIsSideBarOpen(prev => !prev)}>
+            {(user) && <div>
+
+                <li><a href="#">My contribution</a></li>
+                <li onClick={() => {
+                    dispatch({ type: TOGGLE_IS_GATHERING, isGathering: true })
+                    navigate('/gathering')
                 }}>Join a gathering</li>
-            <li onClick={()=>{
-                dispatch({ type: TOGGLE_IS_GATHERING, isGathering:false })
-                navigate('/location')
-            }}>Host a gathering</li>
-            <li onClick={()=>navigate('/inform')}>Inform a location</li>
-            <li><a href="#">Prizes store</a></li>
+                <li onClick={() => {
+                    dispatch({ type: TOGGLE_IS_GATHERING, isGathering: false })
+                    navigate('/location')
+                }}>Host a gathering</li>
+                <li onClick={() => navigate('/inform')}>Inform a location</li>
+                <li><Link to='/prize'>Prizes store</Link></li>
+            </div>}
+
             <li><Link to='/' >About us</Link></li>
             <li><a href="#">help</a></li>
             {(user) ? <li onClick={() => {

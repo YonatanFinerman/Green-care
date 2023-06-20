@@ -1,6 +1,8 @@
 .gathering-modal{
     @include modal;
     
+    // justify-content: center;
+    
     span{
         position: relative;
         padding: 0 1rem;
@@ -12,15 +14,21 @@
     }
 
     img{
-        width: 320px;
+        width: 100%;
         display: block;
         margin: auto;
+        aspect-ratio: 16 / 9;
+        
+
+        @include for-mobile-layout {
+            width: 320px;
+            height: 200px;
+        }
     }
 
     button{
         padding: 1rem;
         font-size: 1.4rem;
         border-radius: 0.5rem;
-
     }
 }

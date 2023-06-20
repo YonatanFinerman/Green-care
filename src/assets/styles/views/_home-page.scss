@@ -1,6 +1,48 @@
 .home-page {
     color: $clr2;
+    
+    // cursor: url(../../img/butterfly-cursor.gif),auto !important;
+    // cursor: url(../../img/butterfly-cursor.gif),auto;
 
+    .butterfly{
+        width: 100px;
+        height: 100px;
+        background: url(../../img/butterfly-cursor.gif) no-repeat;
+        background-size: contain;
+        // position: fixed;
+        // pointer-events: none;
+        position: absolute;
+        bottom: -50px;
+        left: 250px;
+        animation: moveBackAndForth 25s infinite;
+        transition: 2.5s;
+      }
+      .birds{
+        width: 400px;
+        height: 400px;
+        background: url(../../img/birds.gif) no-repeat;
+        mix-blend-mode: screen;    
+        background-size: contain;
+        position: absolute;
+        top: 70px;
+        gap: 10px;
+        z-index: 2;
+        right: 0;
+        animation: moveImage 35s linear infinite;
+       
+       
+        @include for-mobile-layout {
+           top: 100px;
+        }
+
+        @include for-narrow-layout {
+            top: 170px;
+        }
+        @include for-normal-layout {
+            top: 210px;
+        }
+      }
+    
     .app-header {
         position: fixed;
         top: 0;
@@ -15,13 +57,16 @@
         width: 100vw;
         height: 100vh;
         @include background-img;
+       
 
         .hero-info {
-            margin-top: 150px;
-            gap: 15px;
+            margin-top: 120px;
+            gap: 10px;
+            z-index: 2;
 
             @include for-mobile-layout {
                 gap: 30px;
+                margin-top: 150px;
             }
 
             @include for-narrow-layout {
@@ -103,7 +148,7 @@
 
         img {
             flex-basis: 50%;
-            width: 300px;
+            width: 100%;
             flex-shrink: 1;
             aspect-ratio: 16/9;
 

@@ -8,6 +8,7 @@ import { SideBar } from './side-bar';
 import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer';
 import { GoSearch } from "react-icons/go"
 import { TOGGLE_FILTER_MODAL, TOGGLE_GATHERING_MODAL } from '../store/reducers/gathering.reducer';
+import { Fade } from "react-reveal";
 
 export function AppHeader() {
     const navigate = useNavigate()
@@ -23,8 +24,9 @@ export function AppHeader() {
 
     return (
         <header className="app-header full flex align-center space-between">
-            <img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" />
-            <nav>
+            <Fade left ><img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" /></Fade>
+            
+            <Fade right ><nav>
                 {(user) ? <img src={user.profileImg} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {
                     if (!isLoginForm) {
                         dispatch({ type: TOGGLE_LOGIN_FORM })
@@ -34,7 +36,7 @@ export function AppHeader() {
                     dispatch({ type: TOGGLE_FILTER_MODAL })
                 }} />}
                 <div onClick={() => toggleIsSideBarOpen(prev => !prev)}><HiMenu /></div>
-            </nav>
+            </nav></Fade>
             <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen} />
 
 

@@ -57,8 +57,8 @@ export function LocationIndex() {
 
     return <section className="location-page main-layout">
         <AppHeader />
-        {(!isGathering) ? <h2><span>Pick a location and host</span><span>a gathering</span></h2>
-            : <h2>Join a gathering</h2>}
+        {(!isGathering) ? <h2 className="full"><span>Pick a location and host</span><span>a gathering</span></h2>
+            : <h2 className="full">Join a gathering</h2>}
 
         <LocationFilter setFilterBy={setFilterBy} filterBy={filterBy} onFilterLocation={onFilterLocation} />
         {(userLoc) && <LocationList gatherings={gatherings} userLoc={userLoc} />}

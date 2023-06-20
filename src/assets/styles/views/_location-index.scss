@@ -2,18 +2,23 @@
 
     h2 {
         text-align: center;
-        padding: 3rem 0;
-        font-weight: 300;           
+        padding: 2rem 0;
+        margin-top: 76px;
+        // font-weight: lighter;           
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 5px;
+        background-image: url(../../img/formbg1.jpg);
+        // @include background-img;
+        animation: color-change 5s infinite;
         @include for-narrow-layout {
             flex-direction: row;
         }
 
     }
+
 
     .location-list {
         display: grid;

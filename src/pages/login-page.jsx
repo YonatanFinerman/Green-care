@@ -18,16 +18,13 @@ export function LoginPage() {
     async function OnLoginSignUp(credentials) {
         const isValid = validate(credentials)
         
-        if (!isValid) {
-            console.log('not valid')
-            return
-        }
+        if (!isValid) return 
+
         if (!isLoginForm) {
             try {
                 console.log('valid')
                 await signup(credentials)
-                navigate(-1)
-                // navigate('/')
+                navigate('/gathering')
             } catch (err) {
                 console.log('Error occurred during signup:', err)
             }
@@ -36,7 +33,7 @@ export function LoginPage() {
 
         try {
             await login(credentials)
-            //   onCloseLoginModal()
+            
               navigate(-1)
         } catch (err) {
             console.log('Error occurred during login:', err)

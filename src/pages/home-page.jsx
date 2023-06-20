@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { Guide } from '../cmps/guide'
 import { gatheringService } from "../services/gathering.service"
 import { Bounce } from "react-reveal";
+import { useRef } from 'react'
 
 export function HomePage() {
     const dispatch = useDispatch()
@@ -19,16 +20,29 @@ export function HomePage() {
     }
 
     // gatheringService.getLocationName({ lat: 32.794044, lng: 34.989571 })
-   
+
+    
+        const cursorRef = useRef(null)
+      
+        const handleMouseMove = (event) => {
+          const cursor = cursorRef.current
+          if (cursor) {
+            cursor.style.left = event.clientX + 'px'
+            cursor.style.top = event.clientY + 'px'
+          }
+        }
 
     return (
-        <section className='home-page '>
+        <section className='home-page' >
             <AppHeader />
+
+            
+
             <section className='hero flex justify-center'>
 
-                <div className='hero-info flex column align-center '>
+                <div className='hero-info flex column align-center'>
 
-                    <h1 className='flex column' style={{ gap: '8px' }}>
+                    <h1 className='flex column text-center' style={{ gap: '8px' }}>
                         
                     <Bounce opposite left ><span>   Join our community and </span></Bounce>
                     
@@ -40,6 +54,8 @@ export function HomePage() {
 
                     <Bounce top><Link to='about' spy={true} smooth={true} offset={0} duration={500}><button className='hero-btn'>Learn more</button></Link></Bounce>
                 </div>
+                <div className='butterfly'></div>
+                <div className='birds'></div>
             </section>
 
             <section className='about flex align-center justify-center' id='about'>
@@ -61,7 +77,7 @@ export function HomePage() {
         </section>
 
         <Guide/>
-
+       
         </section >
     )
 }

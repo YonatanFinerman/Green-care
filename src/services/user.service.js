@@ -65,6 +65,9 @@ async function login(userCred) {
         // socketService.login(user._id)
         return saveLocalUser(user)
     }
+    else{
+        throw new Error('no such user')
+    }
 }
 async function signup(userCred) {
     const newUser = {

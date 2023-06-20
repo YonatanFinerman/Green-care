@@ -41,7 +41,7 @@ export function Guide() {
                         }
                         navigate('/login')
                     }}>Register</button>
-                    <button className='start-helping-btn'>Start helping </button>
+                    <button onClick={()=>navigate('/gathering')} className='start-helping-btn'>Start helping </button>
                 </div>}
         </div>
 

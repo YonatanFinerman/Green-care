@@ -1,0 +1,92 @@
+@keyframes moveBackAndForth {
+    0% {
+
+        transform: translate(10vw, -10vh);
+    }
+
+    10% {
+        transform: translate(20vw, -20vh);
+    }
+
+    20% {
+        transform: translate(30vw, -20vh);
+    }
+
+    30% {
+        transform: translate(40vw, -25vh);
+    }
+
+    40% {
+        transform: translate(50vw, -10vh);
+    }
+
+    60% {
+        transform: translate(60vw, -25vh);
+    }
+
+    70% {
+        transform: translate(70vw, -25vh);
+    }
+
+    80% {
+        transform: translate(80vw, -15vh);
+    }
+
+    90% {
+        transform: translate(90vw, -10vh);
+    }
+
+    100% {
+        transform: translate(100vw, 10vh);
+    }
+}
+
+@keyframes moveImage {
+    0% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-50vw);
+    }
+
+    20% {
+        transform: translateX(-100vw);
+    }
+
+    100% {
+        transform: translate(-200vw, -300vh);
+    }
+}
+
+@keyframes color-change {
+    0% {
+        color: rgb(179, 252, 231);
+    }
+
+    25% {
+        color: rgb(0, 255, 183);
+    }
+
+    50% {
+        color: rgb(105, 255, 212);
+    }
+
+    75% {
+        color: rgb(29, 255, 191);
+    }
+
+    100% {
+        color: rgb(42, 255, 255);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

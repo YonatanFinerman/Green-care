@@ -13,9 +13,11 @@
 
     .log-cont {
         background-color: $clr2;
-        margin: auto;
-        margin-top: 75px;
+        position: absolute;
+        top: 150px;
         padding: 10px;
+        left: 50%;
+        transform: translateX(-50%);
 
         @include for-mobile-layout {
             width: 460px;

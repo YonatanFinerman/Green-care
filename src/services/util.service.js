@@ -6,7 +6,9 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    asyncDebounce
+    asyncDebounce,
+    getTimeRemaining,
+    deg2rad
 }
 
 function makeId(length = 6) {
@@ -34,6 +36,23 @@ function getRandomIntInclusive(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
+}
+
+function getTimeRemaining(futureTime) {
+  const oneDay = 24 * 60 * 60 * 1000
+  const now = new Date()
+  const futureDate = new Date(futureTime)
+  futureDate.setHours(0, 0, 0, 0)
+
+  const diffDays = Math.round((futureDate - now) / oneDay)
+
+  if (diffDays === 0) {
+      return "today"
+  } else if (diffDays === 1) {
+      return "tomorrow"
+  } else {
+      return `in ${diffDays} days`
+  }
 }
 
 
@@ -79,3 +98,9 @@ function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+

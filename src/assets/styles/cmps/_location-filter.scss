@@ -7,26 +7,30 @@
         border-radius: 8px;
     }
 
-
     .search-loc-input{
         width: 100%;
-        border: 2px solid $clr1;
+        border: none;
+        border-radius: 4px;
         height: 40px;
         text-align: center;
         transition: 0.3s;
         font-size: rem(18px);
+        background-color: $clr9;
+        box-shadow: $shadow1;
+        color: $clr1;
        
         &:focus{
-            background-color: $clr1;
+            border: 2px solid $clr1;
             outline-color: $clr1;
-            color: $clr2;
         }
     }
 
     h3{
      margin: 2rem 0;   
      text-align: center;
-
+     font-weight: lighter;
+     font-family: Circular;
+    
      @include for-mobile-layout {
         margin: 40px 0;   
     }
@@ -149,14 +153,29 @@
         }
     }
 
+    :where(.css-dev-only-do-not-override-yp8pcc).ant-picker:hover, :where(.css-dev-only-do-not-override-yp8pcc).ant-picker-focused{
+        border: none;
+    }
     .ant-picker {
-        background-color: $clr1;
+        // background-color: $clr1;
+        background-color: $clr9;
+        box-shadow: $shadow1;
         width: 100%;
+
+        &:focus{
+            outline: none;
+            border: none;
+        }
         
         input {
-            color: $clr2;
+            color: $clr1;
             font-size: 1.5rem;
             text-align: center;
+
+            &:focus{
+                outline: none;
+                border: none;
+            }
             
         }
     }
