@@ -46,16 +46,19 @@ function remove(userId) {
     // return httpService.delete(`user/${userId}`)
 }
 
-async function update({ _id, score }) {
-    const user = await storageService.get('user', _id)
-    user.score = score
-    await storageService.put('user', user)
-
-    // const user = await httpService.put(`user/${_id}`, {_id, score})
-    // Handle case in which admin updates other user's details
-    if (getLoggedinUser()._id === user._id) saveLocalUser(user)
-    return user
+async function update(user) { 
+    try{
+        const updatedUser = await storageService.put('user', user)
+         // const user = await httpService.put(`user/${_id}`, {_id, score})
+         // Handle case in which admin updates other user's details
+         if (getLoggedinUser()._id === user._id) saveLocalUser(user)
+         return updatedUser
+    }
+    catch(err){
+        console.log('cannot update user',err)
+    }
 }
+
 
 async function login(userCred) {
     const users = await storageService.query('user')
@@ -65,17 +68,17 @@ async function login(userCred) {
         // socketService.login(user._id)
         return saveLocalUser(user)
     }
-    else{
+    else {
         throw new Error('no such user')
     }
 }
 async function signup(userCred) {
     const newUser = {
         ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
-        coins: 0, gatheringIds: [], isVerified: false
+        coins: 10, gatheringIds: [], isVerified: false, prizes: []
     }
     const user = await storageService.post('user', newUser)
-    console.log('newuser',user)
+    console.log('newuser', user)
     // // const user = await httpService.post('auth/signup', userCred)
     // // socketService.login(user._id)
     return saveLocalUser(user)
@@ -96,7 +99,7 @@ async function changeScore(by) {
 
 
 function saveLocalUser(user) {
-    const {password, ...currUser} = user
+    const { password, ...currUser } = user
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(currUser))
     return currUser
 }

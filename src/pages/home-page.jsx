@@ -7,7 +7,7 @@ import { Link } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
 import { Guide } from '../cmps/guide'
 import { gatheringService } from "../services/gathering.service"
-import { Bounce } from "react-reveal";
+import { Bounce,Fade } from "react-reveal";
 import { useRef } from 'react'
 
 export function HomePage() {
@@ -36,8 +36,6 @@ export function HomePage() {
         <section className='home-page' >
             <AppHeader />
 
-            
-
             <section className='hero flex justify-center'>
 
                 <div className='hero-info flex column align-center'>
@@ -50,12 +48,10 @@ export function HomePage() {
                     {/* make the world a better place. */}
                     </h1>
 
-
-
                     <Bounce top><Link to='about' spy={true} smooth={true} offset={0} duration={500}><button className='hero-btn'>Learn more</button></Link></Bounce>
                 </div>
-                <div className='butterfly'></div>
                 <div className='birds'></div>
+                <div className='butterfly'></div>
             </section>
 
             <section className='about flex align-center justify-center' id='about'>
@@ -68,11 +64,10 @@ export function HomePage() {
                     </p>
 
                     <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>How it works ?</button></Link>
-                    {/* <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>Start helping now</button></Link> */}
-
+                    
                 </div>
                 
-                <img src={require('../assets/img/about1.webp')} alt="" />
+                <img src={require('../assets/img/about1.webp')} />
                 </Bounce>
         </section>
 

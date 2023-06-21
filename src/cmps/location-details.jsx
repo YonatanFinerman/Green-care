@@ -91,7 +91,9 @@ export function LocationDetails() {
     }
 
     function onCreateJoinGathering() {
-        const newGathering = { ...currGathering }
+        
+        const newGathering = structuredClone(currGathering) 
+        // deep clone
 
         if (!currGathering.users.length) {
             const min = 1000 * 60

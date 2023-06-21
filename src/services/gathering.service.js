@@ -170,7 +170,7 @@ function getEmptyLocation() {
 }
 
 function getEmptyFilter() {
-    return { maxDistance: '100', capacity: 12, locName: '', isGathering: false, date: 0 }
+    return { maxDistance: '100', capacity: 13, locName: '', isGathering: false, date: 0 }
 }
 
 function _createGathering() {

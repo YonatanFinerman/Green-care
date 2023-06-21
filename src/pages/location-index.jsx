@@ -5,11 +5,12 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { gatheringService } from "../services/gathering.service";
 import { setUserLoc } from "../store/actions/user.actions";
 import { loadGatherings } from "../store/actions/gathering.actions";
-import { TOGGLE_IS_GATHERING } from "../store/reducers/gathering.reducer";
+import { TOGGLE_FILTER_MODAL, TOGGLE_IS_GATHERING } from "../store/reducers/gathering.reducer";
 
 import { AppHeader } from "../cmps/app-header";
 import { LocationList } from "../cmps/location-list";
 import { LocationFilter } from "../cmps/location-filter";
+
 
 export function LocationIndex() {
 
@@ -36,16 +37,15 @@ export function LocationIndex() {
                 isGathering: newIsGathering
             }
 
-            setFilterBy(newFilterBy)
             loadGatherings(newFilterBy)
-
+            setFilterBy(newFilterBy)
         }
         else {
-            setFilterBy({ ...filterBy, isGathering: newIsGathering })
             loadGatherings({ ...filterBy, isGathering: newIsGathering })
+            setFilterBy({ ...filterBy, isGathering: newIsGathering,capacity:8 })
         }
 
-        
+
 
     }, [isGathering])
 
@@ -53,6 +53,7 @@ export function LocationIndex() {
         console.log(filterBy, 'filter!!')
         setSearchParams({ locName: filterBy.locName, capacity: filterBy.capacity, date: filterBy.date })
         loadGatherings(filterBy, userLoc)
+        dispatch({ type: TOGGLE_FILTER_MODAL })
     }
 
     return <section className="location-page main-layout">
@@ -60,7 +61,7 @@ export function LocationIndex() {
         {(!isGathering) ? <h2 className="full"><span>Pick a location and host</span><span>a gathering</span></h2>
             : <h2 className="full">Join a gathering</h2>}
 
-        <LocationFilter setFilterBy={setFilterBy} filterBy={filterBy} onFilterLocation={onFilterLocation} />
+         <LocationFilter setFilterBy={setFilterBy} filterBy={filterBy} onFilterLocation={onFilterLocation} />
         {(userLoc) && <LocationList gatherings={gatherings} userLoc={userLoc} />}
 
     </section>

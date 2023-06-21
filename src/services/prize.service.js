@@ -11,61 +11,17 @@ export const prizeService = {
     getById,
     save,
     remove,
-    getEmptyLocation,
-    addPrizeMsg,
-    getLocationName,
-    getDistanceFromUser,
     getEmptyFilter,
-    getLocationByName,
-   
 }
 window.cs = prizeService
 
 _createPrizes()
 
-async function query(filterBy, userLoc = null) {
-    console.log(filterBy,'filterby')
+async function query() {
+
     let prizes = await storageService.query(STORAGE_KEY)
-
-    if (filterBy.isPrize) {
-        prizes = prizes.filter(prize => prize.users.length > 0)
-
-    }
-    else {
-        prizes = prizes.filter(prize => !prize.users.length)
-
-    }
-
-    if (filterBy.date) {
-        prizes = prizes.filter(prize => {
-            let date = new Date(prize.time)
-            date.setHours(0, 0, 0, 0)
-            if (date.getTime() === filterBy.date) {
-                return prize
-            }
-        })
-    }
-
-    if (filterBy.capacity) {
-        prizes = prizes.filter(prize => prize.capacity <= filterBy.capacity)
-
-    }
-    if (isNaN(filterBy.maxDistance) && userLoc) {
-        prizes = prizes.filter(prize => {
-            return getDistanceFromUser(userLoc, prize.loc) <= filterBy.maxDistance
-        })
-
-    }
-    if (filterBy.locName) {
-        const regex = new RegExp(filterBy.locName, 'i')
-        prizes = prizes.filter(prize => regex.test(prize.locName))
-    }
-
-
     return prizes
 }
-
-
 
 
 async function getById(prizeId) {
@@ -78,33 +34,17 @@ async function remove(prizeId) {
 }
 
 async function save(prize) {
-  
+
     var savedPrize
     if (prize._id) {
         savedPrize = await storageService.put(STORAGE_KEY, prize)
     } else {
         // Later, owner is set by the backend
-        
+
         // prize.owner = userService.getLoggedinUser()
         savedPrize = await storageService.post(STORAGE_KEY, prize)
     }
     return savedPrize
-}
-
-async function addPrizeMsg(prizeId, txt) {
-    // Later, this is all done by the backend
-    const prize = await getById(prizeId)
-    if (!prize.msgs) prize.msgs = []
-
-    const msg = {
-        id: utilService.makeId(),
-        by: userService.getLoggedinUser(),
-        txt
-    }
-    prize.msgs.push(msg)
-    await storageService.put(STORAGE_KEY, prize)
-
-    return msg
 }
 
 function getEmptyLocation() {
@@ -134,32 +74,12 @@ function _createPrize() {
 
     const prize = {
         _id: utilService.makeId(),
-        imgsBefore: [
-            'https://i0.wp.com/wallpaperaccess.com/full/393735.jpg',
-            'https://m.media-amazon.com/images/I/81VBi2RDh6L._SL500_.jpg',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKa_rfXhm0SzPCi8oeofTBZudR6XMViSsK6Q&usqp=CAU'
-        ],
-        imgsAfter: [],
-        users: [],
-        info: utilService.makeLorem(utilService.getRandomIntInclusive(30, 60)),
-        loc: randomLocs[utilService.getRandomIntInclusive(0, 2)],
-        time: '',
-        status: '',
-        locName: utilService.makeLorem(2),
-        capacity: 8,
+        name:utilService.makeLorem(2),
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHOoJFYlmvyJgrNHV2oZGUVi1670j6v_e14g&usqp=CAU',
+        codes: [utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),],
+        cost:utilService.getRandomIntInclusive(3, 6),
+        prizeDesc:utilService.makeLorem(10),
     }
-
-    // getLocationName(prize.location).then(loc => prize.locName = loc.data.results[1].formatted_address)
-    //  getLocationName(prize.location)
-    if (isPrize) {
-        prize.users = [{ fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() }
-            , { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },]
-        prize.time = new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000)
-    }
-
     return prize
 }
 
@@ -176,10 +96,6 @@ function _createPrizes() {
     return prizes
 }
 
-
-
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
 
 
 

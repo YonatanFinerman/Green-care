@@ -17,15 +17,20 @@ import { NoUserLocModal } from './cmps/no-userloc-modal'
 import { gatheringService } from './services/gathering.service'
 import { LoadingCircle } from './cmps/loading-circle'
 import { PrizeIndex } from './pages/prize-index'
+import { useNavigate } from 'react-router-dom'
 
 export function RootCmp() {
-
     const userLoc = useSelector(storeState => storeState.userModule.userLoc)
     const isLoading = useSelector(storeState => storeState.systemModule.isLoading)
+    const user = useSelector(storeState => storeState.userModule.user)
+    const navigate = useNavigate()
 
 
     useEffect(() => {
         setUserLoc()
+        if(!user){
+            navigate('/')
+        }
     }, [])
 
     return (

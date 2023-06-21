@@ -1,0 +1,57 @@
+
+
+    .user-wallet{
+        margin: 100px auto 25px;
+        width: 100%;
+        border: 2px solid $clr9;   
+        border-radius: 4px;
+        box-shadow: $shadow1;
+        padding: 1rem 0; 
+        
+        @include for-midium-layout {
+            width: 60%;
+        }
+        
+        .wallet-info{
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+
+            @include for-narrow-layout {
+                font-size: 1.4rem;
+            }
+
+            div{
+                width: 50%;
+            }
+
+            small{
+                color: #717171;
+                font-weight: 400;
+            }
+        }
+
+        h3{
+            padding: 1rem;
+            border-bottom: 2px solid $clr9;
+            font-size: 1rem;
+
+            @include for-narrow-layout {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    .prize-list{
+        display: grid;    
+        column-gap: 24px;
+        row-gap: 36px;
+       
+        @include for-narrow-layout {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    
+        @include for-ultrawide-layout {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }

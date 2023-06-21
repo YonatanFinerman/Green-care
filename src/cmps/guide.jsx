@@ -13,6 +13,8 @@ export function Guide() {
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
     const steps = ['Create or join gatherings', 'Meet new people', 'Earn prizes', 'And make the world better', ' So start caring now!']
 
+
+
     return <section className="guide flex column  text-center"  id="guide">
 
         <div className="step-carousel flex " >
@@ -26,14 +28,14 @@ export function Guide() {
                 </div>
             })}
 
-            <div className='steps-pageing'>
+            <div className='steps-pageing' >
                 {steps.map((step, idx) => {
-                    return <img key={idx + step} className={(idx === currStepIdx) ? 'active' : ''} onClick={() => setCurrStepIdx(idx)} src={require(`../assets/img/step${idx}.jpg`)} alt="" />
+                    return <Fade bottom key={idx + step}><img  loading="eager" className={(idx === currStepIdx) ? 'active' : ''} onClick={() => setCurrStepIdx(idx)} src={require(`../assets/img/step-small${idx}.jpg`)} alt="" /></Fade>
                 })}
             </div>
 
-            {(currStepIdx !== 4) ? <button onClick={() => setCurrStepIdx(prev => prev + 1)}
-                className='next-step-btn flex align-center justify-center'><HiArrowNarrowRight /></button> :
+            {(currStepIdx !== 4) ? <button style={{paddingTop:'10px'}} onClick={() => setCurrStepIdx(prev => prev + 1)}
+                className='next-step-btn flex align-center justify-center'><Fade bottom><HiArrowNarrowRight /></Fade></button> :
                 <div className='guide-btns-cont'>
                     <button className='register-btn' onClick={() => {
                         if (isLoginForm) {

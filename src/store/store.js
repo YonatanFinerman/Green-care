@@ -4,6 +4,7 @@ import { gatheringReducer } from './reducers/gathering.reducer.js'
 // import { carReducer } from './car.reducer.js'
 import { userReducer } from './reducers/user.reducer.js'
 import { systemReducer } from './system.reducer.js'
+import { prizeReducer } from './prize.reducer.js'
 // import { reviewReducer } from './review.reducer'
 // import { systemReducer } from './system.reducer'
 
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     
     userModule: userReducer,
     gatheringModule: gatheringReducer,
+    prizeModule: prizeReducer,
     systemModule: systemReducer,
     // reviewModule: reviewReducer,
 })

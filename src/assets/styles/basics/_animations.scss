@@ -33,11 +33,11 @@
     }
 
     90% {
-        transform: translate(90vw, -10vh);
+        transform: translate(75vw, -10vh);
     }
 
     100% {
-        transform: translate(100vw, 10vh);
+        transform: translate(70vw, -30vh);
     }
 }
 
@@ -46,11 +46,11 @@
         transform: translateX(0);
     }
 
-    10% {
+    20% {
         transform: translateX(-50vw);
     }
 
-    20% {
+    40% {
         transform: translateX(-100vw);
     }
 
@@ -88,5 +88,19 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+            
+@keyframes shine-btn-animation {
+    0% {
+         transform: rotate(-20deg) translateX(-60px);  
+    }
+
+    20% {
+        transform: rotate(-20deg) translate(400px,170px); 
+    }
+            
+    100% {
+        transform: translateX(200vw);
     }
 }

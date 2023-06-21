@@ -25,7 +25,7 @@ export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
                     navigate('/location')
                 }}>Host a gathering</li>
                 <li onClick={() => navigate('/inform')}>Inform a location</li>
-                <li><Link to='/prize'>Prizes store</Link></li>
+                <li onClick={()=>navigate('/prize')}>Prizes store</li>
             </div>}
 
             <li><Link to='/' >About us</Link></li>

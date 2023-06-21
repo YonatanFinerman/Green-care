@@ -50,9 +50,8 @@ export async function removeUser(userId) {
 }
 
 export async function updateUser(user) {
-    console.log('user from actions', user)
     try {
-        const savedUser = await userService.save(user)
+        const savedUser = await userService.update(user)
         console.log('Updated user:', savedUser)
         userService.saveLocalUser(savedUser)
         // store.dispatch(getActionUpdateUser(savedUser))

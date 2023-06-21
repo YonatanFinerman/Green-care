@@ -1,0 +1,135 @@
+.prize-preview {
+    border: 2px solid $clr9;
+    border-radius: 4px;
+    box-shadow: $shadow1;
+    font-size: 1rem;
+    position: relative;
+    flex-direction: column;
+    transition: 0.7s;
+
+    @include for-mobile-layout {
+        justify-content: space-between;
+    }
+
+    @include for-normal-layout {
+        flex-direction: row;
+    }
+
+    .out-of-stock {
+        width: 100%;
+        height: 100%;
+        background-color: rgba($clr9, 0.7);
+        z-index: 3;
+        position: absolute;
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+
+    img {
+        width: 100%;
+        margin: 0 auto;
+
+        @include for-mobile-layout {
+            width: 60%;
+        }
+
+        @include for-narrow-layout {
+            width: 70%;
+        }
+
+        @include for-normal-layout {
+            width: 40%;
+        }
+    }
+
+    .prev-info {
+        padding: 1rem;
+        flex-grow: 1;
+        justify-content: space-between;
+
+        .prize-name {
+            font-weight: bold;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1rem;
+
+            @include for-midium-layout {
+                font-size: 1.25rem;
+            }
+
+            @include for-normal-layout {
+                position: static;
+            }
+        }
+
+        .prev-footer {
+            font-weight: 500;
+            justify-content: flex-end;
+    
+            @include for-wide-layout {
+                justify-content: space-between;
+            }
+        }
+
+        .amount-left {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+
+            @include for-normal-layout {
+                left: 1rem;
+            }
+
+            @include for-wide-layout {
+                position: static;
+            }
+        }
+
+        button {
+            font-size: 1.15rem;
+        }
+    }
+
+    .error-msg {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 20px;
+        text-align: center;
+        color: $clr10;
+    }
+
+    &.curr-prize {
+        position: fixed;
+        width: 80vw;
+        background-color: $clr2;
+        z-index: 10;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        @include for-wide-layout {
+            width: 60vw;
+        }
+
+        p,
+        button {
+            font-size: 1.25rem;
+        }
+
+        .tranaction {
+
+            h4 {
+                margin: 2rem 0 1rem;
+                border-bottom: 2px solid $clr9;
+            }
+
+            div {
+                gap: 0.75rem;
+            }
+        }
+        .prev-footer {
+            margin: 2rem 0 1rem ;
+        }
+    }
+}
