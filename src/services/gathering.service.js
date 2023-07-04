@@ -17,14 +17,14 @@ export const gatheringService = {
     getDistanceFromUser,
     getEmptyFilter,
     getLocationByName,
-   
+
 }
 window.cs = gatheringService
 
 _createGatherings()
 
 async function query(filterBy, userLoc = null) {
-    console.log(filterBy,'filterby')
+    console.log(filterBy, 'filterby')
     let gatherings = await storageService.query(STORAGE_KEY)
 
     if (filterBy.isGathering) {
@@ -65,9 +65,14 @@ async function query(filterBy, userLoc = null) {
     return gatherings
 }
 
+async function getUserGatherings(gatheringsIds) {
+    let gatherings = await storageService.query(STORAGE_KEY)
+    return gatherings.filter(gathering => gatheringsIds.includes(gathering._id))
+}
+
 
 async function getLocationName(pos) {
-    console.log('locname from args',pos)
+    console.log('locname from args', pos)
     // const API_KEY = 'AIzaSyDaRU8dfDmfYH7VAnKLLM7Y2SXli9AH33Q'
     const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
 
@@ -77,23 +82,25 @@ async function getLocationName(pos) {
     let urlName = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc`
     // console.log('name of location is', posNamePrm)
     const locName = await axios.get(urlName).then(res => res.data.results[0].formatted_address)
-    console.log('this is location',locName) 
+    console.log('this is location', locName)
     return locName
 }
 
 
 
+
+
 async function getLocationByName(locName) {
- 
+
     const API_KEY = 'AIzaSyCWNRrGApZar-RMJ5hDCH8zRLA2TDISlPc'
     let urlName = `https://maps.googleapis.com/maps/api/geocode/json?address=${locName}&key=${API_KEY}`
-    try{
-        const loc = await axios.get(urlName).then(res => res.data.results)    
-      
+    try {
+        const loc = await axios.get(urlName).then(res => res.data.results)
+
         return loc
     }
-    catch(err){
-        console.log(err,'No such place')
+    catch (err) {
+        console.log(err, 'No such place')
         throw err
     }
 }
@@ -111,7 +118,7 @@ function getDistanceFromUser(userLoc, gatheringLoc) {
         Math.sin(dLng / 2) *
         Math.sin(dLng / 2)
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    const distance = R * c 
+    const distance = R * c
     return distance.toFixed(1)
 }
 
@@ -125,13 +132,13 @@ async function remove(gatheringId) {
 }
 
 async function save(gathering) {
-  
+
     var savedGathering
     if (gathering._id) {
         savedGathering = await storageService.put(STORAGE_KEY, gathering)
     } else {
         // Later, owner is set by the backend
-        
+
         // gathering.owner = userService.getLoggedinUser()
         savedGathering = await storageService.post(STORAGE_KEY, gathering)
     }

@@ -10,7 +10,7 @@ import { TOGGLE_FILTER_MODAL, TOGGLE_IS_GATHERING } from "../store/reducers/gath
 import { AppHeader } from "../cmps/app-header";
 import { LocationList } from "../cmps/location-list";
 import { LocationFilter } from "../cmps/location-filter";
-
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer";
 
 export function LocationIndex() {
 
@@ -54,6 +54,7 @@ export function LocationIndex() {
         setSearchParams({ locName: filterBy.locName, capacity: filterBy.capacity, date: filterBy.date })
         loadGatherings(filterBy, userLoc)
         dispatch({ type: TOGGLE_FILTER_MODAL })
+        dispatch({type:TOGGLE_IS_SHADOW})
     }
 
     return <section className="location-page main-layout">
@@ -62,6 +63,7 @@ export function LocationIndex() {
             : <h2 className="full">Join a gathering</h2>}
 
          <LocationFilter setFilterBy={setFilterBy} filterBy={filterBy} onFilterLocation={onFilterLocation} />
+        
         {(userLoc) && <LocationList gatherings={gatherings} userLoc={userLoc} />}
 
     </section>

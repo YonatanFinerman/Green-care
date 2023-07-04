@@ -76,7 +76,7 @@ function _createPrize() {
         _id: utilService.makeId(),
         name:utilService.makeLorem(2),
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHOoJFYlmvyJgrNHV2oZGUVi1670j6v_e14g&usqp=CAU',
-        codes: [utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),utilService.makeId(20),],
+        codes: [utilService.makeId(12),utilService.makeId(12),utilService.makeId(12),utilService.makeId(12),utilService.makeId(12),utilService.makeId(12),utilService.makeId(12),],
         cost:utilService.getRandomIntInclusive(3, 6),
         prizeDesc:utilService.makeLorem(10),
     }

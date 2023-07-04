@@ -4,6 +4,7 @@ import { TOGGLE_FILTER_MODAL } from "../store/reducers/gathering.reducer"
 import { HiMinus, HiPlus } from "react-icons/hi"
 import { DatePickerCmp } from "./date-picker"
 import { AmoutInput } from "./participants-amount-input"
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer"
 
 export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
 
@@ -24,7 +25,10 @@ export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
 
     return <section className={`location-filter ${(isFilterModal) ? 'open' : 'closed'} `} style={{ gap: `${(isGathering) ? '20px' : '40px'}` }}>
 
-        <p className="close-modal-btn"><IoClose onClick={() => dispatch({ type: TOGGLE_FILTER_MODAL })} /><span>Filter locations</span> </p>
+        <p className="close-modal-btn"><IoClose onClick={() => {
+            dispatch({ type: TOGGLE_FILTER_MODAL })
+            dispatch({type:TOGGLE_IS_SHADOW})
+            }} /><span>Filter locations</span> </p>
         <input className="search-loc-input" name="locName" type="text" onChange={handleChange} placeholder="Search location..." />
 
         <h3>Max distance</h3>

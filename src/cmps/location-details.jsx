@@ -15,6 +15,7 @@ import { TOGGLE_GATHERING_MODAL } from "../store/reducers/gathering.reducer";
 import { CreateGatheringModal } from "./create-gathering-modal";
 import { updateGathering } from "../store/actions/gathering.actions";
 import { utilService } from "../services/util.service";
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer";
 
 export function LocationDetails() {
 
@@ -28,7 +29,7 @@ export function LocationDetails() {
     const [userRole, setUserRole] = useState(null)
     const [isSelectedDateErr, setIsSelectedDateErr] = useState(false)
     const { locationId } = useParams()
-    
+
 
     useEffect(() => {
         loadGathering(locationId)
@@ -36,11 +37,11 @@ export function LocationDetails() {
 
     async function loadGathering(locationId) {
         try {
-            const gathering = await gatheringService.getById(locationId)      
-            console.log(gathering,'omg')
+            const gathering = await gatheringService.getById(locationId)
+            console.log(gathering, 'omg')
             if (gathering.time) {
                 setNewGatheringTime({ date: gathering.time, time: { hour: new Date(gathering.time).getHours(), min: new Date(gathering.time).getMinutes() } })
-                if(user){
+                if (user) {
                     checkUserRole(gathering)
                 }
             }
@@ -48,11 +49,11 @@ export function LocationDetails() {
             return gathering
         }
         catch (err) {
-            console.log("unable to load gathering",err)
+            console.log("unable to load gathering", err)
             return err
         }
     }
-      
+
 
     function checkUserRole(gathering) {
         const userIdx = gathering.users.findIndex(participent => participent._id === user._id)
@@ -91,8 +92,8 @@ export function LocationDetails() {
     }
 
     function onCreateJoinGathering() {
-        
-        const newGathering = structuredClone(currGathering) 
+
+        const newGathering = structuredClone(currGathering)
         // deep clone
 
         if (!currGathering.users.length) {
@@ -105,21 +106,21 @@ export function LocationDetails() {
         console.log('new', newGathering)
         updateGathering(newGathering)
         dispatch({ type: TOGGLE_GATHERING_MODAL })
+        dispatch({ type: TOGGLE_IS_SHADOW })
         setCurrgathering(newGathering)
         checkUserRole(newGathering)
     }
 
     function onOpenGatheringModal() {
-        if (!user) {
-            navigate('/login')
-        }
-        else if (newgatheringTime.date || currGathering.users.length) {
+
+        if (newgatheringTime.date || currGathering.users.length) {
 
             dispatch({ type: TOGGLE_GATHERING_MODAL })
         }
         else {
             setIsSelectedDateErr(true)
         }
+        dispatch({ type: TOGGLE_IS_SHADOW })
     }
 
     {
@@ -165,8 +166,8 @@ export function LocationDetails() {
 
                         <div className="text-center">
 
-                        {(currGathering.time) &&<p>This gathering is {utilService.getTimeRemaining(currGathering.time)}</p>}
-                        {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
+                            {(currGathering.time) && <p>This gathering is {utilService.getTimeRemaining(currGathering.time)}</p>}
+                            {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
                         </div>
 
                         {(!currGathering.users.length) && <div className="create-gathering flex column align-center">

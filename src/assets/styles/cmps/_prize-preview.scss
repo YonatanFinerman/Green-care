@@ -114,7 +114,7 @@
 
         p,
         button {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
         }
 
         .tranaction {
@@ -130,6 +130,34 @@
         }
         .prev-footer {
             margin: 2rem 0 1rem ;
+        }
+
+        .copy-code{   
+            justify-content: space-between;
+            position: relative;
+            
+            p{
+                flex-grow: 1;
+                padding: 1rem;             
+                border: 2px solid $clr9;
+                box-shadow: $shadow1;    
+            }
+
+            button{
+                flex-basis: 10%;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+            small{
+                position: absolute;
+                right: 0;
+                bottom: -1rem;
+                
+                @include for-narrow-layout {
+                    right: 15%;
+                    bottom:1.5rem ;
+                }
+            }
         }
     }
 }

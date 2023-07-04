@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { TOGGLE_GATHERING_MODAL } from "../store/reducers/gathering.reducer"
 import { IoClose } from "react-icons/io5"
 import { BsFillPersonFill } from "react-icons/bs"
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer"
 
 export function CreateGatheringModal({ userRole, onCreateJoinGathering, gathering, newgatheringTime }) {
 
@@ -10,7 +11,10 @@ export function CreateGatheringModal({ userRole, onCreateJoinGathering, gatherin
 
 
     return <section className={`gathering-modal ${(isGatheringModal) ? 'open' : 'closed'} `}>
-        <p className="close-modal-btn"><IoClose onClick={() => dispatch({ type: TOGGLE_GATHERING_MODAL })} /><span>Confirm details</span> </p>
+        <p className="close-modal-btn"><IoClose onClick={() => {
+            dispatch({ type: TOGGLE_GATHERING_MODAL })
+            dispatch({type:TOGGLE_IS_SHADOW})
+    }} /><span>Confirm details</span> </p>
         <div>
             <p className="flex space-between"><span>Location:</span> <span>{gathering.locName}</span></p>
             <p className="flex space-between"> <span>Date:</span> <span>{new Date(newgatheringTime.date).toLocaleDateString()}</span></p>

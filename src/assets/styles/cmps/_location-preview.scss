@@ -1,6 +1,16 @@
 .location-preview {
-
     font-size: 1rem;
+    position: relative;
+
+    .joined-sign{
+        position: absolute;
+        right: 0.5rem;
+        top: -0.3rem;
+        font-size: 2rem;
+        z-index: 2;
+        color: $clr2;
+    }
+    
     .prev-carousel {
         display: flex;
         overflow: hidden;

@@ -24,8 +24,7 @@ export function RootCmp() {
     const isLoading = useSelector(storeState => storeState.systemModule.isLoading)
     const user = useSelector(storeState => storeState.userModule.user)
     const navigate = useNavigate()
-
-
+    
     useEffect(() => {
         setUserLoc()
         if(!user){
@@ -46,7 +45,7 @@ export function RootCmp() {
                     <Route path="/gathering" element={<LocationIndex />} />
                     <Route path="/inform" element={<AddLocationPage />} />
                     <Route path="/location/:locationId" element={<LocationDetails />} />
-
+                    <Route path="/user/:userId" element={<UserDetails />} />
                 </Routes>
             </main>}
             {<NoUserLocModal />}

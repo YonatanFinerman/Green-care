@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../store/actions/user.actions";
 import { TOGGLE_LOGIN_FORM } from "../store/reducers/user.reducer";
 import { TOGGLE_IS_GATHERING } from "../store/reducers/gathering.reducer";
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer";
 export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
 
 
@@ -12,10 +13,13 @@ export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
     const navigate = useNavigate()
 
     return <aside className={`side-bar ${(isSideBarOpen) ? 'open' : 'closed'} flex column`}>
-        <ul onClick={() => toggleIsSideBarOpen(prev => !prev)}>
+        <ul onClick={() => {
+            dispatch({type:TOGGLE_IS_SHADOW})
+            toggleIsSideBarOpen(prev => !prev)
+        }}>
             {(user) && <div>
 
-                <li><a href="#">My contribution</a></li>
+                <li onClick={()=>navigate(`/user/${user._id}`)}>View profile</li>
                 <li onClick={() => {
                     dispatch({ type: TOGGLE_IS_GATHERING, isGathering: true })
                     navigate('/gathering')
@@ -32,7 +36,7 @@ export function SideBar({ isSideBarOpen, toggleIsSideBarOpen }) {
             <li><a href="#">help</a></li>
             {(user) ? <li onClick={() => {
                 logout()
-                // navigate('/gathering')
+                navigate('/')
             }}> Log out</li> : <li onClick={() => {
                 if (!isLoginForm) {
                     dispatch({ type: TOGGLE_LOGIN_FORM })

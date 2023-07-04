@@ -15,7 +15,8 @@ export const userService = {
     remove,
     update,
     changeScore,
-    getUserPos
+    getUserPos,
+    getUserRole,
 }
 
 window.userService = userService
@@ -46,16 +47,16 @@ function remove(userId) {
     // return httpService.delete(`user/${userId}`)
 }
 
-async function update(user) { 
-    try{
+async function update(user) {
+    try {
         const updatedUser = await storageService.put('user', user)
-         // const user = await httpService.put(`user/${_id}`, {_id, score})
-         // Handle case in which admin updates other user's details
-         if (getLoggedinUser()._id === user._id) saveLocalUser(user)
-         return updatedUser
+        // const user = await httpService.put(`user/${_id}`, {_id, score})
+        // Handle case in which admin updates other user's details
+        if (getLoggedinUser()._id === user._id) saveLocalUser(user)
+        return updatedUser
     }
-    catch(err){
-        console.log('cannot update user',err)
+    catch (err) {
+        console.log('cannot update user', err)
     }
 }
 
@@ -74,7 +75,8 @@ async function login(userCred) {
 }
 async function signup(userCred) {
     const newUser = {
-        ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+        ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 
+        // https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png
         coins: 10, gatheringIds: [], isVerified: false, prizes: []
     }
     const user = await storageService.post('user', newUser)
@@ -106,6 +108,12 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+function getUserRole(users,currUser) {
+    const userIdx = users.findIndex(user => user._id === currUser._id)
+    if (userIdx > -1) return true
+    else return false
 }
 
 

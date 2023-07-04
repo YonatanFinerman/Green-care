@@ -1,18 +1,20 @@
 import { useState } from "react"
+import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { gatheringService } from "../services/gathering.service"
-import { BsFillPersonFill, BsPerson } from "react-icons/bs"
+import { BsBookmarkStar, BsBookmarkStarFill, BsFillPersonFill, BsPerson } from "react-icons/bs"
 import { utilService } from "../services/util.service"
+import { userService } from "../services/user.service"
 
 export function LocationPreview({ gathering, userLoc }) {
     const navigate = useNavigate()
     const [currImgUrlIdx, setCurrImgUrlIdx] = useState(0)
-
+    const user = useSelector(storeState => storeState.userModule.user)
 
     return <article className="location-preview"
         onClick={() => { navigate(`/location/${gathering._id}`) }}
     >
-    
+        {(userService.getUserRole(gathering.users,user))&&<div className="joined-sign"><BsBookmarkStarFill/></div>}
         <div className="prev-carousel" onMouseEnter={() => setCurrImgUrlIdx(prev => prev + 1)} onMouseLeave={() => setCurrImgUrlIdx(prev => prev - 1)}>
 
             {gathering.imgsBefore.map(imgUrl => {

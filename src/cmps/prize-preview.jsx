@@ -1,12 +1,24 @@
 import { useDispatch, useSelector } from "react-redux"
 import { SET_CURR_PRIZE } from "../store/prize.reducer"
 import { useState } from "react"
+import { RxCopy } from "react-icons/rx";
+import { TOGGLE_IS_SHADOW } from "../store/system.reducer";
 
-export function PrizePreview({ prize, user,onConfirmReward }) {
+
+export function PrizePreview({ prize, user, onConfirmReward, revealedCode }) {
 
     const dispatch = useDispatch()
     const currPrize = useSelector(storeState => storeState.prizeModule.currPrize)
     const [lowBalanceErr, setLowBalanceErr] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
+
+    function onCopy(code) {
+        navigator.clipboard.writeText(code)
+        setIsCopied(true)
+        setTimeout(() => {
+            setIsCopied(false)
+        }, 3000);
+    }
 
     return <article className={`prize-preview flex ${(currPrize?._id === prize._id) ? 'curr-prize' : ''}`}>
 
@@ -41,12 +53,19 @@ export function PrizePreview({ prize, user,onConfirmReward }) {
 
             </div>}
 
-            <div className="prev-footer flex align-center">
+            {(revealedCode && currPrize?._id === prize._id) ? <div className="copy-code flex align-center">
+                <p>{revealedCode}</p>
+                {(isCopied) && <small>Copied!</small>}
+                <button onClick={() => onCopy(revealedCode)}><RxCopy /></button>
+
+            </div> : <div className="prev-footer flex align-center">
                 <p className="amount-left">{prize.codes.length} in stock</p>
+
                 <div className="flex align-center">
                     <p>{prize.cost} care points</p>
                     {(currPrize?._id !== prize._id) ? <button onClick={() => {
                         dispatch({ type: SET_CURR_PRIZE, prize })
+                        dispatch({type:TOGGLE_IS_SHADOW})
 
                     }}>Redeem</button> : <button onClick={() => {
                         if (user.coins - prize.cost < 0) {
@@ -58,7 +77,8 @@ export function PrizePreview({ prize, user,onConfirmReward }) {
                     }}>Confirm</button>}
                     {(lowBalanceErr && currPrize?._id === prize._id) && <small className="error-msg">Not enught credit!</small>}
                 </div>
-            </div>
+            </div>}
+
         </div>
     </article>
 }

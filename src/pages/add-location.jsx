@@ -12,7 +12,7 @@ import { uploadImgs } from "../services/cloudinary-service.js"
 import { utilService } from "../services/util.service";
 import { addGathering } from "../store/actions/gathering.actions";
 
-import { LOADING_DONE, LOADING_START } from "../store/system.reducer";
+import { LOADING_DONE, LOADING_START, TOGGLE_IS_SHADOW } from "../store/system.reducer";
 import { ImgsInput } from "../cmps/add-imgs-input";
 
 export function AddLocationPage() {
@@ -59,6 +59,7 @@ export function AddLocationPage() {
 
         if (!isValid) return
         dispatch({ type: LOADING_START })
+        dispatch({type:TOGGLE_IS_SHADOW})
 
         if (!newLoc.loc) newLoc.loc = userLoc
         uploadImgs(newLoc.imgsBefore)
@@ -66,6 +67,7 @@ export function AddLocationPage() {
                 newLoc.imgsBefore = res
                 addGathering(newLoc).then(res => {
                     dispatch({ type: LOADING_DONE })
+                    dispatch({type:TOGGLE_IS_SHADOW})
                     navigate(`/location/${res._id}`)
                 })
             })

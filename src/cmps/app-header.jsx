@@ -8,24 +8,46 @@ import { TOGGLE_LOGIN_FORM } from '../store/reducers/user.reducer';
 import { GoSearch } from "react-icons/go"
 import { TOGGLE_FILTER_MODAL, TOGGLE_GATHERING_MODAL } from '../store/reducers/gathering.reducer';
 import { Fade } from "react-reveal";
-import { SET_CURR_PRIZE } from '../store/prize.reducer';
+import { SET_CURR_PRIZE, SET_REVEALED_CODE } from '../store/prize.reducer';
+import { TOGGLE_IS_SHADOW } from '../store/system.reducer';
+import { IoReturnDownBack } from 'react-icons/io5';
 
 export function AppHeader() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const location = useLocation()
+
     const [isSideBarOpen, toggleIsSideBarOpen] = useState(false)
+
     const user = useSelector(storeState => storeState.userModule.user)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
-    const isFilterModal = useSelector(storeState => storeState.gatheringModule.isFilterModal)
     const isGatheringModal = useSelector(storeState => storeState.gatheringModule.isGatheringModal)
-    const isUserLocModal = useSelector(storeState => storeState.userModule.isUserLocModal)
     const isLoading = useSelector(storeState => storeState.systemModule.isLoading)
     const currPrize = useSelector(storeState => storeState.prizeModule.currPrize)
-    const dispatch = useDispatch()
+    const isShadow = useSelector(storeState => storeState.systemModule.isShadow)
+    const isGathering = useSelector(storeState => storeState.gatheringModule.isGathering)
+
+    function handleShadowClick() {
+        if (isLoading) return
+
+        else if (isSideBarOpen) toggleIsSideBarOpen(prev => !prev)
+
+        else if (isGatheringModal) dispatch({ type: TOGGLE_GATHERING_MODAL })
+
+        else if (currPrize) {
+            dispatch({ type: SET_REVEALED_CODE, revealedCode: null })
+            dispatch({ type: SET_CURR_PRIZE, prize: null })
+        }
+
+        else dispatch({ type: TOGGLE_FILTER_MODAL })
+
+        dispatch({ type: TOGGLE_IS_SHADOW })
+    }
 
     return (
         <header className="app-header full flex align-center space-between">
-            <Fade left ><img onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/') ? '4' : '2'}.png`)}`} alt="" /></Fade>
+            <Fade left ><img className='logo' onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/' ||location.pathname.includes('/user')) ? '4' : '2'}.png`)}`} alt="" /></Fade>
+            {(location.pathname.includes('/location/'))&&<Fade left><div className='go-back' onClick={() => navigate((isGathering) ? '/gathering' : '/location')}><IoReturnDownBack /></div></Fade>}
 
             <Fade right ><nav>
                 {(user) ? <img src={user.profileImg} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {
@@ -35,29 +57,16 @@ export function AppHeader() {
                 }}><BsPerson /></Link>}
                 {(location.pathname === '/location' || location.pathname === '/gathering') && <GoSearch style={{ fontSize: '24px', marginTop: '6px' }} onClick={() => {
                     dispatch({ type: TOGGLE_FILTER_MODAL })
+                    dispatch({ type: TOGGLE_IS_SHADOW })
                 }} />}
-                <div onClick={() => toggleIsSideBarOpen(prev => !prev)}><HiMenu /></div>
+                <div onClick={() => {
+                    toggleIsSideBarOpen(prev => !prev)
+                    dispatch({ type: TOGGLE_IS_SHADOW })
+                }}><HiMenu /></div>
             </nav></Fade>
             <SideBar className='side-bar-container' toggleIsSideBarOpen={toggleIsSideBarOpen} isSideBarOpen={isSideBarOpen} />
 
-
-            {(isSideBarOpen || isFilterModal || isGatheringModal || isUserLocModal || isLoading || currPrize) && <div className='shadow' onClick={() => {
-                if (isSideBarOpen) {
-                    toggleIsSideBarOpen(prev => !prev)
-                }
-                else if (isGatheringModal) {
-                    dispatch({ type: TOGGLE_GATHERING_MODAL })
-                }
-                else if (isUserLocModal) {
-                    return
-                }
-                else if (currPrize) {
-                    dispatch({ type: SET_CURR_PRIZE, prize: null })
-                }
-                else {
-                    dispatch({ type: TOGGLE_FILTER_MODAL })
-                }
-            }}></div>}
+            {(isShadow) && <div className='shadow' onClick={handleShadowClick}></div>}
 
         </header>
     )

@@ -1,7 +1,39 @@
 .user-details {
-    .user-img {
-        height: 200px;
-        width: 200px;
-        background-size: contain;
+    background-color: $bgclr1;
+    color: $clr2;
+    
+    .app-header {
+        background-color: $bgclr1;
+    }
+
+    .user-details-header {
+        margin-top: 77px;
+        padding: 2rem;
+        background-color: #000663;
+        background-color: #23fff4;
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            margin-right: 1rem;
+        }
+    }
+
+    .user-info {
+        padding: 1rem 0;
+        flex-grow: 1;
+
+        .user-lvl {
+            font-size: 1.5rem;
+        }
+        .balance{
+            display: inline-block;
+            margin-top: 3rem;
+            text-align: center;
+        }
+    }
+
+    h3 {
+        font-size: 1.5rem;
     }
 }

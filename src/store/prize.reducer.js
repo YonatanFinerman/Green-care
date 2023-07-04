@@ -9,16 +9,18 @@ export const REMOVE_FROM_PRIZET = 'REMOVE_FROM_PRIZET'
 export const TOGGLE_FILTER_MODAL = 'TOGGLE_FILTER_MODAL'
 export const TOGGLE_PRIZE_MODAL = 'TOGGLE_PRIZE_MODAL'
 export const TOGGLE_IS_PRIZE = 'TOGGLE_IS_PRIZE'
+export const SET_REVEALED_CODE = 'SET_REVEALED_CODE'
 
 export const SET_CURR_PRIZE = 'SET_CURR_PRIZE'
 
 const initialState = {
     prizes: [],
-    currPrize:null,
+    currPrize: null,
     lastRemovedPrize: null,
     isPrize: false,
-    isFilterModal:false,
-    isPrizeModal:false,
+    isFilterModal: false,
+    isPrizeModal: false,
+    revealedCode: null,
 }
 
 export function prizeReducer(state = initialState, action) {
@@ -28,6 +30,9 @@ export function prizeReducer(state = initialState, action) {
     switch (action.type) {
         case SET_PRIZES:
             newState = { ...state, prizes: action.prizes }
+            break
+        case SET_REVEALED_CODE:
+            newState = { ...state, revealedCode: action.revealedCode }
             break
         case SET_CURR_PRIZE:
             newState = { ...state, currPrize: action.prize }

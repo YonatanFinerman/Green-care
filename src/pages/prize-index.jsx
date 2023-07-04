@@ -1,36 +1,47 @@
 import { useEffect, useState } from "react";
 import { AppHeader } from "../cmps/app-header";
 import { loadPrizes, updatePrize } from "../store/actions/prize.actions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PrizePreview } from "../cmps/prize-preview";
 import { updateUser } from "../store/actions/user.actions";
+import { SET_REVEALED_CODE } from "../store/prize.reducer";
 
 export function PrizeIndex() {
-
     const prizes = useSelector(storeState => storeState.prizeModule.prizes)
+    const revealedCode = useSelector(storeState => storeState.prizeModule.revealedCode)
     const user = useSelector(storeState => storeState.userModule.user)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         loadPrizes()
     }, [])
 
- async function onConfirmReward(prize){
-        const updatedPrize = structuredClone(prize)
-        const updatedUser = structuredClone(user)
+    async function onConfirmReward(prize) {
 
-        const newCode = updatedPrize.codes.shift(1)
-        updatedUser.prizes.push(newCode)
-        updatedUser.coins = updatedUser.coins - prize.cost
-        
-        try{
+        try {
+            const updatedPrize = structuredClone(prize)
+            const updatedUser = structuredClone(user)
+            const newCode = updatedPrize.codes.shift(1)
+
+            updatedUser.prizes.push({ code: newCode, _id: updatedPrize._id, name: updatePrize.name, img: updatedPrize.img, prizeDesc: updatedPrize.prizeDesc })
+            updatedUser.coins = updatedUser.coins - prize.cost
+
             const prizePrm = updatePrize(updatedPrize)
-            const userPrm =  updateUser(updatedUser)
-            const res = await Promise.all([prizePrm,userPrm])
+            const userPrm = updateUser(updatedUser)
+
+            const res = await Promise.all([prizePrm, userPrm])
+
+            // dispatch({ type: SET_CURR_PRIZE, prize: null })
+            dispatch({ type: SET_REVEALED_CODE, revealedCode: newCode })
+
+            // then reveal the code and add a button to copy to clip board before closeing the modal
         }
-        catch(err){
-            console.log('unable to redeem prize',err)
+        catch (err) {
+            console.log('unable to redeem prize', err)
         }
     }
+
+
 
     return <section className="prize-index main-layout">
         <AppHeader />
@@ -51,9 +62,10 @@ export function PrizeIndex() {
 
         <section className="prize-list">
             {prizes.map(prize => {
-                return <PrizePreview key={prize._id} prize={prize} user={user} onConfirmReward={onConfirmReward} />
+                return <PrizePreview key={prize._id} prize={prize} user={user} onConfirmReward={onConfirmReward} revealedCode={revealedCode} />
             })}
         </section>
+
 
     </section>
 }

@@ -2,47 +2,58 @@
 // import { useSelector } from 'react-redux'
 // import { useParams } from 'react-router-dom'
 
+import { useSelector } from "react-redux";
+import { AppHeader } from "../cmps/app-header";
+import { useEffect } from "react";
+
 // import { loadUser } from '../store/user.actions'
 // import { store } from '../store/store'
 // import { showSuccessMsg } from '../services/event-bus.service'
 // import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from '../services/socket.service'
 
-// export function UserDetails() {
+export function UserDetails() {
 
-//   const params = useParams()
-//   const user = useSelector(storeState => storeState.userModule.watchedUser)
+  // 
+  //   const user = useSelector(storeState => storeState.userModule.watchedUser)
+  // useEffect(() => {
+  //   loadUserGathering
+  // }, [])
 
-//   useEffect(() => {
-//     loadUser(params.id)
+  const user = useSelector(storeState => storeState.userModule.user)
 
-//     socketService.emit(SOCKET_EMIT_USER_WATCH, params.id)
-//     socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
+  return (
+    <section className="user-details main-layout">
+      <AppHeader />
 
-//     return () => {
-//       socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
-//     }
 
-//   }, [])
+      <div className="user-details-header flex">
 
-//   function onUserUpdate(user) {
-//     showSuccessMsg(`This user ${user.fullname} just got updated from socket, new score: ${user.score}`)
-//     store.dispatch({ type: 'SET_WATCHED_USER', user })
-//   }
+        <img className="profile-img" src={user.profileImg} />
 
-//   return (
-//     <section className="user-details">
-//       <h1>User Details</h1>
-//       {user && <div>
-//         <h3>
-//           {user.fullname}
-//         </h3>
-//         {/* Demo for dynamic images: */}
-//         <div className="user-img" style={{ backgroundImage: `url('/img/u${0}.png')` }}>
-//         </div>
-//         <pre>
-//           {JSON.stringify(user, null, 2)}
-//         </pre>
-//       </div>}
-//     </section>
-//   )
-// }
+        <div className="user-info">
+
+          <div className="flex space-between align-center">
+            <h3>{user.fullname}</h3>
+            <p className="user-lvl">level  <span>9</span></p>
+          </div>
+
+          <p>Green master</p>
+
+          <div className="balance">
+            <small>Care points balance</small>
+            <p>{user.coins}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <section>
+        <p>Recent activities</p>
+        <div>{user.gatheringIds.map(gath => {
+          return <div key={gath}>{'hi' + gath}</div>
+        })}</div>
+      </section>
+
+    </section>
+  )
+}
