@@ -3,7 +3,7 @@
     .user-wallet{
         margin: 100px auto 25px;
         width: 100%;
-        border: 2px solid $clr9;   
+        border: $border1;   
         border-radius: 4px;
         box-shadow: $shadow1;
         padding: 1rem 0; 
@@ -33,7 +33,7 @@
 
         h3{
             padding: 1rem;
-            border-bottom: 2px solid $clr9;
+            border-bottom: $border1;
             font-size: 1rem;
 
             @include for-narrow-layout {

@@ -1,13 +1,13 @@
 .location-filter {
     @include modal;
-    
+
     @include for-mobile-layout {
         width: 500px;
         height: 740px;
         border-radius: 8px;
     }
 
-    .search-loc-input{
+    .search-loc-input {
         width: 100%;
         border: none;
         border-radius: 4px;
@@ -18,29 +18,28 @@
         background-color: $clr9;
         box-shadow: $shadow1;
         color: $clr1;
-       
-        &:focus{
+
+        &:focus {
             border: 2px solid $clr1;
             outline-color: $clr1;
         }
     }
 
-    h3{
-     margin: 2rem 0;   
-     text-align: center;
-     font-weight: lighter;
-     font-family: Circular;
-    
-     @include for-mobile-layout {
-        margin: 40px 0;   
-    }
+    h3 {
+        margin: 1.7rem 0;
+        text-align: center;
+        font-weight: lighter;
+        font-family: Circular;
+
+        @include for-mobile-layout {
+            margin: 30px 0;
+        }
     }
 
     .range {
         height: 80px;
-        margin:0 auto;
+        margin: 0 auto;
         width: 80%;
-
         background-color: $clr2;
         border-radius: 10px;
         padding: 0 65px 0 45px;
@@ -110,7 +109,6 @@
                     border: 1px solid $clr1;
                     cursor: pointer;
                 }
-
             }
 
             .value {
@@ -118,7 +116,6 @@
                 font-size: 18px;
                 font-weight: 600;
                 color: $clr1;
-
 
                 &.left {
                     left: -22px;
@@ -131,15 +128,12 @@
         }
     }
 
-    
-
-    .action-btns-cont{
-      
+    .action-btns-cont {
         position: absolute;
         right: 16px;
         bottom: 25px;
-    
-        button{
+
+        button {
             width: 70px;
             border-radius: 2rem;
             font-size: rem(20px);
@@ -147,36 +141,36 @@
             height: 40px;
         }
 
-        .clear-btn{
-           background: none;
-           color: #000;
+        .clear-btn {
+            background: none;
+            color: #000;
         }
     }
 
-    :where(.css-dev-only-do-not-override-yp8pcc).ant-picker:hover, :where(.css-dev-only-do-not-override-yp8pcc).ant-picker-focused{
+    :where(.css-dev-only-do-not-override-yp8pcc).ant-picker:hover,
+    :where(.css-dev-only-do-not-override-yp8pcc).ant-picker-focused {
         border: none;
     }
+
     .ant-picker {
-        // background-color: $clr1;
         background-color: $clr9;
         box-shadow: $shadow1;
         width: 100%;
 
-        &:focus{
+        &:focus {
             outline: none;
             border: none;
         }
-        
+
         input {
             color: $clr1;
             font-size: 1.5rem;
             text-align: center;
 
-            &:focus{
+            &:focus {
                 outline: none;
                 border: none;
             }
-            
         }
     }
 }

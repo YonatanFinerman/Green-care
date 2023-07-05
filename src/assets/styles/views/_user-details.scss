@@ -1,17 +1,19 @@
 .user-details {
-    background-color: $bgclr1;
+
+    background-image: url(../../img/formbg1.jpg);
+    @include background-img;
     color: $clr2;
-    
+    min-height: 100vh;
+
     .app-header {
-        background-color: $bgclr1;
+        background-color: $clr12;
     }
 
     .user-details-header {
-        margin-top: 77px;
+        margin: 100px 0;
         padding: 2rem;
-        background-color: #000663;
-        background-color: #23fff4;
-        
+        background-color: $clr12;
+
         .profile-img {
             width: 200px;
             height: 200px;
@@ -26,14 +28,60 @@
         .user-lvl {
             font-size: 1.5rem;
         }
-        .balance{
+
+        .balance {
             display: inline-block;
             margin-top: 3rem;
             text-align: center;
         }
+
+        h3 {
+            font-size: 1.5rem;
+        }
     }
 
-    h3 {
-        font-size: 1.5rem;
+    .actions-section {
+        gap: 3rem;
+
+        h4 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: $clr11;
+        }
+    }
+
+    .user-actions {
+        flex-grow: 1;
+
+        .action-list {
+            min-height: 500px;
+            background-color: $clr12;
+            padding: 1rem;
+            gap: 1rem;
+        }
+    }
+
+    .action-preview {
+        padding: 1rem;
+        gap:1rem;
+        border-bottom: 2px solid $clr11;
+        position: relative;
+
+        img {
+            height: 100px;
+            width: 200px;
+        }
+
+            div {
+                position: absolute;
+                right: 1rem;
+                bottom: 1rem;
+                font-size: 0.9rem;
+                font-weight: lighter;
+            }
+        }
+
+    .more-options {
+        width: 30%;
     }
 }

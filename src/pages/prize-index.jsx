@@ -21,15 +21,28 @@ export function PrizeIndex() {
         try {
             const updatedPrize = structuredClone(prize)
             const updatedUser = structuredClone(user)
-            const newCode = updatedPrize.codes.shift(1)
 
-            updatedUser.prizes.push({ code: newCode, _id: updatedPrize._id, name: updatePrize.name, img: updatedPrize.img, prizeDesc: updatedPrize.prizeDesc })
+            const newCode = updatedPrize.codes.shift(1)
             updatedUser.coins = updatedUser.coins - prize.cost
+
+            updatedUser.prizes.push({
+                code: newCode, _id: updatedPrize._id,
+                name: updatedPrize.name,
+                img: updatedPrize.img,
+                prizeDesc: updatedPrize.prizeDesc
+            })
+
+            updatedUser.actions.unshift({
+                name: updatedPrize.name,
+                img: updatedPrize.img,
+                action: 'Redeemed a prize',
+                time: Date.now(),
+            })
 
             const prizePrm = updatePrize(updatedPrize)
             const userPrm = updateUser(updatedUser)
 
-            const res = await Promise.all([prizePrm, userPrm])
+            await Promise.all([prizePrm, userPrm])
 
             // dispatch({ type: SET_CURR_PRIZE, prize: null })
             dispatch({ type: SET_REVEALED_CODE, revealedCode: newCode })

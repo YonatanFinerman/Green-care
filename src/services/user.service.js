@@ -77,7 +77,7 @@ async function signup(userCred) {
     const newUser = {
         ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 
         // https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png
-        coins: 10, gatheringIds: [], isVerified: false, prizes: []
+        coins: 10, actions: [], isVerified: false, prizes: []
     }
     const user = await storageService.post('user', newUser)
     console.log('newuser', user)

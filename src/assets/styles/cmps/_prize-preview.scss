@@ -1,5 +1,5 @@
 .prize-preview {
-    border: 2px solid $clr9;
+    border: $border1;
     border-radius: 4px;
     box-shadow: $shadow1;
     font-size: 1rem;
@@ -121,7 +121,7 @@
 
             h4 {
                 margin: 2rem 0 1rem;
-                border-bottom: 2px solid $clr9;
+                border-bottom: $border1;
             }
 
             div {
@@ -139,7 +139,7 @@
             p{
                 flex-grow: 1;
                 padding: 1rem;             
-                border: 2px solid $clr9;
+                border: $border1;
                 box-shadow: $shadow1;    
             }
 

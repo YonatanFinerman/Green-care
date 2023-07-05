@@ -65,10 +65,10 @@ async function query(filterBy, userLoc = null) {
     return gatherings
 }
 
-async function getUserGatherings(gatheringsIds) {
-    let gatherings = await storageService.query(STORAGE_KEY)
-    return gatherings.filter(gathering => gatheringsIds.includes(gathering._id))
-}
+// async function getUserGatherings(gatheringsIds) {
+//     let gatherings = await storageService.query(STORAGE_KEY)
+//     return gatherings.filter(gathering => gatheringsIds.includes(gathering._id))
+// }
 
 
 async function getLocationName(pos) {
@@ -85,10 +85,6 @@ async function getLocationName(pos) {
     console.log('this is location', locName)
     return locName
 }
-
-
-
-
 
 async function getLocationByName(locName) {
 
@@ -211,7 +207,7 @@ function _createGathering() {
         { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
         { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
         { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },]
-        gathering.time = new Date().getTime() - utilService.getRandomIntInclusive(0, 31536000000)
+        gathering.time = Date.now() + utilService.getRandomIntInclusive(0, 31536000000)
     }
 
     return gathering

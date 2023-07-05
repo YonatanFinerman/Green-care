@@ -3,7 +3,7 @@
 
     .app-header {
         background-color: $clr2;
-        border-bottom: 2px solid $clr9 ;
+        border-bottom: $border1 ;
         color: $bgclr1;
 
         @include for-narrow-layout {

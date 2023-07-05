@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { IoClose } from "react-icons/io5"
-import { TOGGLE_FILTER_MODAL } from "../store/reducers/gathering.reducer"
-import { HiMinus, HiPlus } from "react-icons/hi"
 import { DatePickerCmp } from "./date-picker"
 import { AmoutInput } from "./participants-amount-input"
+import { TOGGLE_FILTER_MODAL } from "../store/reducers/gathering.reducer"
 import { TOGGLE_IS_SHADOW } from "../store/system.reducer"
 
 export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
@@ -27,9 +26,14 @@ export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
 
         <p className="close-modal-btn"><IoClose onClick={() => {
             dispatch({ type: TOGGLE_FILTER_MODAL })
-            dispatch({type:TOGGLE_IS_SHADOW})
-            }} /><span>Filter locations</span> </p>
+            dispatch({ type: TOGGLE_IS_SHADOW })
+        }} /><span>Filter locations</span> </p>
         <input className="search-loc-input" name="locName" type="text" onChange={handleChange} placeholder="Search location..." />
+
+
+        {(isGathering) && <h3>Date</h3>}
+        {(isGathering) && <DatePickerCmp setFilterBy={setFilterBy} filterBy={filterBy} />}
+
 
         <h3>Max distance</h3>
         <div className="range">
@@ -42,26 +46,10 @@ export function LocationFilter({ setFilterBy, filterBy, onFilterLocation }) {
                 <div className="value right">200</div>
             </div>
 
-            {(isGathering) && <h3>Date</h3>}
-            {(isGathering) && <DatePickerCmp setFilterBy={setFilterBy} filterBy={filterBy} />}
+
 
             <h3>Max participants</h3>
-            <AmoutInput capacity={filterBy.capacity} setCapacity={setFilterBy}/>
-            {/* <div className="participants-amount flex space-between align-center">
-                <button className="flex justify-center"
-                    disabled={(filterBy.participants === 1)}
-                    style={{ backgroundColor: `${(filterBy.participants === 1) ? 'lightGrey' : '#0EA47A'}` }}
-                    onClick={() => setFilterBy(prevFilter => {
-                        return { ...prevFilter, participants: prevFilter.participants - 1 }
-                    })}><HiMinus /></button>
-                <p>{filterBy.participants}</p>
-                <button className="flex justify-center"
-                    disabled={(filterBy.participants === 12)}
-                    style={{ backgroundColor: `${(filterBy.participants === 12) ? 'lightGrey' : '#0EA47A'}` }}
-                    onClick={() => setFilterBy(prevFilter => {
-                        return { ...prevFilter, participants: prevFilter.participants + 1 }
-                    })}><HiPlus /></button>
-            </div> */}
+            <AmoutInput capacity={filterBy.capacity} setCapacity={setFilterBy} />
 
             <div className="action-btns-cont">
                 <button className="clear-btn">Clear</button>

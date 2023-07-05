@@ -7,7 +7,7 @@ import { DatePickerCmp } from "./date-picker";
 import { GoogleMap } from "./map";
 import { BsCalendarDate, BsCalendarDateFill, BsFillPersonFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserLoc } from "../store/actions/user.actions";
+import { setUserLoc, updateUser } from "../store/actions/user.actions";
 import { RiArrowUpSFill, RiArrowDownSFill, RiPinDistanceFill } from "react-icons/ri";
 import { TbBrandCoinbase } from "react-icons/tb";
 import { FaCheck, FaClock } from "react-icons/fa";
@@ -91,24 +91,41 @@ export function LocationDetails() {
         }
     }
 
-    function onCreateJoinGathering() {
+    async function onCreateJoinGathering() {
+        try {
+            const newGathering = structuredClone(currGathering)
+            const updatedUser = structuredClone(user)
+            // deep clone
 
-        const newGathering = structuredClone(currGathering)
-        // deep clone
+            if (!currGathering.users.length) {
+                const min = 1000 * 60
+                const hour = min * 60
+                newGathering.time = newgatheringTime.date + (newgatheringTime.time.hour * hour) + (newgatheringTime.time.min * min)
+            }
+            updatedUser.actions.unshift({
+                name: newGathering.locName,
+                img: newGathering.imgsBefore[0],
+                action: (currGathering.users.length) ? 'joined gathering' : 'Hosted gathering',
+                time: Date.now(),
+            })
+            updatedUser.coins += (currGathering.users.length) ? 1 : 2
 
-        if (!currGathering.users.length) {
-            const min = 1000 * 60
-            const hour = min * 60
-            newGathering.time = newgatheringTime.date + (newgatheringTime.time.hour * hour) + (newgatheringTime.time.min * min)
+            newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg, _id: user._id })
+
+            const gatheringPrm = updateGathering(newGathering)
+            const userPrm = updateUser(updatedUser)
+
+            await Promise.all([gatheringPrm, userPrm])
+
+            dispatch({ type: TOGGLE_GATHERING_MODAL })
+            dispatch({ type: TOGGLE_IS_SHADOW })
+            setCurrgathering(newGathering)
+            checkUserRole(newGathering)
         }
 
-        newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg, _id: user._id })
-        console.log('new', newGathering)
-        updateGathering(newGathering)
-        dispatch({ type: TOGGLE_GATHERING_MODAL })
-        dispatch({ type: TOGGLE_IS_SHADOW })
-        setCurrgathering(newGathering)
-        checkUserRole(newGathering)
+        catch (err) {
+            console.log('there was an error joining this gathering')
+        }
     }
 
     function onOpenGatheringModal() {
@@ -116,11 +133,12 @@ export function LocationDetails() {
         if (newgatheringTime.date || currGathering.users.length) {
 
             dispatch({ type: TOGGLE_GATHERING_MODAL })
+            dispatch({ type: TOGGLE_IS_SHADOW })
         }
         else {
             setIsSelectedDateErr(true)
         }
-        dispatch({ type: TOGGLE_IS_SHADOW })
+        
     }
 
     {

@@ -1,11 +1,13 @@
 .ant-picker {
     background-color: $clr1;
-    width: 290px;
-
+    width: 290px !important;
+    margin: 0 auto;
+    display: block;
+    
     input {
         color: $clr2;
         font-size: 1.5rem;
-        text-align: center;
+        text-align: center;    
     }
 }
 
@@ -44,4 +46,7 @@ td {
     button {
         color: $clr2 !important;
     }
+}
+.ant-picker-dropdown{
+    background-color: $clr1 !important;
 }

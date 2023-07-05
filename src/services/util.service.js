@@ -8,7 +8,8 @@ export const utilService = {
     loadFromStorage,
     asyncDebounce,
     getTimeRemaining,
-    deg2rad
+    deg2rad,
+    getTimePastStr,
 }
 
 function makeId(length = 6) {
@@ -39,20 +40,20 @@ function getRandomIntInclusive(min, max) {
 }
 
 function getTimeRemaining(futureTime) {
-  const oneDay = 24 * 60 * 60 * 1000
-  const now = new Date()
-  const futureDate = new Date(futureTime)
-  futureDate.setHours(0, 0, 0, 0)
+    const oneDay = 24 * 60 * 60 * 1000
+    const now = new Date()
+    const futureDate = new Date(futureTime)
+    futureDate.setHours(0, 0, 0, 0)
 
-  const diffDays = Math.round((futureDate - now) / oneDay)
+    const diffDays = Math.round((futureDate - now) / oneDay)
 
-  if (diffDays === 0) {
-      return "today"
-  } else if (diffDays === 1) {
-      return "tomorrow"
-  } else {
-      return `in ${diffDays} days`
-  }
+    if (diffDays === 0) {
+        return "today"
+    } else if (diffDays === 1) {
+        return "tomorrow"
+    } else {
+        return `in ${diffDays} days`
+    }
 }
 
 
@@ -76,19 +77,32 @@ function debounce(func, timeout = 300) {
 function asyncDebounce(func, timeout = 300) {
     let timer
     return (...args) => {
-      return new Promise((resolve, reject) => {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          try {
-            const result = func.apply(this, args)
-            resolve(result)
-          } catch (error) {
-            reject(error)
-          }
-        }, timeout)
-      })
+        return new Promise((resolve, reject) => {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                try {
+                    const result = func.apply(this, args)
+                    resolve(result)
+                } catch (error) {
+                    reject(error)
+                }
+            }, timeout)
+        })
     }
-  }
+}
+
+function getTimePastStr(prevTime) {
+    const MIN = 1000 * 60
+    const HOUR = MIN * 60
+    const DAY = HOUR * 24
+    const currTime = Date.now()
+    const timeDiff = currTime - prevTime
+    
+    if (timeDiff < MIN) return 'now'
+    else if (timeDiff < HOUR) return (timeDiff / MIN).toFixed(0) + ' min ago'
+    else if (timeDiff < DAY)return (timeDiff / HOUR).toFixed(0) + ' hrs ago'
+    else return (timeDiff / DAY).toFixed(0) + ' days ago'
+}
 
 function saveToStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value))
