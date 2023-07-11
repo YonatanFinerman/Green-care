@@ -9,7 +9,7 @@ import { GoSearch } from "react-icons/go"
 import { TOGGLE_FILTER_MODAL, TOGGLE_GATHERING_MODAL } from '../store/reducers/gathering.reducer';
 import { Fade } from "react-reveal";
 import { SET_CURR_PRIZE, SET_REVEALED_CODE } from '../store/prize.reducer';
-import { TOGGLE_IS_SHADOW } from '../store/system.reducer';
+import { SET_PROFILE_MODAL, TOGGLE_IS_SHADOW } from '../store/system.reducer';
 import { IoReturnDownBack } from 'react-icons/io5';
 
 export function AppHeader() {
@@ -26,6 +26,7 @@ export function AppHeader() {
     const currPrize = useSelector(storeState => storeState.prizeModule.currPrize)
     const isShadow = useSelector(storeState => storeState.systemModule.isShadow)
     const isGathering = useSelector(storeState => storeState.gatheringModule.isGathering)
+    const profileModal = useSelector(storeState => storeState.systemModule.profileModal)
 
     function handleShadowClick() {
         if (isLoading) return
@@ -33,6 +34,8 @@ export function AppHeader() {
         else if (isSideBarOpen) toggleIsSideBarOpen(prev => !prev)
 
         else if (isGatheringModal) dispatch({ type: TOGGLE_GATHERING_MODAL })
+
+        else if (profileModal) dispatch({ type: SET_PROFILE_MODAL, profileModal: null })
 
         else if (currPrize) {
             dispatch({ type: SET_REVEALED_CODE, revealedCode: null })
@@ -46,8 +49,8 @@ export function AppHeader() {
 
     return (
         <header className="app-header full flex align-center space-between">
-            <Fade left ><img className='logo' onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/' ||location.pathname.includes('/user')) ? '4' : '2'}.png`)}`} alt="" /></Fade>
-            {(location.pathname.includes('/location/'))&&<Fade left><div className='go-back' onClick={() => navigate((isGathering) ? '/gathering' : '/location')}><IoReturnDownBack /></div></Fade>}
+            <Fade left ><img className='logo' onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/' || location.pathname.includes('/user')) ? '4' : '2'}.png`)}`} alt="" /></Fade>
+            {(location.pathname.includes('/location/')) && <Fade left><div className='go-back' onClick={() => navigate((isGathering) ? '/gathering' : '/location')}><IoReturnDownBack /></div></Fade>}
 
             <Fade right ><nav>
                 {(user) ? <img src={user.profileImg} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {

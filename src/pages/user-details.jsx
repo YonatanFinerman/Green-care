@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { AppHeader } from "../cmps/app-header";
 import { useEffect } from "react";
 import { utilService } from "../services/util.service";
+import { ProfileModal } from "../cmps/user-profile-modal";
 
 // import { loadUser } from '../store/user.actions'
 // import { store } from '../store/store'
@@ -54,28 +55,33 @@ export function UserDetails() {
           <div className="user-actions">
 
             <h4>Recent activities</h4>
-            {(user.actions.length === 0) ? <p>No actions yet</p> : <ul className="action-list flex column">{user.actions.map(action => {
+            {(user.actions.length === 0) ? <p className="no-actions">No actions yet!</p> : <ul className="action-list flex column">{user.actions.map(action => {
               return <article className="action-preview flex" key={action.time}>
                 <img src={action.img} />
-               
-                  <p className="prev-name">{action.name}</p>
 
-                  <div className="flex column">
-                    <p>{action.action}</p>
-                    <small className="time-ago">{utilService.getTimePastStr(action.time)}</small>
-                  </div>
-                
+                <p className="prev-name">{action.name}</p>
+
+                <div className="flex column">
+                  <p>{action.action}</p>
+                  <small className="time-ago">{utilService.getTimePastStr(action.time)}</small>
+                </div>
+
 
               </article>
             })}</ul>}
           </div>
 
           <div className="more-options">
-            <h4>hello</h4>
+            <h4>More Options</h4>
+            <div className="flex column">
+              <a>view your gatheing</a>
+              <a>Your Prizes</a>
+              <a>Edit profile</a>
+            </div>
           </div>
         </section>
       </div>
-
+      <ProfileModal />
     </section>
   )
 }
