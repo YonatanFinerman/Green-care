@@ -74,14 +74,14 @@
 //             <p>
 //               About:
 //               <Link to={`/user/${review.aboutUser._id}`}>
-//                 {review.aboutUser.fullname}
+//                 {review.aboutUser.fullName}
 //               </Link>
 //             </p>
 //             <h3>{review.txt}</h3>
 //             <p>
 //               By:
 //               <Link to={`/user/${review.byUser._id}`}>
-//                 {review.byUser.fullname}
+//                 {review.byUser.fullName}
 //               </Link>
 //             </p>
 //           </li>
@@ -97,7 +97,7 @@
 //             <option value="">Select User</option>
 //             {users.map(user => (
 //               <option key={user._id} value={user._id}>
-//                 {user.fullname}
+//                 {user.fullName}
 //               </option>
 //             ))}
 //           </select>

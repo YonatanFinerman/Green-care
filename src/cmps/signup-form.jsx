@@ -65,7 +65,7 @@ export function SignUpForm({ toggleForm, OnLoginSignUp }) {
     const data = new FormData(event.currentTarget)
     const credentials = {
       password: data.get('password'),
-      fullname: data.get('firstName') + ' ' + data.get('lastName'),
+      fullName: data.get('firstName') + ' ' + data.get('lastName'),
       email: data.get('email')
     }
 

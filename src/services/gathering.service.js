@@ -17,7 +17,7 @@ export const gatheringService = {
     getDistanceFromUser,
     getEmptyFilter,
     getLocationByName,
-
+    getUserGatherings
 }
 window.cs = gatheringService
 
@@ -65,10 +65,16 @@ async function query(filterBy, userLoc = null) {
     return gatherings
 }
 
-// async function getUserGatherings(gatheringsIds) {
-//     let gatherings = await storageService.query(STORAGE_KEY)
-//     return gatherings.filter(gathering => gatheringsIds.includes(gathering._id))
-// }
+async function getUserGatherings(hashedUserID) {
+    let gatherings = await storageService.query(STORAGE_KEY)
+    return gatherings.reduce((acc, gathering) => {
+        const currUserIdx = gathering.users.findIndex(user => user._id === hashedUserID)
+        if (currUserIdx >= 0) acc.push(gathering)
+        return acc
+    }, [])
+}
+
+
 
 
 async function getLocationName(pos) {
@@ -194,7 +200,7 @@ function _createGathering() {
         info: utilService.makeLorem(utilService.getRandomIntInclusive(30, 60)),
         loc: randomLocs[utilService.getRandomIntInclusive(0, 2)],
         time: '',
-        status: '',
+        status: 'informed',
         locName: utilService.makeLorem(2),
         capacity: 8,
     }
@@ -202,12 +208,13 @@ function _createGathering() {
     // getLocationName(gathering.location).then(loc => gathering.locName = loc.data.results[1].formatted_address)
     //  getLocationName(gathering.location)
     if (isGathering) {
-        gathering.users = [{ fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() }
-            , { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
-        { fullname: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },]
+        gathering.users = [{ fullName: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() }
+            , { fullName: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullName: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullName: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },
+        { fullName: 'moti pipi', profileImg: 'https://clb.ac.il/wp-content/uploads/2017/03/MOSHE-COHEN-ELIYA-1.jpg', _id: utilService.makeId() },]
         gathering.time = Date.now() + utilService.getRandomIntInclusive(0, 31536000000)
+        gathering.status='starting soon'
     }
 
     return gathering

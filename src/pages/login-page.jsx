@@ -1,4 +1,4 @@
-import { useState, } from "react";
+import { useEffect, useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/app-header";
@@ -11,14 +11,19 @@ export function LoginPage() {
 
     // const [isLoginForm, setIsLoginForm] = useState(true)
     const isLoginForm = useSelector(storeState => storeState.userModule.isLoginForm)
+    const user = useSelector(storeState => storeState.userModule.user)
     const [isValid, setIsValid] = useState('')
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (user) navigate('/')
+    }, [])
+
     async function OnLoginSignUp(credentials) {
         const isValid = validate(credentials)
-        
-        if (!isValid) return 
+
+        if (!isValid) return
 
         if (!isLoginForm) {
             try {
@@ -33,8 +38,8 @@ export function LoginPage() {
 
         try {
             await login(credentials)
-            
-              navigate(-1)
+
+            navigate(-1)
         } catch (err) {
             console.log('Error occurred during login:', err)
         }
@@ -52,14 +57,14 @@ export function LoginPage() {
         return true
     }
 
-    function toggleForm(){
+    function toggleForm() {
         dispatch({ type: TOGGLE_LOGIN_FORM })
     }
 
     return <section className="login-signup-page ">
-        <AppHeader/>   
-        <div className="log-cont">  
-        <img src={require('../assets/img/logo3.png')} alt=""  className="login-logo"/>      
-        {(isLoginForm) ? <LoginForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/> : <SignUpForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp}/>}</div>
+        <AppHeader />
+        <div className="log-cont">
+            <img src={require('../assets/img/logo3.PNG')} alt="" className="login-logo" />
+            {(isLoginForm) ? <LoginForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp} /> : <SignUpForm toggleForm={toggleForm} OnLoginSignUp={OnLoginSignUp} />}</div>
     </section>
 }

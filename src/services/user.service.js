@@ -77,7 +77,7 @@ async function signup(userCred) {
     const newUser = {
         ...userCred, xp: 0, profileImg: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 
         // https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png
-        coins: 10, actions: [], isVerified: false, prizes: []
+        coins: 50, actions: [], isVerified: false, prizes: []
     }
     const user = await storageService.post('user', newUser)
     console.log('newuser', user)
@@ -118,9 +118,9 @@ function getUserRole(users,currUser) {
 
 
 // ;(async ()=>{
-//     await userService.signup({fullname: 'Puki Norma', username: 'puki', password:'123',score: 10000, isAdmin: false})
-//     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
-//     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
+//     await userService.signup({fullName: 'Puki Norma', username: 'puki', password:'123',score: 10000, isAdmin: false})
+//     await userService.signup({fullName: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
+//     await userService.signup({fullName: 'Muki G', username: 'muki', password:'123', score: 10000})
 // })()
 
 

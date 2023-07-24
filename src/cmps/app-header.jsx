@@ -50,7 +50,7 @@ export function AppHeader() {
     return (
         <header className="app-header full flex align-center space-between">
             <Fade left ><img className='logo' onClick={() => navigate('/')} src={`${require(`../assets/img/logo${(location.pathname === '/' || location.pathname.includes('/user')) ? '4' : '2'}.png`)}`} alt="" /></Fade>
-            {(location.pathname.includes('/location/')) && <Fade left><div className='go-back' onClick={() => navigate((isGathering) ? '/gathering' : '/location')}><IoReturnDownBack /></div></Fade>}
+            {(location.pathname.includes('/location/')||location.pathname.includes('/inform')) && <Fade left><div className='go-back' onClick={() => navigate((isGathering) ? '/gathering' : '/location')}><IoReturnDownBack /></div></Fade>}
 
             <Fade right ><nav>
                 {(user) ? <img src={user.profileImg} alt="" /> : <Link className='login-link' to={'/login'} onClick={() => {

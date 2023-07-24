@@ -39,7 +39,7 @@ export function ChatApp() {
 
     function sendMsg(ev) {
         ev.preventDefault()
-        const from = loggedInUser?.fullname || 'Me'
+        const from = loggedInUser?.fullName || 'Me'
         const newMsg = { from, txt: msg.txt }
         socketService.emit(SOCKET_EMIT_SEND_MSG, newMsg)
         if (isBotMode) sendBotResponse()

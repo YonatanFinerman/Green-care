@@ -65,7 +65,7 @@
 //                             <h4>{car.vendor}</h4>
 //                             <h1>⛐</h1>
 //                             <p>Price: <span>${car.price.toLocaleString()}</span></p>
-//                             <p>Owner: <span>{car.owner && car.owner.fullname}</span></p>
+//                             <p>Owner: <span>{car.owner && car.owner.fullName}</span></p>
 //                             <div>
 //                                 <button onClick={() => { onRemoveCar(car._id) }}>x</button>
 //                                 <button onClick={() => { onUpdateCar(car) }}>Edit</button>

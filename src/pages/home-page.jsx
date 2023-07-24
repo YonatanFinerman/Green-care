@@ -59,8 +59,8 @@ export function HomePage() {
                 <div className='about-info flex column align-center text-center'>
 
                     <h2>About Green care</h2>
-                    <p>GreenCare has a vision in which anyone can find it amusing to help the world, to keep it clean and have fun in the process!
-                        In this journey you can connect with friends meet new people all the while helping the world.
+                    <p><span>Green Care</span> has a vision in which anyone can find it amusing to help the world, to keep it clean and have fun in the process!
+                        In this journey you can connect with friends meet new people while helping the world at the same time.
                     </p>
 
                     <Link to='guide' spy={true} smooth={true} offset={0} duration={500}><button>How it works ?</button></Link>

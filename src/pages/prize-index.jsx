@@ -27,13 +27,13 @@ export function PrizeIndex() {
 
             updatedUser.prizes.push({
                 code: newCode, _id: updatedPrize._id,
-                name: updatedPrize.name,
+                storeName: updatedPrize.storeName,
                 img: updatedPrize.img,
                 prizeDesc: updatedPrize.prizeDesc
             })
 
             updatedUser.actions.unshift({
-                name: updatedPrize.name,
+                name: updatedPrize.storeName,
                 img: updatedPrize.img,
                 action: 'Redeemed a prize',
                 time: Date.now(),
@@ -41,6 +41,7 @@ export function PrizeIndex() {
 
             const prizePrm = updatePrize(updatedPrize)
             const userPrm = updateUser(updatedUser)
+
 
             await Promise.all([prizePrm, userPrm])
 
@@ -60,7 +61,7 @@ export function PrizeIndex() {
         <AppHeader />
 
         <div className="user-wallet flex column">
-            <h3>{user.fullname}</h3>
+            <h3>{user.fullName}</h3>
             <div className="wallet-info flex">
                 <div className="flex column">
                     <small>Balance</small>

@@ -110,7 +110,7 @@ export function LocationDetails() {
             })
             updatedUser.coins += (currGathering.users.length) ? 1 : 2
 
-            newGathering.users.push({ fullname: user.fullname, profileImg: user.profileImg, _id: user._id })
+            newGathering.users.push({ fullName: user.fullName, profileImg: user.profileImg, _id: user._id })
 
             const gatheringPrm = updateGathering(newGathering)
             const userPrm = updateUser(updatedUser)
@@ -166,7 +166,7 @@ export function LocationDetails() {
 
                         <div className="gathering-stats">
                             {(currGathering.users.length > 0 && userRole !== 'host') && <div className="gathering-host flex align-center justify-center">
-                                <p>Gathering host: {currGathering.users[0].fullname}</p>
+                                <p>Gathering host: {currGathering.users[0].fullName}</p>
                                 <img src={currGathering.users[0].profileImg} />
                             </div>}
 
@@ -185,6 +185,7 @@ export function LocationDetails() {
                         <div className="text-center">
 
                             {(currGathering.time) && <p>This gathering is {utilService.getTimeRemaining(currGathering.time)}</p>}
+                            <p>{currGathering.status}</p>
                             {(userRole === 'participent') && <h4>You joined this gathering! <FaCheck /></h4>}
                         </div>
 

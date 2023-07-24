@@ -1,34 +1,6 @@
 .location-details {
     position: relative;
 
-    .app-header {
-        background-color: $clr2;
-        border-bottom: $border1 ;
-        color: $bgclr1;
-
-        @include for-narrow-layout {
-            background-color: $clr1;
-            color: $clr2;
-            border-bottom: none;
-        }
-
-        .go-back {
-            padding-top: 12px;
-            font-size: 1.75rem;
-            padding-left: 15px;
-            @include for-narrow-layout {
-                display: none;
-            }
-        }
-
-        .logo {
-            display: none;
-            @include for-narrow-layout {
-                display: block;
-            }
-        }
-    }
-
     .location {
         margin-top: 150px;
         gap: 30px;

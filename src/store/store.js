@@ -8,8 +8,7 @@ import { prizeReducer } from './prize.reducer.js'
 // import { reviewReducer } from './review.reducer'
 // import { systemReducer } from './system.reducer'
 
-const rootReducer = combineReducers({
-    
+const rootReducer = combineReducers({ 
     userModule: userReducer,
     gatheringModule: gatheringReducer,
     prizeModule: prizeReducer,

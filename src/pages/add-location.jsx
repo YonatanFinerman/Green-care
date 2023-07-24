@@ -55,6 +55,7 @@ export function AddLocationPage() {
 
     function onInformLocation() {
         const newLoc = { ...location }
+        
         const isValid = validateForm()
 
         if (!isValid) return

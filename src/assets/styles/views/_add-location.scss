@@ -1,12 +1,77 @@
+.location-details,
+.inform-location-page {
+    .app-header {
+        background-color: $clr2;
+        border-bottom: $border1 ;
+        color: $bgclr1;
+
+        @include for-narrow-layout {
+            background-color: $clr1;
+            color: $clr2;
+            border-bottom: none;
+        }
+
+        .go-back {
+            padding-top: 12px;
+            font-size: 1.75rem;
+            padding-left: 15px;
+
+            @include for-narrow-layout {
+                display: none;
+            }
+        }
+
+        .logo {
+            display: none;
+
+            @include for-narrow-layout {
+                display: block;
+            }
+        }
+    }
+}
+
 .add-location-form {
     margin: 150px auto;
     width: 100%;
     gap: 30px;
     flex-direction: column;
 
+    .app-header {
+        background-color: $clr2;
+        border-bottom: $border1 ;
+        color: $bgclr1;
+
+        @include for-narrow-layout {
+            background-color: $clr1;
+            color: $clr2;
+            border-bottom: none;
+        }
+
+        .go-back {
+            padding-top: 12px;
+            font-size: 1.75rem;
+            padding-left: 15px;
+
+            @include for-narrow-layout {
+                display: none;
+            }
+        }
+
+        .logo {
+            display: none;
+
+            @include for-narrow-layout {
+                display: block;
+            }
+        }
+    }
+
     @include for-midium-layout {
         flex-direction: row;
     }
+
+
 
     .location-imgs {
         width: 100%;
@@ -47,14 +112,14 @@
             @include for-midium-layout {
                 height: 850px;
             }
-            
+
             @include for-normal-layout {
                 width: 80%;
             }
         }
 
         .empty-img {
-            background-color: $clr9;          
+            background-color: $clr9;
             width: 32.5%;
             height: 80px;
 
@@ -63,7 +128,7 @@
                 height: 100px;
             }
 
-            .selected-img{
+            .selected-img {
                 position: relative;
                 width: 100px;
                 height: 80px;
@@ -72,14 +137,14 @@
                     width: 120px;
                     height: 100px;
                 }
-            }   
+            }
 
-            img{
+            img {
                 width: 100%;
                 height: 100%;
             }
 
-            button{               
+            button {
                 position: absolute;
                 font-size: 1.75rem;
                 color: $clr2;
@@ -103,14 +168,14 @@
             width: 50%;
         }
 
-        .location-name-input-container{
+        .location-name-input-container {
             position: absolute;
             top: 100px;
             left: 50%;
             transform: translateX(-50%);
             width: 300px;
-            z-index:2;
-            
+            z-index: 2;
+
             @include for-midium-layout {
                 position: static;
                 transform: translateX(0%);
@@ -118,29 +183,29 @@
             }
         }
 
-        .possible-locs-list{
-          position: absolute;
-          width: 100%;
-          list-style-type: none;
-          padding: 0 ;
-          margin:0.5rem 0;
-          border-radius: 0.5rem;
-          border: $border1;
-         
-          @include for-midium-layout {
-             top: 35px; 
-        }
+        .possible-locs-list {
+            position: absolute;
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            border: $border1;
+
+            @include for-midium-layout {
+                top: 35px;
+            }
         }
 
-        .possible-loc-prev{
-            background-color: $clr2;    
+        .possible-loc-prev {
+            background-color: $clr2;
             width: 100%;
             padding: 1rem;
-            border-bottom: 1px solid $clr9;      
-            cursor: pointer;   
+            border-bottom: 1px solid $clr9;
+            cursor: pointer;
             font-weight: bold;
 
-            &:hover{
+            &:hover {
                 background-color: $clr9;
             }
         }
@@ -155,14 +220,15 @@
             width: 100%;
 
             @include for-midium-layout {
-               font-size: 1.8rem;
+                font-size: 1.8rem;
             }
 
             &:focus {
                 outline: none;
             }
-            &.error{
-                border-bottom:2px solid $clr10;
+
+            &.error {
+                border-bottom: 2px solid $clr10;
             }
         }
 
@@ -171,32 +237,34 @@
             font-size: 1.2rem;
             padding: 1rem;
             height: 350px;
-            
+
         }
 
         .participants-amount {
             width: 280px;
         }
 
-        .inform-btn{
+        .inform-btn {
             padding: 1rem 4rem;
             border-radius: 2rem;
             font-size: 1.4rem;
-           
+
         }
     }
-    .error{
+
+    .error {
         border: 3px solid $clr10;
 
-        &:focus{
+        &:focus {
             outline: 3px solid $clr10;
             border: none;
         }
     }
-   .error-msg{
-         color: $clr10;   
+
+    .error-msg {
+        color: $clr10;
         display: block;
-        position: absolute;    
+        position: absolute;
         left: 50%;
         transform: translatex(-50%);
     }

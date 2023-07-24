@@ -30,7 +30,7 @@ async function add({txt, aboutUserId}) {
     byUser: userService.getLoggedinUser(),
     aboutUser: {
       _id: aboutUser._id,
-      fullname: aboutUser.fullname,
+      fullName: aboutUser.fullName,
       imgUrl: aboutUser.imgUrl
     }
   }

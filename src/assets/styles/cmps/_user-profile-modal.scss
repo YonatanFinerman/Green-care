@@ -1,3 +1,114 @@
-.user-profile-modal{
+.user-profile-modal {
     @include modal;
+    color: $clr12;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $clr9;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $clr1;
+    }
+
+    .modal-prize-prev,
+    .modal-gathering-prev {
+        border-bottom: $border1;
+        padding: 0.5rem 0;
+
+        img {
+            max-height: 170px;
+            width: 40%;
+            aspect-ratio: 1 / 1;
+        }
+
+        div {
+            width: 60%;
+            gap: 1rem;
+        }
+
+        button {
+            width: 100px;
+            margin: 0 auto;
+        }
+    }
+
+    .no-prizes,
+    .no-gatherings {
+        position: absolute;
+        font-size: 2rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+
+        button {
+            border-radius: 2rem;
+            font-size: 1.4rem;
+            padding: 0.5rem 2rem;
+        }
+    }
+
+    .edit-user {
+        margin-top: 3rem;
+
+        .img-input-container {
+            position: relative;
+            width: 60%;
+
+            button {
+                border-radius: 50%;
+                padding: 0.75rem;
+                font-size: 1.2rem;
+                position: absolute;
+                right: 5px;
+                bottom: 10px;
+            }
+        }
+
+        img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+
+        }
+    }
+
+    .change-name-input {
+        border: none;
+        border-bottom: 3px solid $clr12;
+        width: 60%;
+        margin-top: 2.5rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+
+        &:focus {
+            outline: none;
+        }
+
+    }
+
+    .actions-cont {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        gap: 1rem;
+
+        .save-btn {
+            border-radius: 2rem;
+            font-size: 1.4rem;
+            padding: 0.5rem 2rem;
+        }
+
+        .clear-btn {
+            background: none;
+            color: $clr12;
+            font-size: 1.4rem;
+        }
+    }
+
 }

@@ -10,6 +10,8 @@
     text-align: start;
     transition: 0.7s;
     padding: 1rem;
+    opacity: 0;
+    
     &.open{
         transform: translateX(-300px);
         opacity: 1;

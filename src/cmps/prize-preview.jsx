@@ -27,13 +27,13 @@ export function PrizePreview({ prize, user, onConfirmReward, revealedCode }) {
         <img src={prize.img} />
 
         <div className="prev-info flex column">
-            <p className="prize-name">{prize.name}</p>
+            <p className="prize-name">{prize.storeName}</p>
             <p>{prize.prizeDesc}</p>
 
             {(currPrize?._id === prize._id) && <div className="tranaction">
                 <h4>Transaction</h4>
 
-                <div className="flex text-center">
+                {(revealedCode && currPrize?._id === prize._id) ? <div>Complete!</div> : <div className="flex text-center">
 
                     <div>
                         <p>{user.coins}</p>
@@ -49,7 +49,7 @@ export function PrizePreview({ prize, user, onConfirmReward, revealedCode }) {
                         <p>{user.coins - prize.cost}</p>
                         <small>Remaining balance</small>
                     </div>
-                </div>
+                </div>}
 
             </div>}
 
@@ -65,7 +65,7 @@ export function PrizePreview({ prize, user, onConfirmReward, revealedCode }) {
                     <p>{prize.cost} care points</p>
                     {(currPrize?._id !== prize._id) ? <button onClick={() => {
                         dispatch({ type: SET_CURR_PRIZE, prize })
-                        dispatch({type:TOGGLE_IS_SHADOW})
+                        dispatch({ type: TOGGLE_IS_SHADOW })
 
                     }}>Redeem</button> : <button onClick={() => {
                         if (user.coins - prize.cost < 0) {
